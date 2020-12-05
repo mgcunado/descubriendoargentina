@@ -1,0 +1,35 @@
+{% extends 'frontend.html.twig' %}
+
+{% block bloquecentral %}
+	{{ parent() }}
+
+	{% set tttt = app.request.query.get("tttt")  %}
+
+	{# Dibujamos la Pesca deportiva del centro turístico #}
+	{{ include("includes/breadcrumb/menucentrotur.html.twig", {menufinal: 'Pesca Deportiva'}) }}
+
+	<div class="container-fluid mt-2 mb-5 bg-light" style="font-size:12px;">
+		<div class="row">
+			<div class="col-md-7">
+				{% for textos in pescacentroturistico %}
+					<h3  align="left" class="pt-2 pb-3">Pesca Deportiva en {{ textos.lugarturistico | raw }}</h3>
+					{{ textos.descripcion | raw }}
+				{%  endfor  %}
+			</div>
+			<div class="col-md-5 pt-5 pb-2">
+				<img   class="img-fluid" src="{{ asset( 'pescadeportiva1.jpg', 'imgraiz' ) }}" border="0" alt="Pesca Deportiva" hspace="0" vspace="0" align="middle" style="float: center; border: 0;" />
+			</div>
+		</div>
+		{{ include("includes/tablalugares.html.twig") }}
+	</div>
+
+
+
+{% endblock %}
+
+{# Dibujamos el menú lateral izquierdo #}
+{% block sideleft %}
+	{{ include("includes/menucentrotur.html.twig") }}
+	{{ parent() }}
+{% endblock %}
+

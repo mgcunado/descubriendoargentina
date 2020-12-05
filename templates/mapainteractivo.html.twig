@@ -1,0 +1,22 @@
+{% extends 'frontend.html.twig' %}
+
+{#{% block title %}
+   {% if region == 'argentina' %}
+      {{ 'Mapa interactivo de Alojamiento en Argentina' }}
+   {% elseif region is not null %}
+      {{ 'Mapa interactivo de Alojamiento en región de ' ~ region }}
+   {% endif %}
+{% endblock %}#}
+
+{% block bloquecentral %}
+   {{ parent() }}
+{{ include("includes/breadcrumb/menualojamiento.html.twig", {menufinal: 'Mapa interactivo', region: region}) }}
+
+{% if region == 'argentina'  %}
+{{ include('includes/mapaargentina.html.twig') }}
+ {% else  %}
+{{ include('includes/maparegiongrande.html.twig', {region: region}) }}
+ {% endif  %} 
+      
+
+{% endblock %}

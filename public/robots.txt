@@ -1,0 +1,4 @@
+# public/robots.txt
+User-Agent: *
+Disallow:
+Sitemap: http://descubriendoargentina.com/sitemap.xml

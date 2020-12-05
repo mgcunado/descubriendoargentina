@@ -1,0 +1,44 @@
+{% extends 'frontend.html.twig' %}
+
+{% block bloquecentral %}
+   {{ parent() }}
+
+ {{ include("includes/breadcrumb/menuprincipal.html.twig", {menufinal: 'Casinos'}) }}
+
+   <div class="container-fluid mt-2 mb-5 bg-light"  style="font-size:12px;">
+      <h2 class="py-4">Casinos en Argentina</h2> 
+
+      {{ form_start(formulario, { action: path('casinos'), method: 'POST' }) }}
+      {{ form_errors(formulario) }}
+      <div class="justify-content-center pb-4" align="center">
+         <div class="py-5" style="max-width:55%; height:auto; background-image:url(images/casinos2.jpg);">
+
+            <div class="row my-2" style="max-width:100%; height:auto; font-size: 110%; color: #00AAFF; text-align: center; font-weight: bold;">
+               <div class="col-md-6 mb-0 pl-5 text-info d-flex align-items-center">
+                  <strong>{{ form_label(formulario.provincia, 'Seleccione Provincia:') }}</strong>
+                  <span class="error">{{ form_errors(formulario.provincia) }}</span>
+               </div>
+               <div class="col-md-6 d-flex align-items-center">
+                  <div class="d-flex flex-column">
+                     <div class="p-2">{{ form_widget(formulario.provincia) }}</div>
+                     <div class="p-2"> {{ form_end(formulario) }}</div>
+                  </div> 
+               </div>
+            </div> 
+         </div> 
+
+      </div> 
+
+      <br/>
+
+<p>Para quienes buscan diversión y encuentran en el Juego un entretenimiento, incluímos en el Portal un recorrido por los distintos <b>Casinos de la República Argentina</b>.</p>
+
+<p>En cada uno de ellos los visitantes podrán encontrar <b>juegos de azar</b> de distintas características destinados a satisfacer momentos de ocio y distensión.</p>
+
+<p>La mayoría de los Casinos cuenta también con <b>lugares cálidos y acogedores</b> que permiten a los viajeros el encuentro social.</p>
+
+<p>Además de los juegos tradicionales se pueden encontrar en cada uno de ellos <b>juegos innovadores</b> que despiertan el interés y la curiosidad de los visitantes.</p>
+
+   </div>
+
+{% endblock %}

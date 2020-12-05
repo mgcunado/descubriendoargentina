@@ -1,0 +1,270 @@
+{# Google Maps: la siguiente Key se ha obtenido siguiendo los pasos de (al no ser producción no se han impuesto restricciones a la clave): https://www.avidalia.com/blog/como-solucionar-el-google-maps-api-error-missingkeymaperror  #}
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyADQ_mTeEhtieFwFWGdweeo5HKy1M1nCu4&sensor=false&language=es"></script>
+
+
+<script type="text/javascript">
+
+function mapaArgentina(){
+   var options = {
+      zoom: 4
+         , center: new google.maps.LatLng({{ coordenadasController.centro1  }}, {{ coordenadasController.centro2  }})
+         , mapTypeId: google.maps.MapTypeId.TERRAIN
+         , disableDefaultUI: true
+         , disableDoubleClickZoom: true
+         , keyboardShortcuts: false
+         , draggable: false
+         , scrollwheel: false
+         , noClear: true
+   };
+
+
+   var map3 = new google.maps.Map(document.getElementById('map3'), options);
+   //Copyright***PENDIENTE***
+   //var mB1 = new google.maps.LatLng(-90, -90);
+   //var mB2 = new google.maps.LatLng(90, 90);
+   //var mB = new google.maps.LatLngBounds(mB1, mB2);
+
+   /************/
+   var image = "{{ asset( 'patagonia.gif', 'imgmaparegiones' ) }}";
+   var point = new google.maps.LatLng({{ coordenadasController.P1centro1 }}, {{ coordenadasController.P1centro2 }});
+   var marker5 = new google.maps.Marker({
+      position: point, 
+      map: map3,
+      icon: image,
+      title:"Patagonia"
+   });
+
+   /***********/    
+   var image = "{{ asset('pampa.gif', 'imgmaparegiones') }}";
+   var point = new google.maps.LatLng({{ coordenadasController.Pcentro1 }}, {{ coordenadasController.Pcentro2 }});
+   var marker4 = new google.maps.Marker({
+      position: point, 
+      map: map3,
+      icon: image,
+      title:"Región Pampeana"
+   });
+
+   /******************/
+   var image = "{{ asset('cuyo.gif', 'imgmaparegiones') }}";
+   var point = new google.maps.LatLng({{ coordenadasController.Ccentro1 }}, {{ coordenadasController.Ccentro2 }});
+   var marker3 = new google.maps.Marker({
+      position: point, 
+      map: map3,
+      icon: image,
+      title:"Región de Cuyo"
+   });
+
+   /******************/
+   var image = "{{ asset('noreste.gif', 'imgmaparegiones') }}";
+   var point = new google.maps.LatLng({{ coordenadasController.NEcentro1 }}, {{ coordenadasController.NEcentro2 }});
+   var marker2 = new google.maps.Marker({
+      position: point, 
+      map: map3,
+      icon: image,
+      title:"Región del Noreste"
+   });
+
+   /******************/
+   var image = "{{ asset('noroeste.gif', 'imgmaparegiones') }}";
+   var point = new google.maps.LatLng({{ coordenadasController.NOcentro1 }}, {{ coordenadasController.NOcentro2 }});
+   var marker1 = new google.maps.Marker({
+      position: point, 
+      map: map3,
+      icon: image,
+      title:"Región del Noroeste"
+   });
+
+   /******************/
+
+   //Dibujamos las rutas de las 5(6) regiones 
+   {% set i = 0  %}
+   var routesNO = [
+   {% for resultno in coordenadasController.resultNO  %}
+      {% if i == 0  %}
+         new google.maps.LatLng({{ resultno.latitud }}, {{ resultno.longitud }})
+      {% endif %}
+
+         {% set i = i + 1  %}
+         ,new google.maps.LatLng({{ resultno.latitud }}, {{ resultno.longitud }})
+   {% endfor %}
+   ];
+
+   {% set i = 0  %}
+   var routesNE = [
+   {% for resultne in coordenadasController.resultNE  %}
+      {% if i == 0  %}
+         new google.maps.LatLng({{ resultne.latitud }}, {{ resultne.longitud }})
+      {% endif %}
+
+         {% set i = i + 1  %}
+         ,new google.maps.LatLng({{ resultne.latitud }}, {{ resultne.longitud }})
+   {% endfor %}
+   ];
+
+   {% set i = 0  %}
+   var routesC = [
+   {% for resultc in coordenadasController.resultC  %}
+      {% if i == 0  %}
+         new google.maps.LatLng({{ resultc.latitud }}, {{ resultc.longitud }})
+      {% endif %}
+
+         {% set i = i + 1  %}
+         ,new google.maps.LatLng({{ resultc.latitud }}, {{ resultc.longitud }})
+   {% endfor %}
+   ];
+
+   {% set i = 0  %}
+   var routesP = [
+   {% for resultp in coordenadasController.resultP  %}
+      {% if i == 0  %}
+         new google.maps.LatLng({{ resultp.latitud }}, {{ resultp.longitud }})
+      {% endif %}
+
+         {% set i = i + 1  %}
+         ,new google.maps.LatLng({{ resultp.latitud }}, {{ resultp.longitud }})
+   {% endfor %}
+   ];
+
+   {% set i = 0  %}
+   var routesP1 = [
+   {% for resultp1 in coordenadasController.resultP1  %}
+      {% if i == 0  %}
+         new google.maps.LatLng({{ resultp1.latitud }}, {{ resultp1.longitud }})
+      {% endif %}
+
+         {% set i = i + 1  %}
+         ,new google.maps.LatLng({{ resultp1.latitud }}, {{ resultp1.longitud }})
+   {% endfor %}
+   ];
+
+   {% set i = 0  %}
+   var routesP2 = [
+   {% for resultp2 in coordenadasController.resultP2  %}
+      {% if i == 0  %}
+         new google.maps.LatLng({{ resultp2.latitud }}, {{ resultp2.longitud }})
+      {% endif %}
+
+         {% set i = i + 1  %}
+         ,new google.maps.LatLng({{ resultp2.latitud }}, {{ resultp2.longitud }})
+   {% endfor %}
+   ];
+
+   //Polígonos de las 5(6) regiones
+   var polygon1 = new google.maps.Polygon({
+      path: routesNO
+         , map: map3
+         , strokeColor: '#EEAA00'
+         , strokeWeight: 0.3
+         , strokeOpacity: 0.8
+         , fillColor: '#EEAA00'
+         , fillOpacity: 1
+         , clickable: true
+   });
+
+
+   var polygon2 = new google.maps.Polygon({
+      path: routesNE
+         , map: map3
+         , strokeColor: '#88AA00'
+         , strokeWeight: 0.3
+         , strokeOpacity: 0.7
+         , fillColor: '#88AA00'
+         , fillOpacity: 1
+         , clickable: true
+   });
+
+   var polygon3 = new google.maps.Polygon({
+      path: routesC
+         , map: map3
+         , strokeColor: '#AA00EE'
+         , strokeWeight: 0.3
+         , strokeOpacity: 0.8
+         , fillColor: '#AA00EE'
+         , fillOpacity: 1
+         , clickable: true
+   });
+
+
+   var polygon4 = new google.maps.Polygon({
+      path: routesP
+         , map: map3
+         , strokeColor: '#00AA88'
+         , strokeWeight: 0.3
+         , strokeOpacity: 0.5
+         , fillColor: '#00AA88'
+         , fillOpacity: 1
+         , clickable: true
+   });
+
+   var polygon5 = new google.maps.Polygon({
+      path: routesP1
+         , map: map3
+         , strokeColor: '#004466'
+         , strokeWeight: 0.3
+         , strokeOpacity: 0.8
+         , fillColor: '#004466'
+         , fillOpacity: 1
+         , clickable: true
+   });
+
+   var polygon6 = new google.maps.Polygon({
+      path: routesP2
+         , map: map3
+         , strokeColor: '#004466'
+         , strokeWeight: 0.3
+         , strokeOpacity: 0.8
+         , fillColor: '#004466'
+         , fillOpacity: 1
+         , clickable: true
+   });
+
+
+
+   function tratamiento_clic1(){
+      parent.location.href = "{{ path('mapainteractivo', {'region': 'noroeste'}) }}";
+   }
+   function tratamiento_clic2(){
+      parent.location.href = "{{ path('mapainteractivo', {'region': 'noreste'}) }}";
+   }
+   function tratamiento_clic3(){
+      parent.location.href = "{{ path('mapainteractivo', {'region': 'cuyo'}) }}";
+   }
+   function tratamiento_clic4(){
+      parent.location.href = "{{ path('mapainteractivo', {'region': 'pampa'}) }}";
+   }
+   function tratamiento_clic5(){
+      parent.location.href = "{{ path('mapainteractivo', {'region': 'patagonia'}) }}";
+   }
+
+   google.maps.event.addListener(polygon1, "click", tratamiento_clic1);
+   google.maps.event.addListener(polygon2, "click", tratamiento_clic2);
+   google.maps.event.addListener(polygon3, "click", tratamiento_clic3);
+   google.maps.event.addListener(polygon4, "click", tratamiento_clic4); 
+   google.maps.event.addListener(polygon5, "click", tratamiento_clic5); 
+   google.maps.event.addListener(polygon6, "click", tratamiento_clic5); 
+
+   google.maps.event.addListener(marker1, "click", tratamiento_clic1);
+   google.maps.event.addListener(marker2, "click", tratamiento_clic2);
+   google.maps.event.addListener(marker3, "click", tratamiento_clic3);
+   google.maps.event.addListener(marker4, "click", tratamiento_clic4); 
+   google.maps.event.addListener(marker5, "click", tratamiento_clic5);
+
+
+
+};
+</script>
+
+<div class="container-fluid mt-2 mb-5 bg-light" style="font-size:12px;">
+
+   <div class="row">
+      <div class="col-md-2 py-3"></div>
+      <div class="col-md-8 py-1 mt-4">
+         <h2 class="contentheading">Alojamiento en Argentina</h2>
+      </div>
+      <div class="col-md-2 py-3"></div>
+      <div class="col-md-2 py-3"></div>
+      <div class="col-md-8 py-3" id="map3" style="width: 300px; height: 575px;"></div>
+      <div class="col-md-2 py-3"></div>
+   </div>
+
+</div>

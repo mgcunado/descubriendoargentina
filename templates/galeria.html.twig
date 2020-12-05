@@ -1,0 +1,57 @@
+{% extends 'frontend.html.twig' %}
+
+{% block stylesheets %}
+   {{ parent() }}
+   <link rel="stylesheet" href="{{ asset('css/jquery.bsPhotoGallery.css') }}" /> 
+{% endblock %}
+
+{% block bloquecentral %}
+   {{ parent() }}
+
+           {{ include("includes/breadcrumb/menucentrotur.html.twig", {menufinal: 'Galería de Imágenes'}) }}
+
+
+   {% set contador = 1 %}
+   {% for imagen in ppp2 %}
+      {% if contador < 2 %}
+         <div class="container-fluid mt-2 mb-5 bg-light">
+            <h3 class="pt-3 pb-3">Galería de Imágenes de {{ imagen.lugarturistico }}</h3>
+
+            <ul class="list-unstyled row first">
+
+      {% endif %}
+
+
+      <li class="mb-3">
+         <img class="img-fluid" alt=""  src="{{ asset( imagen.nombre, 'imgnuevas' ) }}">
+         <p class="text">{{ imagen.descripcion  }}</p>
+      </li>
+      {% set contador = contador + 1 %}
+   {%  endfor  %}
+            </ul>
+           {{ include("includes/tablalugares.html.twig") }}            
+         </div>
+{% endblock %}
+
+{% block javascripts %}
+   {{ parent() }}
+   <script src="{{ asset('js/jquery.bsPhotoGallery.js') }}"> </script>
+   <!--bsPhotoGallery -->
+   <script>
+$(document).ready(function(){
+   $('ul.first').bsPhotoGallery({
+      "classes" : "col-lg-3 col-md-4 col-sm-4 col-xs-6 col-xxs-12",
+      "hasModal" : true
+         // "fullHeight" : false
+   });
+});   
+   </script>
+   <!--Fin bsPhotoGallery -->
+{% endblock %}
+
+{# Dibujamos el menú lateral izquierdo #}
+{% block sideleft %}
+   {{ include("includes/menucentrotur.html.twig") }}
+   {{ parent() }}
+{% endblock %}
+

@@ -1,0 +1,70 @@
+{% block cssmenu %}
+   <!-- SmartMenus core CSS (required) -->
+   <link href="{{ asset('css/sm-core-css.css') }}" rel="stylesheet" type="text/css" />
+
+   <!-- "sm-blue" menu theme (optional, you can use your own CSS, too) -->
+   <link href="{{ asset('css/sm-blue.css') }}" rel="stylesheet" type="text/css" />
+
+   <!-- #main-menu config - instance specific stuff not covered in the theme -->
+   <!-- You could put this in an external stylesheet (e.g. where the rest of your page styles are) -->
+   <style type="text/css">
+@media (min-width: 768px) {
+   #main-nav {
+      line-height: 0;
+      text-align: center;
+   }
+   #main-menu {
+      display: inline-block;
+   }
+}
+   </style>
+{% endblock %}
+
+
+
+{% block navbar %}
+
+   <nav id="main-nav">
+      <!-- Sample menu definition -->
+      <ul id="main-menu" class="sm sm-blue">
+         {% for slug, item in regiones %}
+            <li><a href="{{ path('region', {'slug': slug } ) }}">{{ item.title }}</a>
+               {% if _context[slug] is defined %}
+                  <ul>
+                     {% for slugg, itemm in _context[slug]  %}
+                        <li><a href="{{ path('provincia', {'slug': slug, 'slugg': slugg } ) }}">{{ itemm.title }}</a>
+
+                           {% if _context[slugg] is defined %}
+                              <ul>
+                                 {% for sluggg, itemmm in _context[slugg]  %}
+                                    <li><a href="{{ path('centroturistico', {'slug': slug, 'slugg': slugg, 'sluggg': sluggg } ) }}">{{ itemmm.title }}</a></li>
+                                 {% endfor %}
+                              </ul>
+                           {% endif %}
+                        </li>
+                     {% endfor %}
+                  </ul>
+               {% endif %}
+            </li>
+         {% endfor %}
+      </ul>
+   </nav>
+{% endblock %}
+
+{% block jsmenu %}
+   <!-- jQuery -->
+   <script type="text/javascript" src="{{ asset('js/jquery.js') }}"></script>
+
+   <!-- SmartMenus jQuery plugin -->
+   <script type="text/javascript" src="{{ asset('js/jquery.smartmenus.js')}}"></script>
+
+   <!-- SmartMenus jQuery init -->
+   <script type="text/javascript">
+$(function() {
+   $('#main-menu').smartmenus({
+      subMenusSubOffsetX: 1,
+      subMenusSubOffsetY: -8
+   });
+});
+   </script>
+{% endblock %}

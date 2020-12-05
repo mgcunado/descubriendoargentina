@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{#{% block title %}
+   {% if titulo is defined %}
+      {{ titulo }}
+   {% endif %}
+{% endblock %}#}
+
+
+{% block stylesheets %}
+   <!-- Bootstrap CSS -->
+   <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" />
+   <link rel="stylesheet" href="{{ asset('css/fontawesome-all.css') }}" />
+
+   <style>       
+.container {
+   background-color: #eef;
+   padding: 25px 50px 75px 100px;
+   border-style: solid;
+   border-width: 1px;
+   border-color: #555;
+}     
+   </style>
+{% endblock %}
+
+{% block carousel %}
+   {{ include("includes/carousel.html.twig") }}
+{% endblock %}
+
+{% block navbar %}
+   {{ include("includes/navbar.html.twig") }}
+{% endblock %}
+
+{% block sideleft %}
+   {{ include("includes/menualojamiento.html.twig") }}
+   {{ include("includes/menuprincipal.html.twig") }}
+{% endblock %}
+
+{% block sideright %}
+   {{ include("includes/maparegiones.html.twig") }}
+   {{ include('includes/onload.html.twig') }}
+{% endblock %}
+
+{% block javascripts %}
+   <!-- Optional JavaScript -->
+   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+   <!-- Desactivamos el jquery de la plantilla Bootstrap ya que sm-menu ya trae uno y 2 archivos jquery en la misma plantilla da problemas -->
+   <!--<script src="{{ asset('js/jquery-3.2.1.slim.min.js') }}"> </script>-->
+   <script src="{{ asset('js/popper.min.js') }}"> </script>
+   <script src="{{ asset('js/bootstrap.min.js') }}"> </script>
+{% endblock %}

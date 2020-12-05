@@ -1,0 +1,10 @@
+            {% for label, item in regiones %}
+               {% if label == slug %}
+                  <nav aria-label="breadcrumb">
+                     <ol class="breadcrumb2">
+                        <li class="breadcrumb-item"><a href="{{ path('principalescentrosturisticos') }}">Inicio</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ item.title }}</li>
+                     </ol>
+                  </nav>
+               {% endif %}
+            {% endfor %}

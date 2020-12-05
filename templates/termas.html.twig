@@ -1,0 +1,45 @@
+{% extends 'frontend.html.twig' %}
+
+{% block bloquecentral %}
+   {{ parent() }}
+
+    {{ include("includes/breadcrumb/menuprincipal.html.twig", {menufinal: 'Termas'}) }}
+
+
+   <div class="container-fluid mt-2 mb-5 bg-light"  style="font-size:12px;">
+      <h2 class="py-4">Termas en Argentina</h2> 
+
+      {{ form_start(formulario, { action: path('termas'), method: 'POST' }) }}
+      {{ form_errors(formulario) }}
+      <div class="justify-content-center pb-4" align="center">
+         <div class="py-5" style="max-width:60%; height:auto; background:url(images/termas2.jpg);">
+
+            <div class="row my-2" style="max-width:80%; height:auto; font-size: 110%; color: #00AAFF; text-align: center; font-weight: bold;">
+               <div class="col-md-6 mb-0 pl-5 text-info d-flex align-items-center">
+                  <strong>{{ form_label(formulario.provincia, 'Seleccione Provincia:') }}</strong>
+                  <span class="error">{{ form_errors(formulario.provincia) }}</span>
+               </div>
+               <div class="col-md-6 d-flex align-items-center">
+                  <div class="d-flex flex-column">
+                     <div class="p-2">{{ form_widget(formulario.provincia) }}</div>
+                     <div class="p-2"> {{ form_end(formulario) }}</div>
+                  </div> 
+               </div> 
+            </div> 
+         </div> 
+
+      </div> 
+
+      <br/>
+
+      <p>A lo largo de los años se fueron incluyendo como  atractivo turístico <b>Las Termas</b>, que le permiten al viajero disfrutar de un tipo de turismo terapéutico, que propicia un clima de relax y disminuye las tensiones a las que la vida cotidiana conlleva.</p>
+
+      <p>En Argentina, los <b>Complejos Termales</b> son variados y plantean cada uno de ellos un abanico de posibilidades diferentes, ya que se encuentran anclados en zonas de clima y características muy dispares.</p>
+
+      <p>Cada uno de los Complejos Termales permite el contacto con la naturaleza, aportando calidez y favoreciendo de esta manera el bienestar psíquico y físico de quienes disfruten de sus instalaciones.</p>
+
+      <p>Rodeados de valles, montañas o ríos, estos Complejos se transforman en una opción peculiar para quienes buscan en sus vacaciones desconectarse de las presiones y vincularse estrechamente con el entorno que los rodea.</p>
+
+   </div>
+
+{% endblock %}

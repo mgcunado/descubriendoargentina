@@ -1,0 +1,66 @@
+framework:
+    secret: '%env(APP_SECRET)%'
+    default_locale: es
+    serializer: true       
+    #secret: '%env(APP_SECRET)%'
+    #default_locale: es
+    csrf_protection: ~
+    #http_method_override: true
+
+    # uncomment this entire section to enable sessions
+    #session:
+    #    # With this config, PHP's native session handling is used
+    #    handler_id: ~
+
+    #esi: ~
+    #fragments: ~
+    php_errors:
+        log: true
+    #líneas necesarias para el login - login check -logout
+    session:
+        handler_id: ~           
+
+    assets:
+        packages:
+            imgraiz:
+                base_path: 'images'           
+            imgnuevas:
+                base_path: 'images/nuevas'           
+            imgexcursiones:
+                base_path: 'images/excursiones'
+            imgtermas:
+                base_path: 'images/nuevas/termas'
+            imgcasinos:
+                base_path: 'images/nuevas/casinos'
+            imgrutadelvino:
+                base_path: 'images/rutadelvino'
+            imgtrenesturisticos:
+                base_path: 'images/trenesturisticos'                   
+            imgmaparegiones:
+                base_path: 'images/miniaturas'
+
+    # The translator service is required by SonataAdmin to display all labels properly: https://symfony.com/doc/master/bundles/SonataAdminBundle/getting_started/installation.html => 1.5                   
+    translator: { fallbacks: ["%locale%"] }                   
+
+# Para sustituir las siguientes 2 líneas que no funcionan en config/packages/routing.yaml:
+#fos_user:
+    #resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+# ... introducimos en este archivo de configuración las 2 siguientes:
+    templating:
+        engines: ['twig']       
+
+#fos_user:
+#    db_driver: orm
+#    firewall_name: main
+#    user_class: App\Entity\User
+#    from_email:
+#        address: "orbelanet@orbelanet.com"
+#        sender_name: "orbelanet@orbelanet.com"
+        #address: "%mailer_user%" Pendiente de Configurar!!!!
+        #sender_name: "%mailer_user%" Pendiente de Configurar!!!!          
+#    group:
+#        group_class: App\Sonata\UserBundle\Entity\Group       
+
+                   
+                   
+

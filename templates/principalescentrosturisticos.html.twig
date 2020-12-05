@@ -1,0 +1,68 @@
+{% extends 'frontend.html.twig' %}
+
+{#{% block title %}
+      {{ 'Principales Centros Turísticos de Argentina' }}
+{% endblock %}#}
+
+
+{% block bloquecentral %}
+   {{ parent() }}
+
+   {% set ordenregiones = ['Patagonia', 'Pampa', 'Cuyo', 'Noreste', 'Noroeste'] %}
+   {% set regionslug = ['patagonia', 'pampa', 'cuyo', 'noreste', 'noroeste'] %}
+   {% set nombreregiones = ['Patagonia', 'Región Pampeana', 'Región de Cuyo', 'Región del Noreste', 'Región del Noroeste'] %}
+
+   {% set colorfondoregiones = ['#006699', '#009966', '#660099', '#669900', '#996600'] %}   
+   {% set colortextoprovincias = ['#AADDFF', '#AAFFDD', '#DDAAFF', '#DDFFAA', '#FFDDAA'] %}
+   {% set colortextoregiones = ['#EEEEEE', '#EEEEEE', '#EEEEEE', '#EEEEEE', '#EEEEEE'] %}
+
+   {% set slugg = 'ppp' %}
+
+   {# Alojamiento en los principales Centros Turísticos de Argentina  #}
+     {{ include("includes/breadcrumb/menuprincipal.html.twig", {menufinal: 'Alojamiento en los principales Centros Turísticos'}) }} 
+
+   <div class="container-fluid mt-2 mb-5 bg-light"  style="font-size:12px;">
+      <h3 class="pt-2 pb-4">Alojamiento en los principales Centros Turísticos de Argentina</h3>
+      {% set i = 0 %}
+      {% set provinciadif = null %}
+
+      {% for region in nombreregiones  %}      
+         {% set ii = 0 %}
+         <h6 class="p-0">{{ region  }}</h6>
+         <div class="row px-1 pb-5">
+            <div class="col-md-2">
+               <img class="img-fluid mb-2" src="{{ asset( ordenregiones[i] ~ '1.jpg', 'imgmaparegiones' ) }}" border="0" alt="{{ ordenregiones[i]  }}" hspace="0" vspace="0" width="" height="" align="middle" />
+            </div> 
+            <div class="col-md-10 py-2 px-3" style="background-color: {{ colorfondoregiones[i] }}; color: {{ colortextoregiones[i] }}">
+               {% for alojamientos in alojamientosprincipales  %} 
+                  {% if alojamientos.region == ordenregiones[i]  %}
+
+                        {% if alojamientos.alias not in alojamientosfaltantes  %}                    
+
+                           {% for label, item in _context[regionslug[i]] %}
+                              {% if item.title == alojamientos.provincia %}
+                                 {% set slugg = label %}
+                              {% endif %}
+                           {% endfor %}
+
+                        {% if provinciadif != alojamientos.provincia  %}
+                           {% set provinciadif = alojamientos.provincia %}
+                           {% if ii != 0 %}
+                              <br><br>
+                           {% endif %}
+                           <span style="color: {{ colortextoprovincias[i] }}; font-size:125%;">{{ alojamientos.provincia }} <br></span>
+                           <a style="color: {{ colortextoregiones[i] }}" href="{{ path('alojamiento', {'slug': regionslug[i], 'slugg': slugg, 'sluggg': alojamientos.alias }) }}" > {{ alojamientos.centroturistico }}</a>
+                        {% else  %}
+                           ,&nbsp;&nbsp;&nbsp;<a style="color: {{ colortextoregiones[i] }}" href="{{ path('alojamiento', {'slug': regionslug[i], 'slugg': slugg, 'sluggg': alojamientos.alias }) }}" > {{ alojamientos.centroturistico }}</a>
+                        {% endif  %}
+                        {% set ii = ii + 1 %}
+                     {% endif  %}
+                  {% endif  %}                      
+               {% endfor %}   
+            </div>
+         </div>
+         {% set i = i + 1 %}
+      {% endfor %}         
+   </div>
+
+{% endblock %}

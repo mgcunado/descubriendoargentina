@@ -1,0 +1,29 @@
+# config/packages/fos_user.yaml
+fos_user:
+    db_driver:      orm # can be orm or odm
+    firewall_name:  main
+    user_class:     App\Application\Sonata\UserBundle\Entity\User
+#    user_class:     Sonata\UserBundle\Entity\BaseUser
+
+
+    group:
+#        group_class:   Sonata\UserBundle\Entity\BaseGroup
+        group_class:   App\Application\Sonata\UserBundle\Entity\Group
+        group_manager: sonata.user.orm.group_manager
+
+    from_email:
+        address: orbelanet@orbelanet.com
+        sender_name: orbelanet
+
+    service:
+        user_manager: sonata.user.orm.user_manager
+
+###########################################################333
+    profile:
+        # Authentication Form
+        form:
+            type:               fos_user_profile
+            name:               fos_user_profile_form
+            validation_groups:  [Authentication] # Please note : this is not the default value
+
+               

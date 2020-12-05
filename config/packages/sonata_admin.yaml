@@ -1,0 +1,17 @@
+sonata_admin:
+    title: 'Sonata Admin'
+    dashboard:
+        blocks:
+            #- { type: sonata.admin.block.admin_list, position: left }#
+            # display dashboard block in the top zone with a col-md-6 css class
+            -
+                position: center
+                class: col-md-8
+                type: sonata.admin.block.admin_list
+    templates:
+        dashboard: '@SonataAdmin/Core/dashboard.html.twig'              
+
+sonata_block:
+    blocks:
+        sonata.admin.block.admin_list:
+            contexts: [admin]

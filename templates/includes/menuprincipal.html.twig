@@ -1,0 +1,13 @@
+<div class="row mt-4"  style="font-size:12px;">
+<div class="col-md-12 justify-content-center text-info font-weight-bold text-uppercase p-1" style="font-size:14px;" align="center">
+   {{ 'Menú principal' }}
+</div>
+
+<div class="col-md-12 pt-0 justify-content-center" align="center" >
+   <a href="{{ path('termas') }}" class="list-group-item list-group-item-action py-1 {% if menulocal == 'termas' %} bg-active {% endif %}">Termas</a>
+   <a href="{{ path('casinos') }}" class="list-group-item list-group-item-action py-1 {% if menulocal == 'casinos' %} bg-active {% endif %}">Casinos</a>
+   <a href="{{ path('rutadelvino') }}" class="list-group-item list-group-item-action py-1 {% if menulocal == 'rutadelvino' %} bg-active {% endif %}">Ruta del Vino</a>
+   <a href="{{ path('trenesturisticos') }}" class="list-group-item list-group-item-action py-1 {% if menulocal == 'trenesturisticos' %} bg-active {% endif %}">Trenes Turísticos</a>
+
+</div>
+</div>

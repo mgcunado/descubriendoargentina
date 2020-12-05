@@ -1,0 +1,12 @@
+framework:
+    router:
+        strict_requirements: ~
+
+# las siguientes 2 líneas no funcionan
+#fos_user:
+    #resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+           
+
+
+

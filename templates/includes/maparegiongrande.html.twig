@@ -1,0 +1,177 @@
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyADQ_mTeEhtieFwFWGdweeo5HKy1M1nCu4&sensor=false&language=es"></script>
+
+
+{% set regionslug = ['patagonia', 'pampa', 'cuyo', 'noreste', 'noroeste'] %}
+
+{% if region == 'noroeste' %}
+   {% set ancho = 450 %}
+   {% set alto = 550 %}
+   {% set nombreregion = 'región del Noroeste' %}
+   {% set centro1 = coordenadasController.NOcentro1*0.914 %}
+   {% set centro2 = coordenadasController.NOcentro2 %}
+   {% set zoom = 6 %}
+   {% set despl = 1 %}
+   {% set resultRegion = coordenadasController.resultNO  %}
+
+{% elseif region == 'noreste' %}
+   {% set ancho = 500 %}
+   {% set alto = 625 %}
+   {% set nombreregion = 'región del Noreste' %}
+   {% set centro1 = coordenadasController.NEcentro1*0.918 %}
+   {% set centro2 = coordenadasController.NEcentro2 %}
+   {% set zoom = 6 %}
+   {% set despl = 1.01 %}
+   {% set resultRegion = coordenadasController.resultNE  %}
+
+{% elseif region == 'cuyo' %}
+   {% set ancho = 450 %}
+   {% set alto = 550 %}
+   {% set nombreregion = 'región de Cuyo' %}
+   {% set centro1 = coordenadasController.Ccentro1*0.915 %}
+   {% set centro2 = coordenadasController.Ccentro2 %}
+   {% set zoom = 6 %}
+   {% set despl = 1 %}
+   {% set resultRegion = coordenadasController.resultC  %}
+
+{% elseif region == 'pampa' %}
+   {% set ancho = 560 %}
+   {% set alto = 770 %}
+   {% set nombreregion = 'región de la Pampa' %}
+   {% set centro1 = coordenadasController.Pcentro1*0.9175 %}
+   {% set centro2 = coordenadasController.Pcentro2 %}
+   {% set zoom = 6 %}
+   {% set despl = 1.02 %}
+   {% set resultRegion = coordenadasController.resultP  %}
+
+{% elseif region == 'patagonia' %}
+   {% set ancho = 450 %}
+   {% set alto = 700 %}
+   {% set nombreregion = 'región de Patagonia' %}
+   {% set centro1 = coordenadasController.P1centro1*0.95 %}
+   {% set centro2 = coordenadasController.P1centro2 %}
+   {% set zoom = 5 %}
+   {% set despl = 1.02 %}
+   {% set resultRegion = coordenadasController.resultP1 %}
+   {% set resultRegion2 = coordenadasController.resultP2 %}
+{% endif %}
+
+
+
+<script type="text/javascript">
+function alojaRegiones() {
+   var latlng = new google.maps.LatLng({{ centro1  }}, {{ centro2  }});
+   var popup;
+   var myOptions = {
+      zoom: {{ zoom }},
+      center: latlng,
+      streetViewControl: false,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+   };
+
+   var map = new google.maps.Map(document.getElementById("map"), myOptions);
+
+   //COMIENZO POLILINEAS 
+   {% set i = 0  %}
+   var routes = [
+   {% for resultregion in resultRegion  %}
+      {% if i == 0  %}
+         new google.maps.LatLng({{ resultregion.latitud }}, {{ resultregion.longitud }})
+      {% endif %}
+
+         {% set i = i + 1  %}
+         ,new google.maps.LatLng({{ resultregion.latitud }}, {{ resultregion.longitud }})
+   {% endfor %}
+   ];
+
+
+   var polyline = new google.maps.Polyline({
+
+      path: routes
+         , map: map
+         , strokeColor: "#fb1e0d"
+         , strokeWeight: 6
+         , strokeOpacity: 0.8
+         , clickable: false
+   });
+
+   {% if region == 'patagonia' %}
+
+      {% set i = 0  %}
+      var routes2 = [
+      {% for resultregion2 in resultRegion2  %}
+         {% if i == 0  %}
+            new google.maps.LatLng({{ resultregion2.latitud }}, {{ resultregion2.longitud }})
+         {% endif %}
+
+            {% set i = i + 1  %}
+            ,new google.maps.LatLng({{ resultregion2.latitud }}, {{ resultregion2.longitud }})
+      {% endfor %}
+      ];
+
+
+      var polyline = new google.maps.Polyline({
+
+         path: routes2
+            , map: map
+            , strokeColor: "#fb1e0d"
+            , strokeWeight: 6
+            , strokeOpacity: 0.8
+            , clickable: false
+      });
+
+   {% endif %}
+   //FIN DE LAS POLILINEAS
+
+
+   {% for result in resultalojamientosprincipales  %}
+
+      var point = new google.maps.LatLng({{ result.latitud }}, {{ result.longitud }});
+
+      var image = "{{ asset( 'dormir3.gif', 'imgmaparegiones' ) }}";
+      var  marker = new google.maps.Marker({
+         position: point, 
+         map: map,
+         icon: image,//
+         title: "{{ result.centroTuristico }}",
+      });
+
+      google.maps.event.addListener(marker, "click", function() {
+         if(!popup){
+            popup = new google.maps.InfoWindow();
+         }
+
+{# Miramos en las variables generales de sesión: array region para conocer el alias de provincia  #}
+         {% set slugg = 'ppp' %}
+         {% for label, item in _context[region] %}
+            {% if item.title == result.provincia %}
+               {% set slugg = label %}
+            {% endif %}
+         {% endfor %}
+
+
+         var note = '<a href="{{ path('alojamiento', {'slug': region, 'slugg': slugg, 'sluggg': result.alias }) }}" > {{ result.centroTuristico }}</a><br/><p>Alojamientos en {{ result.centroTuristico }}</p>';
+         popup.setContent(note);
+         popup.open(map, this);
+      });
+
+   {% endfor  %}
+
+}
+</script>
+
+
+
+<div class="container-fluid mt-2 mb-5 bg-light" style="font-size:12px;">
+
+   <div class="row">
+      <div class="col-md-2 py-3"></div>
+      <div class="col-md-8 py-1 mt-4">
+         <h2 class="contentheading">Alojamiento en {{ nombreregion }}</h2>
+      </div>
+      <div class="col-md-2 py-3"></div>
+      <div class="col-md-2 py-3"></div>
+      <div class="col-md-8 py-3" id="map" style="width: {{ ancho }}px; height: {{ alto }}px"></div>
+      <div class="col-md-2 py-3"></div>
+   </div>
+
+</div>

@@ -1,0 +1,8 @@
+{% for imagen in ppp1 %}
+   <div class="row" style="font-size:10px;">
+      {# utilizamos un dir de imágenes configurado en config/packages/framework.yaml #}
+      <div class="col-md-12 mt-2" align="center"><img class="img-fluid" src="{{ asset( imagen.nombre, 'imgnuevas' ) }}" border="0" alt="" title="" hspace="0" vspace="0" align="middle" style="float: center; border: 0;" /></div>
+      <div class="col-md-12 mb-4 text-secondary" style="font-size:10px;" align="center">{{ imagen.descripcion }}</div>
+   </div>
+{%  endfor  %}
+

@@ -1,0 +1,27 @@
+<nav aria-label="breadcrumb">
+<ol class="breadcrumb2">
+   <li class="breadcrumb-item"><a href="{{ path('principalescentrosturisticos') }}">Inicio</a></li>
+   {% if region is not defined %}
+      {% set region = null %}
+   {% endif %}
+
+   {% if region is defined %}
+      {% if region == 'argentina' %}
+         <li class="breadcrumb-item active" aria-current="page">{{ menufinal }}</li>
+      {% elseif region != 'argentina' %}
+         <li class="breadcrumb-item"><a href="{{ path('mapainteractivo', {'region': 'argentina'}) }}">{{ menufinal }}</a></li>
+
+         {% set textoregion = 'ppp' %}
+         {% for label, item in regiones %}
+            {% if label == region %}
+               {% set textoregion = item.title %}
+            {% endif %}
+         {% endfor %}
+
+         <li class="breadcrumb-item active" aria-current="page">{{ 'Región ' ~ textoregion }}</li>
+      {% endif %}
+   {% endif %}
+</ol>
+</nav>
+
+

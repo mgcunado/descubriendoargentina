@@ -1,0 +1,47 @@
+{% extends 'frontend.html.twig' %}
+
+{% block bloquecentral %}
+   {{ parent() }}
+
+ {{ include("includes/breadcrumb/menuprincipal.html.twig", {menufinal: 'Trenes Turísticos'}) }}
+
+
+
+   <div class="container-fluid mt-2 mb-5 bg-light"  style="font-size:12px;">
+      <h2 class="py-4">Trenes Turísticos</h2> 
+
+      {{ form_start(formulario, { action: path('trenesturisticos'), method: 'POST' }) }}
+      {{ form_errors(formulario) }}
+      <div class="justify-content-center pb-4" align="center">
+         <div class="py-5" style="max-width:53%; height:auto; background-image:url(images/trenesturisticos/Chubut3.jpg);">
+
+            <div class="row my-2" style="max-width:80%; height:auto; font-size: 110%; color: #00AAFF; text-align: center; font-weight: bold;">
+               <div class="col-md-6 mb-0 pl-5 text-info d-flex align-items-center">
+                  <strong>{{ form_label(formulario.provincia, 'Seleccione Provincia:') }}</strong>
+                  <span class="error">{{ form_errors(formulario.provincia) }}</span>
+               </div>
+               <div class="col-md-6 d-flex align-items-center">
+                  <div class="d-flex flex-column">
+                     <div class="p-2">{{ form_widget(formulario.provincia) }}</div>
+                     <div class="p-2"> {{ form_end(formulario) }}</div>
+                  </div> 
+               </div> 
+            </div> 
+         </div> 
+
+      </div> 
+
+      <br/>
+<p>Años atrás, los trenes eran <b>uno de los medios de transporte más utilizados</b> para recorrer los distintos rincones de la llamativa y variada geografía que la República Argentina nos presenta.</p>
+
+<p>Con el correr del tiempo, los trenes se transformaron en <b>monstruos de acero</b> abandonados a la espera de ser rescatados.</p>
+
+<p>En los últimos años se han puesto en marcha un conjunto de trenes que realizan <b>recorridos turísticos</b>, permitiéndole al turista acercarse a lugares que de otra manera no podría acceder, surcando caminos con un encanto particular.</p>
+
+<p>Los <b>Trenes Turísticos</b> ofrecen a los viajeros el bienestar necesario para disfrutar de <b>paisajes maravillosos</b> acompañados de la emoción que la historia de cada tren agrega.</p>
+
+<p>Cada uno de ellos realiza un recorrido pensado para despertar <b>el asombro y la fascinación</b> de quienes realizan el viaje, acercándolos de una manera diferente a los paisajes característicos de cada lugar.</p>
+
+   </div>
+
+{% endblock %}

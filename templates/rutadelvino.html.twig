@@ -1,0 +1,46 @@
+{% extends 'frontend.html.twig' %}
+
+{% block bloquecentral %}
+   {{ parent() }}
+
+ {{ include("includes/breadcrumb/menuprincipal.html.twig", {menufinal: 'Ruta del vino'}) }}
+
+
+
+   <div class="container-fluid mt-2 mb-5 bg-light"  style="font-size:12px;">
+      <h2 class="py-4">Ruta del Vino</h2> 
+
+      {{ form_start(formulario, { action: path('rutadelvino'), method: 'POST' }) }}
+      {{ form_errors(formulario) }}
+      <div class="justify-content-center pb-4" align="center">
+         <div class="py-5" style="max-width:60%; height:auto; background-image:url(images/rutadelvino/rutavinolarioja3.jpg);">
+
+            <div class="row my-2" style="max-width:80%; height:auto; font-size: 110%; color: #00AAFF; text-align: center; font-weight: bold;">
+               <div class="col-md-6 mb-0 text-info d-flex align-items-center">
+                  <strong>{{ form_label(formulario.provincia, 'Seleccione Provincia:') }}</strong>
+                  <span class="error">{{ form_errors(formulario.provincia) }}</span>
+               </div>
+               <div class="col-md-6 d-flex align-items-center">
+                  <div class="d-flex flex-column">
+                     <div class="p-2">{{ form_widget(formulario.provincia) }}</div>
+                     <div class="p-2"> {{ form_end(formulario) }}</div>
+                  </div> 
+               </div> 
+            </div> 
+         </div> 
+
+      </div> 
+
+      <br/>
+
+<p>La historia del vino en nuestro país se remonta a la temprana época colonial. En 1556 el sacerdote Juan Cedrón llevó a Santiago del Estero unas estacas de vid. Posteriormente, el galo Aimé Pouget instaló en Mendoza un viñedo con carácter experimental, introduciendo variedades francesas: chardonnay y malbec. El clima seco, las aguas de deshielo y una importante altura sobre el nivel del mar ayudaron a producir excelentes cultivos.</p>
+
+<p>Alrededor de 1880, Tiburcio Benegas plantó 250 hectáreas de viñedos de primer nivel y construyó una bodega modelo: "El Trapiche". Con la llegada del ferrocarril a la Provincia de Mendoza en 1885 se despertó una fiebre productora con el fin de abastecer a la ciudad de Buenos Aires. Una de las variedades más importantes y de mejor adaptación en la región fue la malbec, también conocida como la "uva francesa". Prosperaron bodegas notables, que hasta llegaron a tener su propia estación de ferrocarril.</p>
+
+<p>Desde hace ya varios años, la calidad de los vinos argentinos es reconocida a nivel internacional. Paralelamente se ha desarrollado una cultura enológica muy exquisita, que se expresa en el paladar exigente de los consumidores, en revistas y publicaciones específicas, y en universidades donde se imparten estudios académicos sobre el tema.</p>
+
+<p>La Ruta del Vino combina la visita a distintos destinos turísticos que brindan la posibilidad de degustar los vinos más esquisitos, impregnados de aromas y sabores muy diversos.</p>
+
+   </div>
+
+{% endblock %}

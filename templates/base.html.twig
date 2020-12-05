@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="es">
+   <head>
+      {{ sonata_seo_title() }}
+      {#<title>{% block title %}{% endblock %}</title>#}
+      <!-- Required meta tags -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      {{ sonata_seo_metadatas() }}
+
+      {% block stylesheets %}
+      {% endblock %}
+
+      {% block cssmenu %}
+      {% endblock %}
+ <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}" />
+   </head>
+
+   <body>
+      {# Variables Globales de sesión #}
+      {% set regiones = app.session.get('regiones') %}
+
+      {% set patagonia = app.session.get('patagonia') %}
+      {% set pampa = app.session.get('pampa') %}
+      {% set cuyo = app.session.get('cuyo') %}
+      {% set noreste = app.session.get('noreste') %}
+      {% set noroeste = app.session.get('noroeste') %}
+
+      {% set  neuquen = app.session.get('neuquen') %}
+      {% set  rionegro = app.session.get('rionegro') %}
+      {% set  chubut = app.session.get('chubut') %}
+      {% set  santacruz = app.session.get('santacruz') %}
+      {% set  tierradelfuego = app.session.get('tierradelfuego') %}
+      {% set  buenosaires = app.session.get('buenosairenosaires') %}
+      {% set  cordoba = app.session.get('cordoba') %}
+      {% set  lapampa = app.session.get('lapampa') %}
+      {% set  santafe = app.session.get('santafe') %}
+      {% set  mendoza = app.session.get('mendoza') %}
+      {% set  sanjuan = app.session.get('sanjuan') %}
+      {% set  sanluis = app.session.get('sanluis') %}
+      {% set  formosa = app.session.get('formosa') %}
+      {% set  chaco = app.session.get('chaco') %}
+      {% set  misiones = app.session.get('misiones') %}
+      {% set  corrientes = app.session.get('corrientes') %}
+      {% set  entrerios = app.session.get('entrerios') %}
+      {% set  jujuy = app.session.get('jujuy') %}
+      {% set  salta = app.session.get('salta') %}
+      {% set  larioja = app.session.get('larioja') %}
+      {% set  tucuman = app.session.get('tucuman') %}
+      {% set  catamarca = app.session.get('catamarca') %}
+      {% set  santiagodelestero = app.session.get('santiagodelestero') %}
+      {# Fin Variables Globales de sesión #}
+
+
+      {# Listado de centros turísticos con alojamientos #}
+      {%  set alojamientosfaltantes = ['melincue', 'choelechoel', 'riocolorado', 'islamartingarcia', 'eltigre', 'montehermoso', 'reta', 'lastoninas', 'costachica', 'nuevaatlantis', 'jacintoarauz', 'parqueprovincialaconcagua', 'nacunan', 'villavicencio', 'volcantupungato', 'valledelaluna', 'cerroalcazar', 'cerromercedario', 'embalsequebradadeullum', 'reservadelabiosferasanguillermo', 'reservadelvallefertil', 'pasodelospatos', 'parquenacionalchaco', 'parqueprovincialpampadelindio', 'esterosdelibera', 'parquenacionalriopilcomayo', 'banadodelaestrella', 'lagunayema', 'reservanaturalformosa', 'lagunabrava', 'diquedelossauces', 'cerrodelacruz', 'diquelosquiroga', 'parqueprovincialcopo', 'laboca', 'venadotuerto', 'coronda', 'victorica', 'sancarloscentro', 'campodelcielo', 'sanfranciscodelaishi', 'pobladosypaisajesdelapuna', 'fiambala', 'parquezoologico', 'lasflores', 'lobos', 'colonia25demayo', 'intendentealvear'] %}   
+
+      {{ app.session.set('alojamientosfaltantes', alojamientosfaltantes) }}
+      {% set  alojamientosfaltantes = app.session.get('alojamientosfaltantes') %}
+
+
+
+
+      {# datos de menu-submenu #}
+
+      {# REGIONES #}
+      {% set regiones = {
+      patagonia:    { title: "Patagonia" },
+      pampa: { title: "Pampa" },
+      cuyo:     { title: "Cuyo" },
+      noreste:     { title: "Noreste" },
+      noroeste:     { title: "Noroeste" }
+      } %}
+
+      {{ app.session.set('regiones', regiones) }}
+
+
+      {# REGIONES: PROVINCIAS #}
+      {% set patagonia = {
+      neuquen:    { title: "Neuquén" },
+      rionegro: { title: "Río Negro" },
+      chubut:     { title: "Chubut" },
+      santacruz:     { title: "Santa Cruz" },
+      tierradelfuego:     { title: "Tierra del Fuego" }
+      } %}
+
+      {% set pampa = {
+      buenosaires:    { title: "Buenos Aires"},
+      cordoba: { title: "Córdoba"},
+      lapampa:     { title: "La Pampa"},
+      santafe:     { title: "Santa Fe"}
+      } %}
+
+      {% set cuyo = {
+      mendoza:    { title: "Mendoza"},
+      sanjuan: { title: "San Juan"},
+      sanluis:     { title: "San Luis"}
+      } %}
+
+      {% set noreste = {
+      formosa:    { title: "Formosa" },
+      chaco: { title: "Chaco" },
+      misiones:     { title: "Misiones" },
+      corrientes:     { title: "Corrientes" },
+      entrerios:     { title: "Entre Ríos" }
+      } %}
+
+      {% set noroeste = {
+      jujuy:    { title: "Jujuy" },
+      salta: { title: "Salta" },
+      larioja:     { title: "La Rioja" },
+      tucuman:     { title: "Tucumán" },
+      catamarca:     { title: "Catamarca" },
+      santiagodelestero:     { title: "Santiago del Estero" }
+      } %}
+
+      {{ app.session.set('patagonia', patagonia) }}
+      {{ app.session.set('pampa', pampa) }}
+      {{ app.session.set('cuyo', cuyo) }}
+      {{ app.session.set('noreste', noreste) }}
+      {{ app.session.set('noroeste', noroeste) }}
+
+
+      {# PROVINCIAS: CENTROS TURÍSTICOS #}
+      {% set neuquen = {
+      alumine          : { title: "Aluminé"},
+      andacollo        : { title: "Andacollo"},
+      copahuecaviahue : { title: "Copahue - Caviahue"},
+      cutralco         : { title: "Cutral Có"},
+      huinganco        : { title: "Huinganco"},
+      junindelosandes  : { title: "Junín de los Andes"},
+      lasovejas        : { title: "Las Ovejas"},
+      neuquencapital   : { title: "Neuquén Capital"},
+      piedradelaguila  : { title: "Piedra del Águila"},
+      sanmartindelosandes: { title: "San Martín de los Andes"},
+      tricaomalal      : { title: "Tricao Malal"},
+      villaelchocon    : { title: "Villa El Chocón"},
+      villalaangostura : { title: "Villa La Angostura"},
+      villapehuenia    : { title: "Villa Pehuenia"},
+      villatraful      : { title: "Villa Traful"}
+      } %}
+
+      {% set rionegro = {
+      bariloche: { title: "Bariloche"},
+      choelechoel: { title: "Choele Choel"},
+      cipolletti : { title: "Cipolletti"},
+      elbolson : { title: "El Bolsón"},
+      generalroca: { title: "General Roca"},
+      lasgrutas: { title: "Las Grutas"},
+      riocolorado: { title: "Río Colorado"},
+      viedma   : { title: "Viedma"},
+      villaregina: { title: "Villa Regina"}
+      } %}
+
+      {% set chubut = {
+      comodororivadavia: { title: "Comodoro Rivadavia"},
+      esquel         : { title: "Esquel"},
+      gaiman         : { title: "Gaiman"},
+      lagopuelo      : { title: "Lago Puelo"},
+      puertomadryn   : { title: "Puerto Madryn"},
+      rawson         : { title: "Rawson"},
+      trelew         : { title: "Trelew"},
+      trevelin       : { title: "Trevelín"}
+      } %}
+
+      {% set santacruz = {
+      caletaolivia : { title: "Caleta Olivia"},
+      elcalafate   : { title: "El Calafate"},
+      elchalten    : { title: "El Chaltén"},
+      losantiguos  : { title: "Los Antiguos"},
+      puertodeseado: { title: "Puerto Deseado"},
+      puertosanjulian: { title: "Puerto San Julián"},
+      riogallegos  : { title: "Río Gallegos"},
+      rioturbio    : { title: "Río Turbio"}
+      } %}
+
+      {% set tierradelfuego = {
+      ushuaia:    { title: "Ushuaia"},
+      riogrande: { title: "Río Grande"},
+      tolhuin:     { title: "Tolhuin"}
+      } %} 
+
+
+      {% set buenosaires = {
+      aguasverdes            : { title: "Aguas Verdes"},
+      belendeescobar         : { title: "Belén de Escobar"},
+      belgrano               : { title: "Belgrano"},
+      caballito              : { title: "Caballito"},
+      campana                : { title: "Campana"},
+      capitalfederal         : { title: "Capital Federal"},
+      carilo                 : { title: "Cariló"},
+      chascomus              : { title: "Chascomus"},
+      claromeco              : { title: "Claromecó"},
+      costaatlantica         : { title: "Costa Atlántica"},
+      costachica             : { title: "Costa Chica"},
+      costadeleste           : { title: "Costa del Este"},
+      eltigre                : { title: "El Tigre"},
+      granbuenosaires        : { title: "Gran Buenos Aires"},
+      islamartingarcia       : { title: "Isla Martín García"},
+      laboca                 : { title: "La Boca"},
+      laplata                : { title: "La Plata"},
+      lasflores              : { title: "Las Flores"},
+      lastoninas             : { title: "Las Toninas"},
+      lobos                  : { title: "Lobos"},
+      luciladelmar           : { title: "Lucila del Mar"},
+      lujan                  : { title: "Luján"},
+      mardeajo               : { title: "Mar de Ajó"},
+      mardelaspampas         : { title: "Mar de las Pampas"},
+      mardelplata            : { title: "Mar del Plata"},
+      mardeltuyu             : { title: "Mar del Tuyú"},
+      miramarbuenosaires     : { title: "Miramar"},
+      monserrat              : { title: "Monserrat"},
+      montehermoso           : { title: "Monte Hermoso"},
+      necochea               : { title: "Necochea"},
+      nuevaatlantis          : { title: "Nueva Atlantis"},
+      orense                 : { title: "Orense"},
+      otrosatractivosturisticos : { title: "Otros Atractivos Turísticos"},
+      palermo                : { title: "Palermo"},
+      pilar                  : { title: "Pilar"},
+      pinamar                : { title: "Pinamar"},
+      puertomadero           : { title: "Puerto Madero"},
+      recoleta               : { title: "Recoleta"},
+      reta                   : { title: "Reta"},
+      retiro                 : { title: "Retiro"},
+      sanantoniodeareco      : { title: "San Antonio de Areco"},
+      sanbernardo            : { title: "San Bernardo"},
+      sanclementedeltuyu     : { title: "San Clemente del Tuyú"},
+      sanisidro              : { title: "San Isidro"},
+      sannicolasdelosarroyos : { title: "San Nicolás de los Arroyos"},
+      sanpedro               : { title: "San Pedro"},
+      santateresita          : { title: "Santa Teresita"},
+      santelmo               : { title: "San Telmo"},
+      sierradelaventana      : { title: "Sierra de la Ventana"},
+      tandil                 : { title: "Tandil"},
+      valeriadelmar          : { title: "Valeria del Mar"},
+      villagesell            : { title: "Villa Gesell"}
+      } %}
+
+      {% set cordoba = {
+      alpacorral             : { title: "Alpa Corral"},
+      altagracia             : { title: "Alta Gracia"},
+      capilladelmonte        : { title: "Capilla del Monte"},
+      ciudaddecordoba        : { title: "Ciudad de Córdoba"},
+      coloniacaroya          : { title: "Colonia Caroya"},
+      cosquin                : { title: "Cosquín"},
+      deanfunes              : { title: "Dean Funes"},
+      embalseriotercero      : { title: "Embalse Río Tercero"},
+      jesusmaria             : { title: "Jesús María"},
+      lacumbre               : { title: "La Cumbre"},
+      lacumbrecita           : { title: "La Cumbrecita"},
+      lafalda                : { title: "La Falda"},
+      minaclavero            : { title: "Mina Clavero"},
+      miramarcordoba                : { title: "Miramar"},
+      nono                   : { title: "Nono"},
+      rioceballos            : { title: "Río Ceballos"},
+      riotercero             : { title: "Río Tercero"},
+      santarosadecalamuchita : { title: "Santa Rosa de Calamuchita"},
+      tanti                  : { title: "Tanti"},
+      villaalpina            : { title: "Villa Alpina"},
+      villacarlospaz         : { title: "Villa Carlos Paz"},
+      villageneralbelgrano   : { title: "Villa General Belgrano"},
+      villagiardino          : { title: "Villa Giardino"},
+      villamaria             : { title: "Villa María"},
+      villayacantodecalamuchita: { title: "Villa Yacanto de Calamuchita"}
+      } %}
+
+      {% set lapampa = {
+      colonia25demayo : { title: "Colonia 25 de Mayo"},
+      eduardocastex : { title: "Eduardo Castex"},
+      generalacha   : { title: "General Acha"},
+      generalpico   : { title: "General Pico"},
+      intendentealvear: { title: "Intendente Alvear"},
+      jacintoarauz  : { title: "Jacinto Arauz"},
+      santarosa     : { title: "Santa Rosa"},
+      victorica     : { title: "Victorica"}
+      } %}
+
+      {% set santafe = {
+      carcarana    : { title: "Carcaraña"},
+      cayasta      : { title: "Cayastá"},
+      ciudaddesantafe: { title: "Ciudad de Santa Fe"},
+      coronda      : { title: "Coronda"},
+      melincue     : { title: "Melincué"},
+      puertogaboto : { title: "Puerto Gaboto"},
+      rafaela      : { title: "Rafaela"},
+      rosario      : { title: "Rosario"},
+      sancarloscentro: { title: "San Carlos Centro"},
+      sanlorenzosantafe   : { title: "San Lorenzo"},
+      timbues      : { title: "Timbúes"},
+      venadotuerto : { title: "Venado Tuerto"}
+      } %}
+
+
+
+      {% set mendoza = {
+      ciudaddemendoza        : { title: "Ciudad de Mendoza"},
+      diqueelcarrizal        : { title: "Dique El Carrizal"},
+      malargue               : { title: "Malargüe"},
+      nacunan                : { title: "Ñacuñan"},
+      parqueprovincialaconcagua: { title: "Parque Provincial Aconcagua"},
+      penitentes             : { title: "Penitentes"},
+      potrerillos            : { title: "Potrerillos"},
+      puentedelinca          : { title: "Puente del Inca"},
+      sanrafael              : { title: "San Rafael"},
+      uspallata              : { title: "Uspallata"},
+      villavicencio          : { title: "Villavicencio"},
+      volcantupungato        : { title: "Volcán Tupungato"}
+      } %}
+
+      {% set sanjuan = {
+      barreal                      : { title: "Barreal"},
+      cerroalcazar                 : { title: "Cerro Alcázar"},
+      cerromercedario              : { title: "Cerro Mercedario"},
+      ciudaddesanjuan              : { title: "Ciudad de San Juan"},
+      embalsecuestadelviento       : { title: "Embalse Cuesta del Viento"},
+      embalsequebradadeullum       : { title: "Embalse Quebrada de Ullum"},
+      lagunasdeguanacache          : { title: "Lagunas de Guanacache"},
+      pasodelospatos               : { title: "Paso de los Patos"},
+      reservadelabiosferasanguillermo: { title: "Reserva de la Biosfera San Guillermo"},
+      reservadelvallefertil        : { title: "Reserva del Valle Fértil"},
+      valledelaluna                : { title: "Valle de la Luna"}
+      } %}
+
+      {% set sanluis = {
+      balde                          : { title: "Balde"},
+      chorrodesanignacio             : { title: "Chorro de San Ignacio"},
+      ciudaddesanluis                : { title: "Ciudad de San Luís"},
+      diquelahuertita                : { title: "Dique La Huertita"},
+      eltrapiche                     : { title: "El Trapiche"},
+      elvolcan                       : { title: "El Volcán"},
+      embalselaflorida               : { title: "Embalse La Florida"},
+      embalsepotrerodelosfunes       : { title: "Embalse Potrero de los Funes"},
+      lacarolina                     : { title: "La Carolina"},
+      merlo                          : { title: "Merlo"},
+      parquenacionalsierradelasquijadas: { title: "Parque Nacional Sierra de las Quijadas"},
+      potrerodelosfunes              : { title: "Potrero de los Funes"},
+      quines                         : { title: "Quines"},
+      sierradeloscomechingones       : { title: "Sierra de los Comechingones"}
+      } %}
+
+
+
+      {% set formosa = {
+      banadodelaestrella      : { title: "Bañado de la Estrella"},
+      ciudaddeformosa         : { title: "Ciudad de Formosa"},
+      elcolorado              : { title: "El Colorado"},
+      herradura               : { title: "Herradura"},
+      lagunayema              : { title: "Laguna Yema"},
+      parquenacionalriopilcomayo: { title: "Parque Nacional Río Pilcomayo"},
+      reservanaturalformosa   : { title: "Reserva Natural Formosa"},
+      sanfranciscodelaishi    : { title: "San Francisco de Laishi"}
+      } %}
+
+      {% set chaco = {
+      campodelcielo              : { title: "Campo del Cielo"},
+      isladelcerrito             : { title: "Isla del Cerrito"},
+      parquenacionalchaco        : { title: "Parque Nacional Chaco"},
+      parqueprovincialpampadelindio: { title: "Parque Provincial Pampa del Indio"},
+      parquezoologico            : { title: "Parque Zoológico"},
+      resistencia                : { title: "Resistencia"}
+      } %}
+
+      {% set misiones = {
+      cataratasdeliguazu       : { title: "Cataratas del Iguazú"},
+      laselvamisionera         : { title: "La Selva Misionera"},
+      minasdewanda             : { title: "Minas de Wanda"},
+      posadas                  : { title: "Posadas"},
+      regiondelassierrascentrales: { title: "Región de las Sierras Centrales"},
+      ruinasjesuiticas         : { title: "Ruinas Jesuíticas"},
+      saltosdemocona           : { title: "Saltos de Moconá"}
+      } %}
+
+      {% set corrientes = {
+      ciudaddecorrientes: { title: "Ciudad de Corrientes"},
+      esquina         : { title: "Esquina"},
+      esterosdelibera : { title: "Esteros del Iberá"},
+      goya            : { title: "Goya"},
+      ituzaingo       : { title: "Ituzaingó"},
+      pasodelapatria  : { title: "Paso de la Patria"}
+      } %}
+
+      {% set entrerios = {
+      colon     : { title: "Colón"},
+      gualeguay : { title: "Gualeguay"},
+      gualeguaychu: { title: "Gualeguaychú"},
+      lapaz     : { title: "La Paz"},
+      parana    : { title: "Paraná"},
+      victoria  : { title: "Victoria"}
+      } %}
+
+
+
+      {% set jujuy = {
+      caimancito      : { title: "Caimancito"},
+      casabindo       : { title: "Casabindo"},
+      coctaca         : { title: "Coctaca"},
+      diquedelacienaga: { title: "Dique de la Cienaga"},
+      elcarmen        : { title: "El Carmen"},
+      humahuaca       : { title: "Humahuaca"},
+      lagunasdeyala   : { title: "Lagunas de Yala"},
+      laquiaca        : { title: "La Quiaca"},
+      purmamarca      : { title: "Purmamarca"},
+      sansalvadordejujuy: { title: "San Salvador de Jujuy"},
+      tilcara         : { title: "Tilcara"}
+      } %}
+
+      {% set salta = {
+      cabracorral        : { title: "Cabra Corral"},
+      cachi              : { title: "Cachi"},
+      cafayate           : { title: "Cafayate"},
+      ciudaddesalta      : { title: "Ciudad de Salta"},
+      elchamical         : { title: "El Chamical"},
+      iruya              : { title: "Iruya"},
+      parquenacionalelrey: { title: "Parque Nacional El Rey"},
+      rosariodelafrontera: { title: "Rosario de la Frontera"},
+      sanantoniodeloscobres: { title: "San Antonio de los Cobres"},
+      sanlorenzosalta  : { title: "San Lorenzo"}
+      } %}
+
+      {% set larioja = {
+      anillaco                      : { title: "Anillaco"},
+      cerrodelacruz                 : { title: "Cerro de la Cruz"},
+      chilecito                     : { title: "Chilecito"},
+      ciudaddelarioja               : { title: "Ciudad de La Rioja"},
+      diquedelossauces              : { title: "Dique de los Sauces"},
+      lagunabrava                   : { title: "Laguna Brava"},
+      larutadeloscaudillos          : { title: "La ruta de los Caudillos"},
+      parquenaturalprovincialguasamayo: { title: "Parque Natural Provincial Guasamayo"},
+      villasanagasta                : { title: "Villa Sanagasta"}
+      } %}
+
+      {% set tucuman = {
+      ciudaddetucuman: { title: "Ciudad de Tucumán"},
+      lasyungas      : { title: "Las Yungas"},
+      sanjavier      : { title: "San Javier"},
+      sanpedrodecolalao: { title: "San Pedro de Colalao"},
+      tafidelvalle   : { title: "Tafí del Valle"}
+      } %}
+
+      {% set catamarca = {
+      ancasti                : { title: "Ancasti"},
+      andalgala              : { title: "Andalgalá"},
+      antofagastadelasierra  : { title: "Antofagasta de la Sierra"},
+      balconesdelvalle       : { title: "Balcones del Valle"},
+      ciudaddecatamarca      : { title: "Ciudad de Catamarca"},
+      cumbresnevadasdeaconquija: { title: "Cumbres Nevadas de Aconquija"},
+      cumbresyvallesdeambato : { title: "Cumbres y Valles de Ambato"},
+      fiambala               : { title: "Fiambalá"},
+      lashuellasdelinca      : { title: "Las Huellas del Inca"},
+      pobladosypaisajesdelapuna: { title: "Poblados y paisajes de la Puna"},
+      santamaria             : { title: "Santa María"},
+      tinogasta              : { title: "Tinogasta"}
+      } %}
+
+      {% set santiagodelestero = {
+      ciudaddesantiagodelestero: { title: "Ciudad de Santiago del Estero"},
+      diquelosquiroga        : { title: "Dique Los Quiroga"},
+      parqueprovincialcopo   : { title: "Parque Provincial Copo"}
+      } %}
+
+      {{ app.session.set('neuquen', neuquen) }}
+      {{ app.session.set('rionegro', rionegro) }}
+      {{ app.session.set('chubut', chubut) }}
+      {{ app.session.set('santacruz', santacruz) }}
+      {{ app.session.set('tierradelfuego', tierradelfuego) }}
+      {{ app.session.set('buenosaires', buenosaires) }}
+      {{ app.session.set('cordoba', cordoba) }}
+      {{ app.session.set('lapampa', lapampa) }}
+      {{ app.session.set('santafe', santafe) }}
+      {{ app.session.set('mendoza', mendoza) }}
+      {{ app.session.set('sanjuan', sanjuan) }}
+      {{ app.session.set('sanluis', sanluis) }}
+      {{ app.session.set('formosa', formosa) }}
+      {{ app.session.set('chaco', chaco) }}
+      {{ app.session.set('misiones', misiones) }}
+      {{ app.session.set('corrientes', corrientes) }}
+      {{ app.session.set('entrerios', entrerios) }}
+      {{ app.session.set('jujuy', jujuy) }}
+      {{ app.session.set('salta', salta) }}
+      {{ app.session.set('larioja', larioja) }}
+      {{ app.session.set('tucuman', tucuman) }}
+      {{ app.session.set('catamarca', catamarca) }}
+      {{ app.session.set('santiagodelestero', santiagodelestero) }}
+
+      {# Fin datos de mnu-submenu #}
+
+
+
+
+      {% block carousel %}
+      {% endblock %}
+      {% block body %}
+         <div class="container-fluid">
+            <div class="row">
+               <div class="col-12 col-md-2 bg-light">
+                  {% block sideleft %}
+                  {% endblock %}
+               </div>
+               <div class="col-12 col-md-8">
+                  {% block navbar %}
+                     {{ include("navbar.html.twig") }}
+                  {% endblock %}
+
+                  {% block bloquecentral %}                     
+                  {% endblock %}
+               </div>
+               <div class="col-12 col-md-2 bg-light">
+                  {% block sideright %}
+                  {% endblock %}
+               </div>
+            </div>
+         </div>
+      {% endblock %}
+      {% block footer %}
+         <div class="container-fluid">
+            <div class="row border2 border-primary border-right-0 border-bottom-0 border-left-0">
+               <div class="col-md-3 bg-light py-4"></div>
+               <div class="col-md-6 justify-content-center text-info bg-light py-4" style="font-size: 75%" align="center">
+                  &copy; Copyright. Descubriendo Argentina. Todos los derechos reservados. {{ "now"|date("Y") }}  <br>
+<a href="http://www.orbelanet.com/" class="ml-3 text-info">Portal Web creado por Orbelanet</a>.
+               </div>
+               <div class="col-md-3 bg-light py-4"></div>
+            </div>
+         </div>
+      {% endblock %}
+
+
+      {% block javascripts %}
+      {% endblock %}
+
+      {% block jsmenu %}
+      {% endblock %}
+
+   </body>
+</html>

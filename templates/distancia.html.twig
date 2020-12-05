@@ -1,0 +1,72 @@
+{% extends 'frontend.html.twig' %}
+
+{% block bloquecentral %}
+	{{ parent() }}
+
+	{% set tttt = app.request.query.get("tttt")  %}
+
+	{# Dibujamos el cuadro de Distancias #}
+	{{ include("includes/breadcrumb/menucentrotur.html.twig", {menufinal: 'Cuadro de distancias'}) }}
+
+	<div class="container mt-2 mb-5 bg-light border-0" style="font-size:12px;">
+		{% for textos in ppp1 %}
+			<h3 class="pt-3 pb-4">Distancias desde {{ textos.lugarturistico }}</h3>
+
+			<div class="row">
+				<div class="col-md-12 bg-secondary text-white py-2" style="letter-spacing: 5px;" align="center">
+					<h6>Distancia en línea recta desde {{ textos.lugarturistico }}</h6>
+				</div>
+		{% endfor %}
+		{% set contador = 0 %}
+		{% for textos in ppp2 %}
+			{% if contador < 1 %}
+				<div class="col-md-4 text-light bg-dark py-2 mb-1">{{ 'Centro Turístico' }}</div>
+				<div class="col-md-2 text-light bg-dark py-2 mb-1">{{ 'Distancia' }}</div>
+				<div class="col-md-2 text-light bg-dark py-2 mb-1">{{ 'Orientación' }}</div>
+				<div class="col-md-2 text-light bg-dark py-2 mb-1">{{ 'Provincia' }}</div>
+				<div class="col-md-2 text-light bg-dark py-2 mb-1">{{ 'Región' }}</div>
+			{% endif %}
+			{% if textos.distancia < 301 or contador < 3 %}
+				{% for label, item in regiones %}
+					{% if item.title == textos.region %}
+						{% set slug = label %}
+					{% endif %}
+				{% endfor %}
+
+				{% for labell, itemm in _context[slug]  %}
+					{% if itemm.title == textos.provincia %}
+						{% set slugg = labell %}
+					{% endif %}
+				{% endfor %}
+
+				<div class="col-md-4  py-2 {% if contador % 2 == 0 %} bg-light text-dark {% else %} bg-primary2 text-dark {% endif %}">
+					<a href="{{ path('centroturistico', {'slug': slug, 'slugg': slugg, 'sluggg': textos.alias } ) }}">
+						{{ textos.lugarturistico  }}
+					</a>
+				</div>
+				<div class="col-md-2  py-2 {% if contador % 2 == 0 %} bg-light text-dark {% else %} bg-primary2 text-dark {% endif %}">{{ textos.distancia|number_format(0, ',', '.') ~ ' km'  }}</div>
+				<div class="col-md-2  py-2 {% if contador % 2 == 0 %} bg-light text-dark {% else %} bg-primary2 text-dark {% endif %}">
+					{% for key, valor in direccionarray %}
+						{% if key ==  contador %}
+							{{ valor }} <br>
+						{% endif %}
+					{% endfor %}
+				</div>
+				<div class="col-md-2  py-2 {% if contador % 2 == 0 %} bg-light text-dark {% else %} bg-primary2 text-dark {% endif %}">{{ textos.provincia  }}</div>
+				<div class="col-md-2  py-2 {% if contador % 2 == 0 %} bg-light text-dark {% else %} bg-primary2 text-dark {% endif %}">{{ textos.region  }}</div>
+			{% endif %}
+			{% set contador = contador + 1 %}
+		{% endfor %}
+			</div>
+			{{ include("includes/tablalugares.html.twig") }}            
+	</div>
+
+
+{% endblock %}
+
+{# Dibujamos el menú lateral izquierdo #}
+{% block sideleft %}
+	{{ include("includes/menucentrotur.html.twig") }}
+	{{ parent() }}
+{% endblock %}
+

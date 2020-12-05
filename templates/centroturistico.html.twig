@@ -1,0 +1,29 @@
+{% extends 'frontend.html.twig' %}
+
+{% block bloquecentral %}
+   {{ parent() }}
+
+   {% set tttt = app.request.query.get("tttt")  %}
+
+   {# Dibujamos los Centros Turísticos #}
+   {{ include("includes/breadcrumb/centrosturisticos.html.twig") }}
+
+   <div class="container-fluid mt-2 mb-5 bg-light" style="font-size:12px;">
+      {% for textos in ppp2 %}
+         <h3  align="left" class="pt-2">{{ textos.lugarturistico | raw }}</h3>
+         {{ include("includes/imagearticulo.html.twig") }}
+         {{ textos.introtext | raw }}
+      {%  endfor  %}
+      {{ include("includes/tablalugares.html.twig") }}
+
+   </div>
+
+
+{% endblock %}
+
+{# Dibujamos el menú lateral izquierdo #}
+{% block sideleft %}
+   {{ include("includes/menucentrotur.html.twig") }}
+   {{ parent() }}
+{% endblock %}
+

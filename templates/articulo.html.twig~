@@ -1,0 +1,568 @@
+{% extends 'frontend.html.twig' %}
+
+{% block bloquecentral %}
+   {{ parent() }}
+
+   {% set tttt = app.request.query.get("tttt")  %}
+
+   {% if menulocal == 'alojamiento' %}
+      {# Dibujamos el Alojamiento #}
+      {{ include("includes/breadcrumb/menucentrotur.html.twig", {menufinal: 'Alojamiento'}) }}
+
+      {% set centroturistico = null  %}
+      {% set direccion = null  %} 
+      <div class="container-fluid mt-2 mb-5 bg-light" style="font-size:12px;">
+         {% for textos in aaa0 %}
+            <h3 class="pt-3 pb-0 mb-2">Alojamiento en {{ textos.centroTuristico }}</h3>
+            {% set centroturistico = textos.centroTuristico  %}
+         {%  endfor  %}
+
+         <div class="mb-2 pb-0" >
+            <h5 class="text-secondary">Consulte o Reserve su alojamiento en {{ centroturistico }}:</h5>
+         </div>
+
+         {% if consultaenviada != 'si' %}
+
+         <ul class="fa-ul">
+            <li class="mb-3"><i class="fa-li fa fa-check-square fa-2x"></i><strong>1.</strong> Seleccione los establecimientos que le interesen haciendo click sobre la imagen de correo o checkbox: <img  class="img-fluid" src="{{ asset( 'email.gif', 'imgnuevas' ) }}" border="0" alt="Email" hspace="0" vspace="0" align="middle" style="float: center; border: 0;" /> <span class="px-1 pt-1"><input type="checkbox"/></span> de cada uno de ellos.<br>
+               Podrá seleccionar, si lo desea, todos los establecimientos de una categoría en un tipo de alojamiento haciendo click sobre el checkbox en fondo granate: <span style="background-color: #990066" class="ml-2 px-3 pt-1"><input type="checkbox"/></span></li>
+            <li class="mb-3"><i class="fa-li fa fa-check-square fa-2x"></i><strong>2.</strong> Una vez seleccionados los establecimientos deseados vaya al formulario que se abrirá en la parte inferior de la pantalla. Utilice si lo desea para ello, el icono (que aparece tras el paso 1) de flecha-abajo: <span class="text-light ml-2 pt-2" style="background-color: #990066;"><i class="fas fa-arrow-alt-circle-down fa-w-16 fa-2x px-3"></i></span></li>
+         </ul>
+            
+            {##### Dibujamos Alojamientos en el Centro Turístico  #####} 
+            {% form_theme formulario 'form/fields.html.twig' %}
+
+               {{ form_start(formulario, {'name': 'emailmultiple'}) }}  
+               {{ form_errors(formulario) }}  
+
+               {% set t = -1 %}
+
+               {# Dibujamos el Alojamiento #}
+               {% set w = 0 %}
+
+               {% for key, tipo in tipos %}
+                  {% set t = t + 1 %}
+                  <div class="row">
+                     <div class="col-md-12 text-light bg-info py-1 mt-4">
+                        <h5 class=" py-0 mb-0 mt-0"> {{ tipo|raw }}</h5> 
+                     </div> 
+
+                     {% set c = -1 %}
+                     {% for cat in ppp2 %}
+                        {% if tipo == cat.tipo %}
+                           {% set c = c + 1 %}
+                           <div class="col-md-12 bg-secondary text-white">           
+                              <h6 class="pb-0 pt-1 my-0"> {{ cat.categoria|raw }}</h6>
+                           </div>                  
+
+                           {# variables con t, c para función seleccionar_todo #}
+                           {% if t > 9 %}
+                              {% set t0 = t %}
+                           {% else %}
+                              {% set t0 = '0' ~ t %}
+                           {% endif %}
+
+                           {% set emailmult1 = 'op' ~ t0 ~ c %}
+                           {% set longemailmult1 = emailmult1|length %}
+                           {% set flotante = 'flotante' ~ t0 ~ c %}
+                           {{ app.session.set('flotante', flotante) }}
+
+
+                           {# Nombre de Campos  #}         
+                           <div class="col-md-4 text-light bg-dark py-0 mb-1 bg-campos1">{{ 'Nombre' }}</div>
+                           <div class="col-md-3 text-light bg-dark py-0 mb-1 bg-campos1">{{ 'Dirección' }}</div>
+                           <div class="col-md-2 text-light bg-dark py-0 mb-1 bg-campos1">{{ 'Teléfono' }}</div>
+                           <!--<div class="col-md-1 text-light bg-dark py-0 mb-1 bg-campos1">{{ 'Email' }}</div>-->
+                           <div class="col-md-1 text-light bg-dark py-0 mb-1 bg-campos1">{{ 'Web' }}</div>
+
+
+                           <div class="col-md-2 text-light py-0 mb-1" style="background-color: #990066;"><span class="mr-3">{{ 'Email' }}</span><span style="" class=""><input name="checkbox1" type="checkbox" value="Todos" onclick="seleccionar_todo( this, '{{ emailmult1 }}' , '{{ longemailmult1 }}'); mostrardiv('{{ flotante }}'); mostrarformulario();" /></span><a class="text-white" href="#EME"><span id="{{ flotante }}" style="display:none;"><i class="fas fa-arrow-alt-circle-down fa-w-16 fa-2x ml-3"></i></span></a></div>
+
+
+                           {% set contador = 0 %}               
+                           {% set i = 0 %} 
+
+                           {% for resultados in aaa3 %}
+                              {# variables con i, t, c para función seleccionar_todo #}
+                              {% if i > 99 %}
+                                 {% set a00 = i %}
+                              {% elseif i > 9 %}
+                                 {% set a00 = '0' ~ i %}
+                              {% else %}
+                                 {% set a00 = '00' ~ i %}
+                              {% endif %}
+
+                              {% set emailmult1a00 = emailmult1 ~ a00 %}
+                              {{ app.session.set('emailmult1a00', emailmult1a00) }}
+                              {% if tipo == resultados.tipo and cat.categoria == resultados.categoria %}
+
+                                 <div class="col-md-4 {% if contador % 2 == 0 %} bg-light text-dark {% else %} bg-white text-muted {% endif %}">
+                                    {{ resultados.nombre|raw }} 
+                                 </div> 
+                                 <div class="col-md-3 {% if contador % 2 == 0 %} bg-light text-dark {% else %} bg-white text-muted {% endif %}">
+                                    {{ resultados.direccion|raw }} 
+                                 </div> 
+                                 <div class="col-md-2 {% if contador % 2 == 0 %} bg-light text-dark {% else %} bg-white text-muted {% endif %}">
+                                    {{ resultados.telefono|raw }} 
+                                 </div> 
+                                 <div class="col-md-1 {% if contador % 2 == 0 %} bg-light text-dark {% else %} bg-white text-muted {% endif %}">
+                                    {% if resultados.sitioweb != '' and resultados.codigoerror != 1 and resultados.codigoerror != 403 and resultados.codigoerror != 404 and resultados.codigoerror != 500 %}
+                                       <a href="{{ resultados.sitioweb  }}" target="_blank">
+                                          <img  class="img-fluid" src="{{ asset( 'siteweb.gif', 'imgnuevas' ) }}" border="0" alt="Site Web" hspace="0" vspace="0" align="middle" style="float: center; border: 0;" />
+                                       </a>
+                                    {% endif %}                                    
+                                 </div> 
+                                 <div class="col-md-2 {% if contador % 2 == 0 %} bg-light text-dark {% else %} bg-white text-muted {% endif %}">
+                                    {# El contenido de formulario.direcciones se controla en form/fields.html.twig  #}
+                                    {{ app.session.set('w', w) }}
+                                    {{ form_widget(formulario.direcciones[w]) }}  
+                                 </div> 
+
+                                 {% set contador = contador + 1 %}                           
+                                 {% set i = i + 1 %}
+                                 {% set w = w + 1 %}
+                              {% endif %}
+
+                              {# endfor aaa3  #}
+                           {%  endfor  %}
+
+                        {% endif %}
+
+                        {# endfor ppp2  #}
+                     {%  endfor  %}
+                  </div> 
+
+                  {# endfor tipos  #}
+               {%  endfor  %}            
+               {#:::: FIN Dibujamos Alojamientos en el Centro Turístico  ::::#}
+
+               {##### Dibujamos Alojamientos en las Localidades Cercanas  #####}
+
+               {# ******** local2aux => localidades cercanas
+               arraytiposaux => tipos
+               arrayppp2aux => ppp2
+               arrayaaa3aux => aaa3  ************   #}
+
+               {# Bucle de las diferentes Localidades cercanas #}
+               {% set loccercanas = -1  %}
+               {% for cercanas in local2aux %}
+                  {# {% set t = -1 %} #} 
+                  {#  {% set w = 0 %} #} 
+                  {% set loccercanas = loccercanas + 1  %}
+
+                  {% set existeuno = 0 %}
+                  {% for key, tipo in arraytiposaux %}
+                     {% if key starts with cercanas.localidad %}
+                        {% set existeuno = existeuno + 1 %}
+
+                        {% if existeuno == 1 %}
+                           <div class="container-fluid mt-2 mb-5 bg-light" style="font-size:12px;">
+                              {% for textos in aaa0 %}
+                                 <h5 class="pt-4 pb-0 mb-0">Alojamiento en {{ cercanas.localidad }}</h5>
+                                 {% for key, orientacion in arrayorientacionesaux %}
+                                    {% if key == loccercanas %}
+                                       {% set direccion = orientacion  %}
+                                    {%  endif  %}
+                                 {%  endfor  %}
+
+                                 <h6 class="py-0 mb-0 text-secondary">a {{ cercanas.distancia|number_format(0, ',', '.') }} km de {{ centroturistico  }} en dirección {{ direccion }}</h6>
+
+                              {%  endfor  %}
+
+                        {%  endif  %}          
+
+                        {% set t = t + 1 %}
+                        <div class="row">
+                           <div class="col-md-12 text-light bg-info py-1 mt-4">
+                              <h5 class=" py-0 mb-0 mt-0"> {{ tipo|raw }}</h5> 
+                           </div> 
+
+                           {% set c = -1 %} 
+                           {% for cat in arrayppp2aux %}
+                              {% if cat.localidad == cercanas.localidad %}
+                                 {% if tipo == cat.tipo %}
+                                    {% set c = c + 1 %}
+                                    <div class="col-md-12 bg-secondary text-white">           
+                                       <h6 class="pb-0 pt-1 my-0"> {{ cat.categoria|raw }}</h6>
+                                    </div>                  
+
+                                    {# variables con t, c para función seleccionar_todo #}
+                                    {% if t > 9 %}
+                                       {% set t0 = t %}
+                                    {% else %}
+                                       {% set t0 = '0' ~ t %}
+                                    {% endif %}
+
+                                    {% set emailmult1 = 'op' ~ t0 ~ c %}
+                                    {% set longemailmult1 = emailmult1|length %}
+                                    {% set flotante = 'flotante' ~ t0 ~ c %}
+                                    {{ app.session.set('flotante', flotante) }}
+
+
+                                    {# Nombre de Campos  #}         
+                                    <div class="col-md-4 text-light bg-dark py-0 mb-1 bg-campos1">{{ 'Nombre' }}</div>
+                                    <div class="col-md-3 text-light bg-dark py-0 mb-1 bg-campos1">{{ 'Dirección' }}</div>
+                                    <div class="col-md-2 text-light bg-dark py-0 mb-1 bg-campos1">{{ 'Teléfono' }}</div>
+                                    <div class="col-md-1 text-light bg-dark py-0 mb-1 bg-campos1">{{ 'Web' }}</div>
+                                    <div class="col-md-2 text-light py-0 mb-1" style="background-color: #990066;"><span class="mr-3">{{ 'Email' }}</span><span style="" class=""><input name="checkbox1" type="checkbox" value="Todos" onclick="seleccionar_todo( this, '{{ emailmult1 }}' , '{{ longemailmult1 }}'); mostrardiv('{{ flotante }}'); mostrarformulario();" /></span><a class="text-white" href="#EME"><span id="{{ flotante }}" style="display:none;"><i class="fas fa-arrow-alt-circle-down fa-w-16 fa-2x ml-3"></i></span></a></div>
+
+
+                                    {% set contador = 0 %}               
+                                    {% set i = 0 %} 
+
+                                    {% for resultados in arrayaaa3aux %}
+                                       {% if resultados.localidad == cercanas.localidad %}
+                                          {# variables con i, t, c para función seleccionar_todo #}
+                                          {% if i > 99 %}
+                                             {% set a00 = i %}
+                                          {% elseif i > 9 %}
+                                             {% set a00 = '0' ~ i %}
+                                          {% else %}
+                                             {% set a00 = '00' ~ i %}
+                                          {% endif %}
+
+                                          {% set emailmult1a00 = emailmult1 ~ a00 %}
+                                          {{ app.session.set('emailmult1a00', emailmult1a00) }}
+                                          {% if tipo == resultados.tipo and cat.categoria == resultados.categoria %}
+                                             <div class="col-md-4 {% if contador % 2 == 0 %} bg-light text-dark {% else %} bg-white text-muted {% endif %}">
+                                                {{ resultados.nombre|raw }} 
+                                             </div> 
+                                             <div class="col-md-3 {% if contador % 2 == 0 %} bg-light text-dark {% else %} bg-white text-muted {% endif %}">
+                                                {{ resultados.direccion|raw }} 
+                                             </div> 
+                                             <div class="col-md-2 {% if contador % 2 == 0 %} bg-light text-dark {% else %} bg-white text-muted {% endif %}">
+                                                {{ resultados.telefono|raw }} 
+                                             </div> 
+                                             <div class="col-md-1 {% if contador % 2 == 0 %} bg-light text-dark {% else %} bg-white text-muted {% endif %}">
+                                    {% if resultados.sitioweb != '' and resultados.codigoerror != 1 and resultados.codigoerror != 403 and resultados.codigoerror != 404 and resultados.codigoerror != 500 %}
+                                       <a href="{{ resultados.sitioweb  }}" target="_blank">
+                                          <img  class="img-fluid" src="{{ asset( 'siteweb.gif', 'imgnuevas' ) }}" border="0" alt="Site Web" hspace="0" vspace="0" align="middle" style="float: center; border: 0;" />
+                                       </a>
+                                    {% endif %}  
+                                             </div> 
+                                             <div class="col-md-2 {% if contador % 2 == 0 %} bg-light text-dark {% else %} bg-white text-muted {% endif %}">
+                                                {{ app.session.set('w', w) }}
+                                                {# El contenido de formulario.direcciones se controla en form/fields.html.twig  #}
+                                                {{ form_widget(formulario.direcciones[w]) }}  
+                                             </div> 
+
+                                             {% set contador = contador + 1 %}                           
+                                             {% set i = i + 1 %}
+                                             {% set w = w + 1 %}
+                                          {% endif %}
+
+                                       {% endif %}
+                                       {# endfor arrayaaa3aux  #}
+                                    {%  endfor  %}
+
+                                 {% endif %}
+
+                              {% endif %}
+                              {# endfor arrayppp2aux  #}
+                           {%  endfor  %}
+                        </div> 
+
+                     {% endif %}
+                     {# endfor arraytiposaux  #}
+                  {%  endfor  %}
+
+                  {% if existeuno != 0 %}                    
+                     </div>
+                  {% endif  %}
+                  {# endfor local2aux  #}
+               {%  endfor  %}
+               {#:::: FIN Dibujamos Alojamientos en en las Localidades Cercanas  ::::#}
+
+               {##### Dibujamos envío múltiple emails #####}
+
+               <div id="formularioemail" style="display:none;">
+                  <div class="my-4 pt-5 pb-0" >
+                     <h4>Consulte o Reserve su alojamiento:</h4>
+                  </div>
+                  <ul class="fa-ul">
+                     <li class="mb-3"><i class="fa-li fa fa-check-square fa-2x"></i><strong>1.</strong> Seleccione los establecimientos que le interesen haciendo click sobre la imagen de correo o checkbox: <img  class="img-fluid" src="{{ asset( 'email.gif', 'imgnuevas' ) }}" border="0" alt="Email" hspace="0" vspace="0" align="middle" style="float: center; border: 0;" /> <span class="px-1 pt-1"><input type="checkbox"/></span> de cada uno de ellos.<br>
+                        Podrá seleccionar, si lo desea, todos los establecimientos de una categoría en un tipo de alojamiento haciendo click sobre el checkbox en fondo granate: <span style="background-color: #990066" class="ml-2 px-3 pt-1"><input type="checkbox"/></span></li>
+                     <li class="mb-3"><i class="fa-li fa fa-check-square fa-2x"></i><strong>2.</strong> Una vez seleccionados los establecimientos deseados vaya al formulario que se abrirá en la parte inferior de la pantalla. Utilice si lo desea para ello, el icono (que aparece tras el paso 1) de flecha-abajo: <span class="text-light ml-2 pt-2" style="background-color: #990066;"><i class="fas fa-arrow-alt-circle-down fa-w-16 fa-2x px-3"></i></span></li>
+                  </ul>
+
+                  <ul id="EME" class="fa-ul">
+                     <li class="mb-3"><i class="fa-li fa fa-check-square  fa-2x"></i><strong><strong>3.</strong> Rellene el siguiente formulario</strong> para enviar su consulta a los establecimientos seleccionados. Deberá rellenar al menos los campos obligatorios señalados con una marca roja: <img class="img-fluid check" src="{{ asset( 'images/calendario/check.gif') }}" alt=""  width="12px" /></li>
+                  </ul>
+
+                  <div class="mt-5" style="margin-left:100px; border: 1px solid #006699">
+                     <div id="boxtitlemult" class="mb-2" style="background: #333333 url( {{ asset( 'images/logolitle1.gif' ) }}) no-repeat; text-align:right; color:white; height:50px; border-bottom:4px solid #3CF; font-size:140%; padding-top: 10px">{{ tttt }} Envío Múltiple de Emails&nbsp;&nbsp;&nbsp;</div>
+
+                     <div style="padding:10px 20px 10px 25px">  
+
+                        <!--FORM ENVIO EMAIL-->
+                        <div class="row mb-4"><div class="mr-2"><img class="img-fluid check" src="{{ asset( 'images/calendario/check.gif') }}" alt=""  width="12px" /></div>{{ form_row(formulario.nombre) }} 
+                        </div>
+                        <div class="row mb-4"><div class="mr-3"></div>{{ form_row(formulario.telefono) }}
+                        </div>
+                        <div class="row mb-4"><div class="mr-2"><img class="img-fluid check" src="{{ asset( 'images/calendario/check.gif') }}" alt=""  width="12px" /></div>{{ form_row(formulario.email, { 'id': 'emailtxomult' }) }} 
+                        </div>
+                        <div class="row mb-4"><div class="mr-2"><img class="img-fluid check" src="{{ asset( 'images/calendario/check.gif') }}" alt=""  width="12px" /></div>{{ form_row(formulario.fechallegada) }}
+                        </div> 
+                        <div class="row mb-4"><div class="mr-2"><img class="img-fluid check" src="{{ asset( 'images/calendario/check.gif') }}" alt=""  width="12px" /></div>{{ form_row(formulario.fechasalida) }}
+                        </div>
+                        <div class="row mb-4"><div class="mr-2"><img class="img-fluid check" src="{{ asset( 'images/calendario/check.gif') }}" alt=""  width="12px" /></div>{{ form_row(formulario.pasajeros) }}
+                        </div>
+                        <div class="row mb-4"><div class="mr-2"><img class="img-fluid check" src="{{ asset( 'images/calendario/check.gif') }}" alt=""  width="12px" /></div>{{ form_row(formulario.consulta) }}
+                        </div>  
+                        <br />
+                     </div>
+                  </div>
+                  {#:::: FIN Dibujamos envío múltiple emails ::::#}
+
+                  <div class="p-2"> {{ form_end(formulario) }}</div> 
+               </div>
+
+            {% else %}
+               {##### Notificamos la consulta enviada  #####} 
+               {{ include("includes/consultaenviada.html.twig") }}
+            {% endif %}  
+            {#:::: FIN Notificamos la consulta enviada  ::::#}
+
+            {{ include("includes/tablalugares.html.twig") }}         
+      </div>
+
+
+
+         {% elseif menulocal == 'excursiones' %}
+            {# Dibujamos las Excursiones #}
+            {{ include("includes/breadcrumb/menucentrotur.html.twig", {menufinal: 'Excursiones'}) }}
+
+            <div class="container-fluid mt-2 mb-5 bg-light" style="font-size:12px;">
+               {% set contador = 1 %}
+               {% for textos in ppp2 %}
+                  {% if contador < 2 %}
+                     <h3 class="pt-3 pb-2">Paseos y excursiones en {{ textos.lugarturistico }}</h3>
+                  {% endif %}
+                  <div class="row pb-4">
+                     <div class="col-md-12 pl-0">
+                        <h5  align="left" class="pt-2 text-info" >{{ textos.titulo | raw }}</h5>
+                     </div> 
+                     <div class="row">
+                        <div class="col-md-6">
+                           {{ textos.texto | raw }}
+                        </div> 
+
+                        <div class="col-md-6">
+                           {% if excursiones[contador] == 1 %}
+                              <img  class="img-fluid" src="{{ asset( textos.alias ~ contador ~ '.jpg', 'imgexcursiones' ) }}" border="0" alt="{{ textos.titulo }}" hspace="5" vspace="5" align="right" style="margin-left:20px; border-left: 1px solid #FF0000; border-bottom: 1px solid #FF0000;" />
+                           {% endif %}
+                        </div> 
+                     </div> 
+                  </div> 
+                  {% set contador = contador + 1 %}
+               {%  endfor  %}
+               {{ include("includes/tablalugares.html.twig") }}         
+            </div>
+
+
+
+         {% elseif menulocal == 'distancias' %}
+            {# Dibujamos el cuadro de Distancias #}
+            {{ include("includes/breadcrumb/menucentrotur.html.twig", {menufinal: 'Cuadro de distancias'}) }}
+
+            <div class="container mt-2 mb-5 bg-light border-0" style="font-size:12px;">
+               {% for textos in ppp1 %}
+                  <h3 class="pt-3 pb-4">Distancias desde {{ textos.lugarturistico }}</h3>
+
+                  <div class="row">
+                     <div class="col-md-12 bg-secondary text-white py-2" style="letter-spacing: 5px;" align="center">
+                        <h6>Distancia en línea recta desde {{ textos.lugarturistico }}</h6>
+                     </div> 
+               {% endfor %}             
+               {% set contador = 0 %}
+               {% for textos in ppp2 %}
+                  {% if contador < 1 %}         
+                     <div class="col-md-4 text-light bg-dark py-2 mb-1">{{ 'Centro Turístico' }}</div>
+                     <div class="col-md-2 text-light bg-dark py-2 mb-1">{{ 'Distancia' }}</div>
+                     <div class="col-md-2 text-light bg-dark py-2 mb-1">{{ 'Orientación' }}</div>
+                     <div class="col-md-2 text-light bg-dark py-2 mb-1">{{ 'Provincia' }}</div>
+                     <div class="col-md-2 text-light bg-dark py-2 mb-1">{{ 'Región' }}</div>
+                  {% endif %}
+                  {% if textos.distancia < 301 or contador < 3 %}
+                     {% for label, item in regiones %}
+                        {% if item.title == textos.region %}
+                           {% set slug = label %}
+                        {% endif %}
+                     {% endfor %}
+
+                     {% for labell, itemm in _context[slug]  %}
+                        {% if itemm.title == textos.provincia %}
+                           {% set slugg = labell %}
+                        {% endif %}
+                     {% endfor %}
+
+                     <div class="col-md-4  py-2 {% if contador % 2 == 0 %} bg-light text-dark {% else %} bg-primary2 text-dark {% endif %}">
+                        <a href="{{ path('centroturistico', {'slug': slug, 'slugg': slugg, 'sluggg': textos.alias } ) }}">
+                           {{ textos.lugarturistico  }}
+                        </a>
+                     </div>
+                     <div class="col-md-2  py-2 {% if contador % 2 == 0 %} bg-light text-dark {% else %} bg-primary2 text-dark {% endif %}">{{ textos.distancia|number_format(0, ',', '.') ~ ' km'  }}</div>
+                     <div class="col-md-2  py-2 {% if contador % 2 == 0 %} bg-light text-dark {% else %} bg-primary2 text-dark {% endif %}">
+                        {% for key, valor in direccionarray %}
+                           {% if key ==  contador %}
+                              {{ valor }} <br>
+                           {% endif %}
+                        {% endfor %}
+                     </div>
+                     <div class="col-md-2  py-2 {% if contador % 2 == 0 %} bg-light text-dark {% else %} bg-primary2 text-dark {% endif %}">{{ textos.provincia  }}</div>
+                     <div class="col-md-2  py-2 {% if contador % 2 == 0 %} bg-light text-dark {% else %} bg-primary2 text-dark {% endif %}">{{ textos.region  }}</div>
+                  {% endif %}
+                  {% set contador = contador + 1 %}            
+               {% endfor %}
+                  </div> 
+                  {{ include("includes/tablalugares.html.twig") }}            
+            </div>
+
+
+
+         {% elseif slugg is null %}
+            {# Dibujamos las Regiones #}
+            {{ include("includes/breadcrumb/regiones.html.twig") }}
+
+            <div class="container-fluid mt-2 mb-5 bg-light" style="font-size:12px;">
+               {% for textos in ppp2 %}
+                  <h3  align="left" class="pt-2">{{ textos.lugarturistico | raw }}</h3>
+                  {{ include("includes/imagearticulo.html.twig") }}
+                  {{ textos.texto | raw }}
+               {%  endfor  %}
+
+               {{ include("includes/tablalugares.html.twig") }}
+
+            </div>
+
+
+
+         {% elseif sluggg is null and menulocal != 'pescadeportivaprovincia' %}
+            {# Dibujamos las Provincias #}
+            {{ include("includes/breadcrumb/provincias.html.twig") }}
+
+            <div class="container-fluid mt-2 mb-5 bg-light" style="font-size:12px;">
+               {% for textos in ppp2 %}
+                  <h3  align="left" class="pt-2">{{ textos.lugarturistico | raw }}</h3>
+                  {{ include("includes/imagearticulo.html.twig") }}
+                  {{ textos.introtext | raw }}
+               {%  endfor  %}
+               {{ include("includes/tablalugares.html.twig") }}
+
+            </div>
+
+
+
+         {% elseif menulocal == 'pescadeportivaprovincia'  %}
+            {# Dibujamos la Pesca deportiva de la provincia #}
+            {{ include("includes/breadcrumb/provincias.html.twig", {menufinal: 'Pesca Deportiva'}) }}
+
+
+            <div class="container-fluid mt-2 mb-5 bg-light" style="font-size:12px;">
+               <div class="row">
+                  <div class="col-md-7">
+                     {% for textos in pescaprovincia %}
+                        <h3  align="left" class="pt-2 pb-3">Pesca Deportiva en {{ textos.provincia | raw }}</h3>
+                        {{ textos.descripcion | raw }}
+                     {%  endfor  %}
+                  </div> 
+                  <div class="col-md-5 pt-5 pb-2">        
+                     <img   class="img-fluid" src="{{ asset( 'pescadeportiva1.jpg', 'imgraiz' ) }}" border="0" alt="Pesca Deportiva" hspace="0" vspace="0" align="middle" style="float: center; border: 0;" />
+                  </div> 
+               </div> 
+               {{ include("includes/tablalugares.html.twig") }}
+            </div>
+
+
+         {% elseif menulocal == 'pescadeportiva'  %}
+            {# Dibujamos la Pesca deportiva del centro turístico #}
+            {{ include("includes/breadcrumb/menucentrotur.html.twig", {menufinal: 'Pesca Deportiva'}) }}
+
+            <div class="container-fluid mt-2 mb-5 bg-light" style="font-size:12px;">
+               <div class="row">
+                  <div class="col-md-7">
+                     {% for textos in pescacentroturistico %}
+                        <h3  align="left" class="pt-2 pb-3">Pesca Deportiva en {{ textos.lugarturistico | raw }}</h3>
+                        {{ textos.descripcion | raw }}
+                     {%  endfor  %}
+                  </div> 
+                  <div class="col-md-5 pt-5 pb-2">        
+                     <img   class="img-fluid" src="{{ asset( 'pescadeportiva1.jpg', 'imgraiz' ) }}" border="0" alt="Pesca Deportiva" hspace="0" vspace="0" align="middle" style="float: center; border: 0;" />
+                  </div> 
+               </div> 
+               {{ include("includes/tablalugares.html.twig") }}
+            </div>
+
+
+
+         {% else %}
+            {# Dibujamos los Centros Turísticos #}
+            {{ include("includes/breadcrumb/centrosturisticos.html.twig") }}
+
+            <div class="container-fluid mt-2 mb-5 bg-light" style="font-size:12px;">
+               {% for textos in ppp2 %}
+                  <h3  align="left" class="pt-2">{{ textos.lugarturistico | raw }}</h3>
+                  {{ include("includes/imagearticulo.html.twig") }}
+                  {{ textos.introtext | raw }}
+               {%  endfor  %}
+               {{ include("includes/tablalugares.html.twig") }}
+
+            </div>
+
+         {% endif %}
+
+   {% endblock %}
+
+
+
+
+   {# Dibujamos el menú lateral izquierdo #}
+   {% block sideleft %}
+      {% if menulocal is not null or sluggg is not null or slugg is not null %}
+         {{ include("includes/menucentrotur.html.twig") }}
+      {% endif %}
+
+      {{ parent() }}
+   {% endblock %}
+
+   {% block javascripts %}
+      {{ parent() }}
+      {% if menulocal == 'alojamiento' %}
+         <script src="{{ asset('js/includes/scripthabilform0.js') }}"> </script>
+         <script src="{{ asset('js/includes/scripthabilform1.js') }}"> </script>
+         <script src="{{ asset('js/calendario2.js') }}"> </script>
+
+         <script language="javascript">
+function check(idd) {
+   if (document.getElementsByName(idd)[0].checked == false){
+      document.getElementsByName(idd)[0].checked = true;
+   } else {
+      document.getElementsByName(idd)[0].checked = false;
+   }
+}
+
+function mostrardiv(flotante) {
+   div = document.getElementById(flotante);
+   div.style.display = '';
+}
+
+function mostrarformulario() {
+   div = document.getElementById('formularioemail');
+   div.style.display = '';
+}
+
+         </script>
+
+
+      {% endif %}
+   {% endblock %}
+
+
+
+
+   {% block stylesheets %}
+      {{ parent() }}
+      {% if menulocal == 'alojamiento' %}
+         <link rel="stylesheet" href="{{ asset('css/calendario.css') }}" />
+      {% endif %}
+   {% endblock %}

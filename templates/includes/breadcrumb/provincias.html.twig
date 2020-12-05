@@ -1,0 +1,22 @@
+{% for label, item in regiones %}
+   {% if label == slug %}
+      <nav aria-label="breadcrumb">
+         <ol class="breadcrumb2">
+            <li class="breadcrumb-item"><a href="{{ path('principalescentrosturisticos') }}">Inicio</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('region', {'slug': slug } ) }}">{{ item.title }}</a></li>
+
+            {% for labell, itemm in _context[slug]  %}
+               {% if labell == slugg %}
+                  {% if menulocal == null %}                              
+                     <li class="breadcrumb-item active" aria-current="page">{{ itemm.title }}</li>
+                  {% else  %}
+                     <li class="breadcrumb-item"><a href="{{ path('provincia', {'slug': slug, 'slugg': slugg } ) }}">{{ itemm.title }}</a></li> 
+                     <li class="breadcrumb-item active" aria-current="page">{{ menufinal }}</li> 
+                  {% endif %}
+               {% endif %}
+            {% endfor %}
+         </ol>
+      </nav>
+   {% endif %}
+{% endfor %}
+

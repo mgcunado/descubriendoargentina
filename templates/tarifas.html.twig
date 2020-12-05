@@ -1,0 +1,50 @@
+{% extends 'frontend.html.twig' %}
+
+{% block body %}
+   <div class="container mb-5">
+      {% for tarifas in ppp2 %}
+         <div class="table-responsive-md">
+            <div class="container-fluid text-light bg-info pt-3">
+               <h3 class="col-sm-12 d-flex justify-content-center mb-0 pb-0">Tarifas Hostal Ekaitza 2018</h3>
+               <div class="col-sm-12 d-flex justify-content-center pt-0 pb-3">({{ tarifas.iva }} % de IVA incluido)</div>
+            </div>
+            <table class="table table-hover table-info">
+               <thead>
+                  <tr class="text-dark bg-info">
+                     <th scope="col"></th>
+                     <th class="text-center" scope="col">Habitación</th>
+                     <th class="text-center" scope="col">Habitación con terraza</th>
+                     <th class="text-center" scope="col">Apartamento</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr class="text-center">
+                     <th class="bg-info" scope="col">Temporada Baja<br>Septiembre - Junio<br>
+                        <spam class="text-dark small">(precio por noche)</spam>
+                     </th>
+                     <td class="align-middle">{{ tarifas.habtempbaja16 }} <i class="fas fa-euro-sign"></i></td>
+                     <td class="align-middle">{{ tarifas.habtertempbaja16 }} <i class="fas fa-euro-sign"></i></td>
+                     <td class="align-middle">{{ tarifas.apartempbaja16 }} <i class="fas fa-euro-sign"></i></td>
+                  </tr>
+                  <tr class="text-center">
+                     <th class="bg-info" scope="col">Temporada Alta<br>Julio, Agosto,<br>Navidad, Puentes<br>
+                        <spam class="text-dark small">(precio por noche)</spam>
+                     </th>
+                     <td class="align-middle">{{ tarifas.habtempalta16 }} <i class="fas fa-euro-sign"></i></td>
+                     <td class="align-middle">{{ tarifas.habtertempalta16 }} <i class="fas fa-euro-sign"></i></td>
+                     <td class="align-middle">{{ tarifas.apartempalta16 }} <i class="fas fa-euro-sign"></i></td>
+                  </tr>
+
+                 <tr class="text-center">
+                    <th class="bg-info" scope="col"></th>
+                     <td colspan="3" class="align-middle bg-info">{{ tarifas.notalimpiezaEs | raw }}</td>
+                  </tr>
+                  
+               </tbody>
+
+            </table> 
+
+         </div>
+      {%  endfor  %}
+   </div>
+{% endblock %}

@@ -1,0 +1,12 @@
+<nav aria-label="breadcrumb">
+<ol class="breadcrumb2">
+   {% if menufinal == 'Alojamiento en los principales Centros Turísticos'  %}
+ <li class="breadcrumb-item active" aria-current="page">Inicio</li>
+   {% else  %}
+      <li class="breadcrumb-item"><a href="{{ path('principalescentrosturisticos') }}">Inicio</a></li>
+   <li class="breadcrumb-item active" aria-current="page">{{ menufinal }}</li>
+   {% endif  %}
+</ol>
+</nav>
+
+

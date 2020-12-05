@@ -1,0 +1,61 @@
+{% if sluggg is not null %}
+   {# Menu Centro Turístico #}
+   <div class="row mt-3"  stye="font-size:11px;">
+      <div class="col-md-12 justify-content-center text-light font-weight-bold text-uppercase bg-info p-3" style="font-size:14px;" align="center">
+
+         {% set textolugarturistico = 'ppp' %}
+         {% for label, item in _context[slugg]  %}
+            {% if label == sluggg %}
+               {% set textolugarturistico = item.title %}
+               {{ textolugarturistico  }}
+            {% endif %}
+         {% endfor %}
+      </div>
+
+      <div class="col-md-12 pt-0 justify-content-center text-light bg-info" align="center" >
+         <a href="{{ path('centroturistico', {'slug': slug, 'slugg':slugg, 'sluggg': sluggg }) }}" class="list-group-item list-group-item-action text-light {% if menulocal == null %} bg-infoactive {% else %} bg-info {% endif %}">Presentación</a>
+
+         {% if sluggg not in alojamientosfaltantes %}
+            <a href="{{ path('alojamiento', {'slug': slug, 'slugg':slugg, 'sluggg': sluggg }) }}" class="list-group-item list-group-item-action text-light {% if menulocal == 'alojamiento' %} bg-infoactive {% else %} bg-info {% endif %}">Alojamiento</a>
+         {% endif %}
+
+         {% if sluggg != 'ciudaddecatamarca' %}
+         <a href="{{ path('excursiones', {'slug': slug, 'slugg':slugg, 'sluggg': sluggg }) }}" class="list-group-item list-group-item-action text-light {% if menulocal == 'excursiones' %} bg-infoactive {% else %} bg-info {% endif %}">Excursiones</a>
+         {% endif %}
+
+         {% if pescacentroturistico is not empty %}
+            <a href="{{ path('pescadeportiva', {'slug': slug, 'slugg':slugg, 'sluggg': sluggg }) }}" class="list-group-item list-group-item-action text-light {% if menulocal == 'pescadeportiva' %} bg-infoactive {% else %} bg-info {% endif %}">Pesca Deportiva</a>
+         {% endif %}
+
+
+         <a href="{{ path('distancias', {'slug': slug, 'slugg':slugg, 'sluggg': sluggg }) }}" class="list-group-item list-group-item-action text-light {% if menulocal == 'distancias' %} bg-infoactive {% else %} bg-info {% endif %}">Cuadro de distancias</a>
+         <a href="{{ path('galeria', {'slug': slug, 'slugg':slugg, 'sluggg': sluggg }) }}" class="list-group-item list-group-item-action text-light {% if menulocal == 'galeria' %} bg-infoactive {% else %} bg-info {% endif %}">Galería de Imágenes</a>
+
+
+      </div>
+   </div>
+
+{% else %}
+   {# Menu Provincial #}
+   <div class="row mt-3"  stye="font-size:11px;">
+      <div class="col-md-12 justify-content-center text-light font-weight-bold text-uppercase bg-secondary p-3" style="font-size:14px;" align="center">
+         {% set contador = 1 %}
+         {% for textos in ppp2 %}
+            {% if contador < 2 %}
+               {{ textos.lugarturistico  }}
+            {% endif %}
+            {% set contador = contador + 1 %}
+         {%  endfor  %}
+      </div>
+
+      <div class="col-md-12 pt-0 justify-content-center text-light bg-secondary" align="center" >
+         <a href="{{ path('provincia', {'slug': slug, 'slugg':slugg, 'sluggg': null }) }}" class="list-group-item list-group-item-action text-light {% if menulocal == null %} bg-secondaryactive {% else %} bg-secondary {% endif %}">Presentación</a>
+
+         {% if slugg != 'entrerios' and slugg != 'mendoza' %}
+            <a href="{{ path('pescadeportivaprovincia', {'slug': slug, 'slugg':slugg, 'sluggg': null }) }}" class="list-group-item list-group-item-action text-light {% if menulocal == 'pescadeportivaprovincia' %} bg-secondaryactive {% else %} bg-secondary {% endif %}">Pesca Deportiva</a>
+         {% endif %}
+
+      </div>
+   </div>
+{% endif %}   
+
