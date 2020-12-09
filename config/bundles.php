@@ -26,4 +26,5 @@ return [
     App\Application\Sonata\UserBundle\ApplicationSonataUserBundle::class => ['all' => true],
     Sonata\SeoBundle\SonataSeoBundle::class => ['all' => true],
     Symfony\Bundle\WebServerBundle\WebServerBundle::class => ['dev' => true],
+    Twig\Extra\TwigExtraBundle\TwigExtraBundle::class => ['all' => true],
 ];
