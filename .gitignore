@@ -5,6 +5,7 @@ descubriendoargentina.tar.gz
 /material/
 /public/bundles/
 /public/images/
+/public/matomo/
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
