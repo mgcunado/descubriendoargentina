@@ -48,9 +48,6 @@ class ApctaController extends Controller
    }      
 
 
-   /** 
-    * @Route("/alojamientos", name="alojamientos")
-    */
    public function maparegionesAction()
    {  
       $em = $this->getDoctrine()->getManager();
