@@ -35,9 +35,14 @@
          <div class="row mb-4"><div class="mr-2"><img class="img-fluid check" src="{{ asset( 'images/calendario/check.gif') }}" alt=""  width="12px" /></div>{{ form_row(formulario.consulta) }}
          </div>  
          <br />
-         {# Comienzo del campo honeypot #}
-         <div style="display: none;" class="row mb-4"><div class="mr-2"><img class="img-fluid check" src="{{ asset( 'images/calendario/check.gif') }}" alt=""  width="12px" /></div>{{ form_row(formulario.controlspam) }} 
+         {# Comienzo del campo operación matemática #}
+         <div class="row mb-4"><div class="mr-2"><img class="img-fluid check" src="{{ asset( 'images/calendario/check.gif') }}" alt=""  width="12px" /></div>{{ form_row(formulario.calculomatematico) }} 
          </div>
+         {# Final del campo operación matemática #}
+
+        {# Comienzo del campo honeypot #}
+        {#<div style="display: none;" class="row mb-4"><div class="mr-2"><img class="img-fluid check" src="{{ asset( 'images/calendario/check.gif') }}" alt=""  width="12px" /></div>{{ form_row(formulario.controlspam) }} 
+        </div>#}
          {# Final del campo honeypot #}
 
       </div>

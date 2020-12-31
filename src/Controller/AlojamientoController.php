@@ -186,8 +186,9 @@ class AlojamientoController extends Controller
 
       if ($formulario->isSubmitted() && $formulario->isValid()) {
 
-         $emailenviados = $formulario->getData();
-         $controlspam = $formulario['controlspam']->getData(); // campo oculta para controlar el envio de form por robots
+         //$emailenviados = $formulario->getData();
+         $calculomatematico = $formulario['calculomatematico']->getData(); // campo oculta para controlar el envio de form por robots*/
+         $resultadocalculo = $formulario['resultadocalculo']->getData();
 
          //lógica para saber a donde enviar el email múltiple
          $emailmultiple = array();
@@ -228,8 +229,11 @@ class AlojamientoController extends Controller
             $message->addbcc($directionbcc);
          }            
 
-         if($controlspam == ''){
+         if($calculomatematico == $resultadocalculo){
             $mailer->send($message);
+            $calculorealizado = 'ok';
+         } else {
+            $calculorealizado = 'ko';
          }
 
          $consultaenviada = 'si';
@@ -238,6 +242,7 @@ class AlojamientoController extends Controller
       } else {
 
       $consultaenviada = 'no';
+      $calculorealizado = '';
       $emailenviados = null;
       $formulario = $formulario->createView();
       $emailmultiple = null;
@@ -250,7 +255,7 @@ class AlojamientoController extends Controller
       $pescacentroturistico = $em->getRepository('App:PescaDeportiva')->findPescadeportiva($sluggg);
 
       return $this->render('articulo.html.twig', array(
-         'emailenviados' => $emailenviados, 'formulario' => $formulario, 'emailmultiple' => $emailmultiple, 'menulocal' => $menulocal, 'ppp2' => $ppp2,  'ppp3' => $ppp3, 'slug' => $slug, 'slugg' => $slugg,  'sluggg' => $sluggg, 'aaa0' => $aaa0, 'aaat12' => $aaat12, 'tipos' => $tipos, 'aaa3' => $aaa3, 'excursiones' => null, 'direccionarray' => null, 'local2aux' => $local2aux, 'arraytiposaux' => $arraytiposaux, 'arrayppp2aux' => $arrayppp2aux, 'arrayaaa3aux' => $arrayaaa3aux, 'arrayorientacionesaux' => $arrayorientacionesaux, 'coordenadasController' => $coordenadasController, 'consultaenviada' => $consultaenviada, 'pescacentroturistico' => $pescacentroturistico, 'titulo' => $titulo, 'seoPage' => $seoPage
+         'emailenviados' => $emailenviados, 'formulario' => $formulario, 'emailmultiple' => $emailmultiple, 'menulocal' => $menulocal, 'ppp2' => $ppp2,  'ppp3' => $ppp3, 'slug' => $slug, 'slugg' => $slugg,  'sluggg' => $sluggg, 'aaa0' => $aaa0, 'aaat12' => $aaat12, 'tipos' => $tipos, 'aaa3' => $aaa3, 'excursiones' => null, 'direccionarray' => null, 'local2aux' => $local2aux, 'arraytiposaux' => $arraytiposaux, 'arrayppp2aux' => $arrayppp2aux, 'arrayaaa3aux' => $arrayaaa3aux, 'arrayorientacionesaux' => $arrayorientacionesaux, 'coordenadasController' => $coordenadasController, 'consultaenviada' => $consultaenviada, 'calculorealizado' => $calculorealizado, 'pescacentroturistico' => $pescacentroturistico, 'titulo' => $titulo, 'seoPage' => $seoPage
       ));
    } 
 

@@ -15,6 +15,8 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
@@ -28,6 +30,10 @@ class EmailenviadosType extends AbstractType
 {
    public function buildForm(FormBuilderInterface $builder, array $options)
    {
+      $numero1 = random_int(1,10);
+      $numero2 = random_int(1,10);
+      $resultado = $numero1 + $numero2;
+     
       $builder
          ->add('direcciones', CollectionType::class, array(
          'entry_type' => AlojamientosType::class,
@@ -99,12 +105,21 @@ class EmailenviadosType extends AbstractType
              'attr' => array('rows' => 4, 'cols' => 40, 'style' => 'vertical-align: top'),
                 'mapped'   => false
                ))
-             ->add('controlspam', TextType::class, array(
+/*             ->add('controlspam', TextType::class, array(
                 'label' => 'Control:',
                 'required' => false,
                'mapped'   => false
-               ))
-            ->add('Enviar', SubmitType::class)
+))*/
+             ->add('calculomatematico', IntegerType::class, array(
+                'label' => 'Responda: '.$numero1. ' + '.$numero2. ' = ',
+                'required' => true,
+                'mapped'   => false
+             ))
+             ->add('resultadocalculo', HiddenType::class, [
+                    'data' => $resultado,
+                    'mapped'   => false
+            ])
+           ->add('Enviar', SubmitType::class)
       ;
    }
 

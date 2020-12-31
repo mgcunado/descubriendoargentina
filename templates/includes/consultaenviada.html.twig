@@ -1,8 +1,16 @@
 <div class="row">
    <div class="col-md-3">
    </div>
-   <div class="col-md-6 text-light bg-info py-5 my-5" style='text-align:center; font-size:125%'>
-      Su consulta fue enviada correctamente.<br/>Gracias por su visita.
+      {% if calculorealizado == 'ok' %}
+    <div class="col-md-6 text-light bg-info py-5 my-5" style='text-align:center; font-size:125%'>
+     Su consulta fue enviada correctamente.<br/>Gracias por su visita.
+      {% else %}
+    <div class="col-md-6 text-light bg-danger py-5 my-5" style='text-align:center; font-size:125%'>
+        El resultado de la suma no ha sido correcto!<br/>
+        Su consulta NO fue enviada.<br/>
+        Vuelva a intentarlo realizando el cálculo numérico correctamente.<br/><br/>
+        <a href="{{ path('alojamiento', {'slug': slug, 'slugg':slugg, 'sluggg': sluggg }) }}" class="list-group-item list-group-item-action text-light bg-dark"><h4>Volver a intentarlo!</h4></a>
+      {% endif %}
    </div>
 
    <div class="col-md-3">
