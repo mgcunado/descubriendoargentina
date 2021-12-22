@@ -24,22 +24,21 @@ use Symfony\Component\Mime\Email;
 
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 
+use App\Service\SeoData;
+
 class AlojamientoController extends Controller
 {
     /**
      * @Route("/ar/{slug}/{slugg}/{sluggg}/alojamiento/", defaults={"slug"="patagonia", "slugg"="rionegro", "sluggg"="bariloche", "menulocal"="alojamiento"}, name="alojamiento")
      */
-    public function alojamientoAction($slug, $slugg, $sluggg, $menulocal, Request $request, MailerInterface $mailer)
+    public function alojamientoAction(Request $request, MailerInterface $mailer, SeoData $seoData, $slug, $slugg, $sluggg, $menulocal)
     {
         $em = $this->getDoctrine()->getManager();
-        $seoPage = $this->get('sonata.seo.page');
-        $seoPage
-            ->addMeta('name', 'robots', 'index, follow');
 
         $aaa0 = $em->getRepository('App:Alojamientos')->findAlojamiento0($sluggg);
 
         $localidad = $aaa0[0]['centroTuristico'];
-        $titulo = 'Alojamiento en ' . $localidad;
+        /* $titulo = 'Alojamiento en ' . $localidad; */
         $provincia = $aaa0[0]['provincia'];
 
         $aaat12 = $em->getRepository('App:Alojamientos')->findAlojamientot12($localidad, $provincia);
@@ -166,23 +165,18 @@ class AlojamientoController extends Controller
 
         $formulario->handleRequest($request);
 
-        $seoPage
-            ->setTitle($titulo)
-            ->addMeta('name', 'keywords', 'argentina alojamiento ' . $localidad . ' hotel cabaña albergue bungalow hostal camping excursiones distancias')
-            ->addMeta('name', 'description', 'Alojamiento en ' . $localidad . ', uno de los centros turísticos de Argentina')
-            ->addMeta('property', 'og:title', $titulo)
-            ->addMeta('property', 'og:type', 'article')
-            ->addMeta('property', 'og:description', 'Alojamiento en ' . $localidad . ', uno de los centros turísticos de Argentina');
+        $titulo = 'Alojamiento en ' . $localidad;
+        $keywords = 'argentina alojamiento ' . $localidad . ' hotel cabaña albergue bungalow hostal camping excursiones distancias';
+        $description = 'Alojamiento en ' . $localidad . ', uno de los centros turísticos de Argentina';
 
+        $seoPage = $this->get('sonata.seo.page');
+        $SeoPage = $seoData->addData($titulo, $keywords, $description, $seoPage);
 
         /* Incluimos las Coordenadas */
         $coordenadasController = $this->get('coordenadasservice')->maparegionesAction();
         $pescacentroturistico = $em->getRepository('App:PescaDeportiva')->findPescadeportiva($sluggg);
 
-
         if ($formulario->isSubmitted() && $formulario->isValid()) {
-
-            //$emailenviados = $formulario->getData();
             $calculomatematico = $formulario['calculomatematico']->getData(); // campo oculta para controlar el envio de form por robots*/
             $resultadocalculo = $formulario['resultadocalculo']->getData();
 

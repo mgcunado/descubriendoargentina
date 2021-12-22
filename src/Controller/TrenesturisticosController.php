@@ -16,6 +16,7 @@ use App\Entity\Rutadelvino;
 use App\Entity\Trenesturisticos;
 
 use App\Service\TransformName;
+use App\Service\SeoData;
 
 use App\Entity\Alojamientos;
 use App\Entity\Emailenviados;
@@ -35,26 +36,22 @@ class TrenesturisticosController extends Controller
     /**
      * @Route("/trenesturisticos", defaults={"menulocal"="trenesturisticos"}, name="trenesturisticos")
      */
-    public function trenesturisticosAction(Request $request, TransformName $transformName, $menulocal)
+    public function trenesturisticosAction(Request $request, TransformName $transformName, SeoData $seoData, $menulocal)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $ppp1 = $em->getRepository('App:JosContent')->findProvinciastrenesturisticos();
         $titulo = 'Trenes Turísticos en Argentina';
-        $filas = count($ppp1);
+        $keywords = 'argentina trenes turísticos alojamiento excursiones distancia';
+        $description = 'Trenes turísticos en Argentina';
+
         $seoPage = $this->get('sonata.seo.page');
-        $seoPage
-            ->addMeta('name', 'robots', 'index, follow')
-            ->setTitle($titulo)
-            ->addMeta('name', 'keywords', 'argentina trenes turísticos alojamiento excursiones distancia')
-            ->addMeta('name', 'description', 'Trenes turísticos en Argentina')
-            ->addMeta('property', 'og:title', $titulo)
-            ->addMeta('property', 'og:type', 'article')
-            ->addMeta('property', 'og:description', 'Trenes turísticos en Argentina');
+        $SeoPage = $seoData->addData($titulo, $keywords, $description, $seoPage);
+
+        $em = $this->getDoctrine()->getManager();
+        $ppp1 = $em->getRepository('App:JosContent')->findProvinciastrenesturisticos();
 
         $data = array('Todas' => '%');
         $i = 0;
-        while ($i < $filas) {
+
+        while ($i < count($ppp1)) {
             $datanew = array($ppp1[$i]['provincia'] => $ppp1[$i]['provincia']);
             $data = array_merge($data, $datanew);
             $i = $i + 1;
@@ -78,7 +75,6 @@ class TrenesturisticosController extends Controller
         $formulario->handleRequest($request);
 
         if ($formulario->isSubmitted()) {
-            // $trenesturisticos = $formulario->getData();
             $provincia = $formulario->get('provincia')->getData();
             $ppp2 = $em->getRepository('App:JosContent')->findTrenesturisticos($provincia);
 

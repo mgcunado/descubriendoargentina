@@ -11,22 +11,28 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\JosContent;
 use App\Entity\JosMenu;
 
+use App\Service\SeoData;
+
 class ExcursionesController extends Controller
 {
     /**
      * @Route("/ar/{slug}/{slugg}/{sluggg}/excursiones/", defaults={"slug"="patagonia", "slugg"="rionegro", "sluggg"="bariloche", "menulocal"="excursiones"}, name="excursiones")
      */
-    public function excursionesAction($slug, $slugg, $sluggg, $menulocal, Request $request)
+    public function excursionesAction(Request $request, SeoData $seoData, $slug, $slugg, $sluggg, $menulocal)
     {
         $em = $this->getDoctrine()->getManager();
-        $seoPage = $this->get('sonata.seo.page');
-        $seoPage
-            ->addMeta('name', 'robots', 'index, follow');
 
         //excursiones
         $ppp1 = null;
         $ppp2 = $em->getRepository('App:JosContent')->findExcursiones($sluggg);
         $titulo = 'Excursiones en ' . $ppp2[0]['lugarturistico'];
+        $keywords = 'argentina excursiones paseos alojamiento ' . $ppp2[0]['lugarturistico'] . ' distancias';
+        $description = 'Paseos y excursiones en ' . $ppp2[0]['lugarturistico'] . ', uno de los centros turísticos de Argentina';
+
+        $seoPage = $this->get('sonata.seo.page');
+        $SeoPage = $seoData->addData($titulo, $keywords, $description, $seoPage);
+
+
         $ppp3 = $em->getRepository('App:TablaEnlacesCentros')->findTablalugares2($slugg);
 
         //construyendo array de existencia de archivos para pasarlo a twig a través de una variable declarada (excursiones)
@@ -44,17 +50,6 @@ class ExcursionesController extends Controller
         }
         $excursiones = $array;
         $direccionarray = null;
-        $seoPage
-            ->setTitle($titulo)
-            ->addMeta('name', 'keywords', 'argentina excursiones paseos alojamiento ' . $ppp2[0]['lugarturistico'] . ' distancias')
-            ->addMeta('name', 'description', 'Paseos y excursiones en ' . $ppp2[0]['lugarturistico'] . ', uno de los centros turísticos de Argentina')
-            ->addMeta('property', 'og:title', $titulo)
-            ->addMeta('property', 'og:type', 'article')
-            ->addMeta('property', 'og:description', 'Paseos y excursiones en ' . $ppp2[0]['lugarturistico'] . ', uno de los centros turísticos de Argentina');
-
-
-        //$menulocal = 'excursiones';
-
 
         /* Incluimos las Coordenadas */
         $coordenadasController = $this->get('coordenadasservice')->maparegionesAction();

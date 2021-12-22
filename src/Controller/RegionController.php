@@ -11,40 +11,36 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\JosContent;
 use App\Entity\JosMenu;
 
+use App\Service\SeoData;
+
 class RegionController extends Controller
 {
-   /** 
-    * @Route("/ar/{slug}/", defaults={"slug"="patagonia", "menulocal"=null}, name="region")
-   */
-   public function regionAction($slug, $menulocal, Request $request)
-   {   
-      $em = $this->getDoctrine()->getManager();
-      $seoPage = $this->get('sonata.seo.page');
-      $seoPage
-         ->addMeta('name', 'robots', 'index, follow');      
+    /**
+     * @Route("/ar/{slug}/", defaults={"slug"="patagonia", "menulocal"=null}, name="region")
+     */
+    public function regionAction(Request $request, SeoData $seoData, $slug, $menulocal)
+    {
+        $em = $this->getDoctrine()->getManager();
 
-      //regiones
-         $ppp1 = $em->getRepository('App:JosMenu')->findImagen($slug);
-         $ppp2 = $em->getRepository('App:JosContent')->findTextos($slug);
-         $titulo = $ppp2[0]['lugarturistico'];
-         $ppp3 = $em->getRepository('App:TablaEnlacesCentros')->findTablalugares1($slug);
-         $slugg = null;
+        //regiones
+        $ppp1 = $em->getRepository('App:JosMenu')->findImagen($slug);
+        $ppp2 = $em->getRepository('App:JosContent')->findTextos($slug);
 
-         $seoPage
-            ->setTitle($titulo)
-            ->addMeta('name', 'keywords', 'argentina alojamiento '.$ppp2[0]['lugarturistico'].' excursiones distancias')
-            ->addMeta('name', 'description', $ppp2[0]['lugarturistico'].' es una de las regiones que componen Argentina')
-            ->addMeta('property', 'og:title', $titulo)
-            ->addMeta('property', 'og:type', 'article')
-            ->addMeta('property', 'og:description', $ppp2[0]['lugarturistico'].' es una de las regiones que componen Argentina');
+        $titulo = $ppp2[0]['lugarturistico'];
+        $keywords = 'argentina alojamiento ' . $ppp2[0]['lugarturistico'] . ' excursiones distancias';
+        $description = $ppp2[0]['lugarturistico'] . ' es una de las regiones que componen Argentina';
 
+        $seoPage = $this->get('sonata.seo.page');
+        $SeoPage = $seoData->addData($titulo, $keywords, $description, $seoPage);
 
-      /* Incluimos las Coordenadas */
-      $coordenadasController = $this->get('coordenadasservice')->maparegionesAction();
+        $ppp3 = $em->getRepository('App:TablaEnlacesCentros')->findTablalugares1($slug);
+        $slugg = null;
 
-      return $this->render('region.html.twig', array(
-         'ppp1' => $ppp1, 'ppp2' => $ppp2, 'ppp3' => $ppp3, 'slug' => $slug,  'slugg' => $slugg,  'menulocal' => $menulocal, 'coordenadasController' => $coordenadasController, 'titulo' => $titulo, 'seoPage' => $seoPage
-      )); 
-   } 
+        /* Incluimos las Coordenadas */
+        $coordenadasController = $this->get('coordenadasservice')->maparegionesAction();
 
+        return $this->render('region.html.twig', array(
+            'ppp1' => $ppp1, 'ppp2' => $ppp2, 'ppp3' => $ppp3, 'slug' => $slug,  'slugg' => $slugg,  'menulocal' => $menulocal, 'coordenadasController' => $coordenadasController, 'titulo' => $titulo, 'seoPage' => $seoPage
+        ));
+    }
 }

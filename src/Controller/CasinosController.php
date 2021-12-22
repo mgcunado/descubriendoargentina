@@ -16,6 +16,7 @@ use App\Entity\Rutadelvino;
 use App\Entity\Trenesturisticos;
 
 use App\Service\TransformName;
+use App\Service\SeoData;
 
 use App\Entity\Alojamientos;
 use App\Entity\Emailenviados;
@@ -34,28 +35,21 @@ class CasinosController extends Controller
     /**
      * @Route("/casinos", defaults={"menulocal"="casinos"}, name="casinos")
      */
-    public function casinosAction(Request $request, TransformName $transformName, $menulocal)
+    public function casinosAction(Request $request, TransformName $transformName, SeoData $seoData, $menulocal)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $ppp1 = $em->getRepository('App:JosContent')->findProvinciascasinos();
         $titulo = 'Casinos en Argentina';
-        $filas = count($ppp1);
+        $keywords = 'argentina casinos alojamiento excursiones distancia';
+        $description = 'Casinos en Argentina';
+
         $seoPage = $this->get('sonata.seo.page');
-        $seoPage
-            ->addMeta('name', 'robots', 'index, follow')
-            ->setTitle($titulo)
-            ->addMeta('name', 'keywords', 'argentina casinos alojamiento excursiones distancia')
-            ->addMeta('name', 'description', 'Casinos en Argentina')
-            ->addMeta('property', 'og:title', $titulo)
-            ->addMeta('property', 'og:type', 'article')
-            ->addMeta('property', 'og:description', 'Casinos en Argentina');
+        $SeoPage = $seoData->addData($titulo, $keywords, $description, $seoPage);
 
-
+        $em = $this->getDoctrine()->getManager();
+        $ppp1 = $em->getRepository('App:JosContent')->findProvinciastermas();
 
         $data = array('Todas' => '%');
         $i = 0;
-        while ($i < $filas) {
+        while ($i < count($ppp1)) {
             $datanew = array($ppp1[$i]['provincia'] => $ppp1[$i]['provincia']);
             $data = array_merge($data, $datanew);
             $i = $i + 1;
