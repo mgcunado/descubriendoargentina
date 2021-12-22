@@ -12,14 +12,14 @@ jQuery.fn.calendarioDW = function() {
                 var dias = ["Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"];
                 //nombres de los meses
                 var nombresMes = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"]
-                
+
                 //elemento input
                 var elem = $(this);
                 //creo un enlace-botón para activar el calendario
                 var boton = $("<a class='botoncal' href='#'><span></span></a>");
                 //inserto el enlace-botón después del campo input
                 elem.after(boton);
-                
+
                 //evento para clic en el botón
                 boton.click(function(e){
                         e.preventDefault();
@@ -31,7 +31,7 @@ jQuery.fn.calendarioDW = function() {
                         //if (alertaroja == 1)
                         mostrarCalendario();
                 });
-                
+
                 //función para mostrar el calendario
                 function mostrarCalendario(){
                         if(!mostrando){
@@ -48,13 +48,13 @@ jQuery.fn.calendarioDW = function() {
                                                 codigoInsertar += ' class="domingo ultimo"';
                                         }
                                         codigoInsertar += ">" + valor + '</span>';
-                                        
+
                                         capaDiasSemana.append(codigoInsertar);
                                 });
-                                
+
                                 //capa con los días del mes
                                 capaDiasMes = $('<div class="diasmes"></div>');
-                                
+
                                 //un objeto de la clase date para calculo de fechas
                                 var objFecha = new Date();
                                 //miro si en el campo INPUT tengo alguna fecha escrita
@@ -76,12 +76,12 @@ jQuery.fn.calendarioDW = function() {
                                 }
 
 
-                                //mes y año actuales 
+                                //mes y año actuales
                                 var mes = objFecha.getMonth();
                                 var ano = objFecha.getFullYear();
                                 //muestro los días del mes y año dados
                                 muestraDiasMes(mes, ano);
-                                
+
                                 //control para ocultar el calendario
                                 var botonCerrar = $('<a href="#" class="calencerrar"><span></span></a>');
                                 botonCerrar.click(function(e){
@@ -90,7 +90,7 @@ jQuery.fn.calendarioDW = function() {
                                 })
                                 var capaCerrar = $('<div class="capacerrar"></div>');
                                 capaCerrar.append(botonCerrar)
-                                
+
                                 //controles para ir al mes siguiente / anterior
                                 var botonMesSiguiente = $('<a href="#" class="botonmessiguiente"><span></span></a>');
                                 botonMesSiguiente.click(function(e){
@@ -108,7 +108,7 @@ jQuery.fn.calendarioDW = function() {
                                         if (mes==-1){
                                                 ano--;
                                                 mes = 11
-                                        }       
+                                        }
                                         capaDiasMes.empty();
                                         muestraDiasMes(mes, ano);
                                 })
@@ -128,22 +128,22 @@ jQuery.fn.calendarioDW = function() {
                                         e.preventDefault();
                                         ano--;
                                         if (mes==0)
-                                        mes = 12;       
+                                        mes = 12;
                                         capaDiasMes.empty();
                                         muestraDiasMes(mes, ano);
                                 })
 
-                                
+
                                 //capa para mostrar el texto del mes y ano actual
                                 var capaTextoMesAno = $('<div class="textomesano"></div>');
                                 var capaTextoMesAnoControl = $('<div class="mesyano"></div>')
                                 capaTextoMesAno.append(botonAnoSiguiente);
-                                capaTextoMesAno.append(botonAnoAnterior);                               
+                                capaTextoMesAno.append(botonAnoAnterior);
                                 capaTextoMesAno.append(botonMesSiguiente);
                                 capaTextoMesAno.append(botonMesAnterior);
                                 capaTextoMesAno.append(capaTextoMesAnoControl);
                                 capaTextoMesAnoControl.append(capaTextoMesAnoActual);
-                                
+
                                 //calendario y el borde
                                 calendario = $('<div class="capacalendario"></div>');
                                 var calendarioBorde = $('<div class="capacalendarioborde"></div>');
@@ -152,7 +152,7 @@ jQuery.fn.calendarioDW = function() {
                                 calendarioBorde.append(capaTextoMesAno);
                                 calendarioBorde.append(capaDiasSemana);
                                 calendarioBorde.append(capaDiasMes);
-                                
+
                                 //inserto el calendario en el documento
                                 $(document.body).append(calendario);
                                 //lo posiciono con respecto al boton
@@ -162,29 +162,29 @@ jQuery.fn.calendarioDW = function() {
                                 })
                                 //muestro el calendario
                                 calendario.show();
-                                
+
                         }else{
                                 //es que el calendario ya se estaba mostrando...
                                 calendario.fadeOut();
                                 calendario.fadeIn();
-                                
+
                         }
-                        
+
                 }
-                
+
                 function muestraDiasMes(mes, ano){
                         //console.log("muestro (mes, ano): ", mes, " ", ano)
                         //muestro en la capaTextoMesAno el mes y ano que voy a dibujar
                         capaTextoMesAnoActual.text(nombresMes[mes] + " " + ano);
-                        
+
                         //muestro los días del mes
                         var contadorDias = 1;
-                        
+
                         //calculo la fecha del primer día de este mes
                         var primerDia = calculaNumeroDiaSemana(1, mes, ano);
                         //calculo el último día del mes
                         var ultimoDiaMes = ultimoDia(mes,ano);
-                        
+
                         //escribo la primera fila de la semana
                         for (var i=0; i<7; i++){
                                 if (i < primerDia){
@@ -221,7 +221,7 @@ jQuery.fn.calendarioDW = function() {
                                 var diaActual = $(codigoDia);
                                 capaDiasMes.append(diaActual);
                         }
-                        
+
                         //recorro todos los demás días hasta el final del mes
                         var diaActualSemana = 1;
                         while (contadorDias <= ultimoDiaMes){
@@ -257,7 +257,7 @@ jQuery.fn.calendarioDW = function() {
                                 var diaActual = $(codigoDia);
                                 capaDiasMes.append(diaActual);
                         }
-                        
+
                         //compruebo que celdas me faltan por escribir vacias de la última semana del mes
                         diaActualSemana--;
                         if (diaActualSemana%7!=0){
@@ -271,7 +271,7 @@ jQuery.fn.calendarioDW = function() {
                                         capaDiasMes.append(diaActual);
                                 }
                         }
-                        
+
                         //crear el evento para cuando se pulsa un día de mes
                         //console.log(capaDiasMes.children());
                         capaDiasMes.children().click(function(e){
@@ -286,29 +286,29 @@ jQuery.fn.calendarioDW = function() {
                 function calculaNumeroDiaSemana(dia,mes,ano){
                         var objFecha = new Date(ano, mes, dia);
                         var numDia = objFecha.getDay();
-                        if (numDia == 0) 
+                        if (numDia == 0)
                                 numDia = 6;
                         else
                                 numDia--;
                         return numDia;
                 }
-                
+
                 //función para ver si una fecha es correcta
                 function checkdate ( m, d, y ) {
                         // función por http://kevin.vanzonneveld.net
                         // extraida de las librerías phpjs.org manual en http://www.desarrolloweb.com/manuales/manual-librerias-phpjs.html
                         return m > 0 && m < 13 && y > 0 && y < 32768 && d > 0 && d <= (new Date(y, m, 0)).getDate();
                 }
-                
+
                 //funcion que devuelve el último día de un mes y año dados
-                function ultimoDia(mes,ano){ 
-                        var ultimo_dia=28; 
-                        while (checkdate(mes+1,ultimo_dia + 1,ano)){ 
-                           ultimo_dia++; 
-                        } 
-                        return ultimo_dia; 
-                } 
-                
+                function ultimoDia(mes,ano){
+                        var ultimo_dia=28;
+                        while (checkdate(mes+1,ultimo_dia + 1,ano)){
+                           ultimo_dia++;
+                        }
+                        return ultimo_dia;
+                }
+
                 function validarFechaEscrita(fecha){
                         var arrayFecha = fecha.split("/");
                         if (arrayFecha.length!=3)
