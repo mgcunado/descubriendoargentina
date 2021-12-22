@@ -26,7 +26,7 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
-    
+
     App\Kernel:
         $environment: prod
         $debug: false
@@ -35,7 +35,7 @@ services:
         class: Sonata\SeoBundle\Seo\SeoPage
 
     coordenadasservice:
-        class: App\Controller\ApctaController
+        class: App\Controller\CoordenadasController
         calls:
             - [setContainer, ["@service_container"]]
         #public: true

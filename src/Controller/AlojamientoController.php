@@ -14,7 +14,6 @@ use App\Entity\JosMenu;
 use App\Entity\Alojamientos;
 use App\Entity\Emailenviados;
 use App\Form\Type\EmailenviadosType;
-
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -25,20 +24,21 @@ use Symfony\Component\Mime\Email;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 
 use App\Service\SeoData;
+use App\Service\GlobalDirection;
+use App\Service\SendEmails;
 
 class AlojamientoController extends Controller
 {
     /**
      * @Route("/ar/{slug}/{slugg}/{sluggg}/alojamiento/", defaults={"slug"="patagonia", "slugg"="rionegro", "sluggg"="bariloche", "menulocal"="alojamiento"}, name="alojamiento")
      */
-    public function alojamientoAction(Request $request, MailerInterface $mailer, SeoData $seoData, $slug, $slugg, $sluggg, $menulocal)
+    public function alojamientoAction(Request $request, MailerInterface $mailer, GlobalDirection $globalDirection, SeoData $seoData, SendEmails $sendEmails, $slug, $slugg, $sluggg, $menulocal)
     {
         $em = $this->getDoctrine()->getManager();
 
         $aaa0 = $em->getRepository('App:Alojamientos')->findAlojamiento0($sluggg);
 
         $localidad = $aaa0[0]['centroTuristico'];
-        /* $titulo = 'Alojamiento en ' . $localidad; */
         $provincia = $aaa0[0]['provincia'];
 
         $aaat12 = $em->getRepository('App:Alojamientos')->findAlojamientot12($localidad, $provincia);
@@ -77,24 +77,7 @@ class AlojamientoController extends Controller
             }
 
             $dirGLOBAL = $dirNS / $dirEO;
-
-            if ($dirGLOBAL <= tan(22.5 * 0.01745329252) && $dirGLOBAL >= tan(-22.5 * 0.01745329252) && $dirEO > 0) {
-                $direccion = "Este";
-            } elseif ($dirGLOBAL > tan(22.5 * 0.01745329252) && $dirGLOBAL < tan(67.5 * 0.01745329252) && $dirNS > 0 && $dirEO > 0) {
-                $direccion = "Noreste";
-            } elseif (($dirGLOBAL >= tan(67.5 * 0.01745329252) || $dirGLOBAL <= tan(112.5 * 0.01745329252)) && $dirNS > 0) {
-                $direccion = "Norte";
-            } elseif ($dirGLOBAL > tan(112.5 * 0.01745329252) && $dirGLOBAL < tan(157.5 * 0.01745329252) && $dirNS > 0) {
-                $direccion = "Noroeste";
-            } elseif ($dirGLOBAL >= tan(157.5 * 0.01745329252) && $dirGLOBAL <= tan(202.5 * 0.01745329252) && $dirEO < 0) {
-                $direccion = "Oeste";
-            } elseif ($dirGLOBAL > tan(202.5 * 0.01745329252) && $dirGLOBAL < tan(247.5 * 0.01745329252) && $dirNS < 0 && $dirEO < 0) {
-                $direccion = "Suroeste";
-            } elseif (($dirGLOBAL >= tan(247.5 * 0.01745329252) || $dirGLOBAL <= tan(292.5 * 0.01745329252)) && $dirNS < 0) {
-                $direccion = "Sur";
-            } elseif ($dirGLOBAL > tan(292.5 * 0.01745329252) && $dirGLOBAL < tan(-22.5 * 0.01745329252) && $dirNS < 0) {
-                $direccion = "Sureste";
-            }
+            $direccion = $globalDirection->getDirecion($dirGLOBAL);
 
             array_push($arrayorientacionesaux, $direccion);
 
@@ -198,20 +181,7 @@ class AlojamientoController extends Controller
                 }
             }
 
-            $message = (new TemplatedEmail())
-                ->from('mikel@descubriendoargentina.com')
-                ->to('mikel@descubriendoargentina.com')
-                ->subject('Reserva de alojamiento desde www.DescubriendoArgentina.com')
-                ->htmlTemplate('emails/envioemailmultiple.html.twig')
-                ->context([
-                    'nombre' => $formulario['nombre']->getData(),
-                    'telefono' => $formulario['telefono']->getData(),
-                    'direccionemail' => $formulario['email']->getData(),
-                    'fechallegada' => $formulario['fechallegada']->getData()->format('d/m/Y'),
-                    'fechasalida' => $formulario['fechasalida']->getData()->format('d/m/Y'),
-                    'pasajeros' => $formulario['pasajeros']->getData(),
-                    'consulta' => $formulario['consulta']->getData(),
-                ]);
+            $message = $sendEmails->sendMultiple($formulario);
 
             foreach ($emailmultiple as $directionbcc) {
                 $message->addbcc($directionbcc);
@@ -244,14 +214,5 @@ class AlojamientoController extends Controller
         return $this->render('articulo.html.twig', array(
             'emailenviados' => $emailenviados, 'formulario' => $formulario, 'emailmultiple' => $emailmultiple, 'menulocal' => $menulocal, 'ppp2' => $ppp2,  'ppp3' => $ppp3, 'slug' => $slug, 'slugg' => $slugg,  'sluggg' => $sluggg, 'aaa0' => $aaa0, 'aaat12' => $aaat12, 'tipos' => $tipos, 'aaa3' => $aaa3, 'excursiones' => null, 'direccionarray' => null, 'local2aux' => $local2aux, 'arraytiposaux' => $arraytiposaux, 'arrayppp2aux' => $arrayppp2aux, 'arrayaaa3aux' => $arrayaaa3aux, 'arrayorientacionesaux' => $arrayorientacionesaux, 'coordenadasController' => $coordenadasController, 'consultaenviada' => $consultaenviada, 'calculorealizado' => $calculorealizado, 'pescacentroturistico' => $pescacentroturistico, 'titulo' => $titulo, 'seoPage' => $seoPage
         ));
-    }
-
-
-    /**
-     * @return \Sonata\SeoBundle\Seo\SeoPageInterface
-     */
-    private function getSeoPage()
-    {
-        return $this->get('sonata.seo.page');
     }
 }
