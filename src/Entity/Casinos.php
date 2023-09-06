@@ -83,7 +83,7 @@ class Casinos
      *
      * @return id.
      */
-    public function getId()
+    public function getId(): Int
     {
         return $this->id;
     }
@@ -92,8 +92,9 @@ class Casinos
      * Set id.
      *
      * @param id the value to set.
+     * @param int $id
      */
-    public function setId($id)
+    public function setId($id): void
     {
         $this->id = $id;
     }
@@ -103,7 +104,7 @@ class Casinos
      *
      * @return nombre.
      */
-    public function getNombre()
+    public function getNombre(): String
     {
         return $this->nombre;
     }
@@ -112,8 +113,9 @@ class Casinos
      * Set nombre.
      *
      * @param nombre the value to set.
+     * @param string $nombre
      */
-    public function setNombre($nombre)
+    public function setNombre($nombre): void
     {
         $this->nombre = $nombre;
     }
@@ -123,7 +125,7 @@ class Casinos
      *
      * @return direccion.
      */
-    public function getDireccion()
+    public function getDireccion(): String
     {
         return $this->direccion;
     }
@@ -132,8 +134,9 @@ class Casinos
      * Set direccion.
      *
      * @param direccion the value to set.
+     * @param string $direccion
      */
-    public function setDireccion($direccion)
+    public function setDireccion($direccion): void
     {
         $this->direccion = $direccion;
     }
@@ -143,7 +146,7 @@ class Casinos
      *
      * @return localidad.
      */
-    public function getLocalidad()
+    public function getLocalidad(): String
     {
         return $this->localidad;
     }
@@ -152,8 +155,9 @@ class Casinos
      * Set localidad.
      *
      * @param localidad the value to set.
+     * @param string $localidad
      */
-    public function setLocalidad($localidad)
+    public function setLocalidad($localidad): void
     {
         $this->localidad = $localidad;
     }
@@ -163,7 +167,7 @@ class Casinos
      *
      * @return provincia.
      */
-    public function getProvincia()
+    public function getProvincia(): String
     {
         return $this->provincia;
     }
@@ -172,8 +176,9 @@ class Casinos
      * Set provincia.
      *
      * @param provincia the value to set.
+     * @param string $provincia
      */
-    public function setProvincia($provincia)
+    public function setProvincia($provincia): void
     {
         $this->provincia = $provincia;
     }
@@ -183,7 +188,7 @@ class Casinos
      *
      * @return region.
      */
-    public function getRegion()
+    public function getRegion(): String
     {
         return $this->region;
     }
@@ -192,8 +197,9 @@ class Casinos
      * Set region.
      *
      * @param region the value to set.
+     * @param string $region
      */
-    public function setRegion($region)
+    public function setRegion($region): void
     {
         $this->region = $region;
     }
@@ -203,7 +209,7 @@ class Casinos
      *
      * @return descripcion.
      */
-    public function getDescripcion()
+    public function getDescripcion(): String
     {
         return $this->descripcion;
     }
@@ -212,8 +218,9 @@ class Casinos
      * Set descripcion.
      *
      * @param descripcion the value to set.
+     * @param string $descripcion
      */
-    public function setDescripcion($descripcion)
+    public function setDescripcion($descripcion): void
     {
         $this->descripcion = $descripcion;
     }
@@ -223,7 +230,7 @@ class Casinos
      *
      * @return siteweb.
      */
-    public function getSiteweb()
+    public function getSiteweb(): String
     {
         return $this->siteweb;
     }
@@ -232,8 +239,9 @@ class Casinos
      * Set siteweb.
      *
      * @param siteweb the value to set.
+     * @param string $siteweb
      */
-    public function setSiteweb($siteweb)
+    public function setSiteweb($siteweb): void
     {
         $this->siteweb = $siteweb;
     }
@@ -243,7 +251,7 @@ class Casinos
      *
      * @return telefono.
      */
-    public function getTelefono()
+    public function getTelefono(): String
     {
         return $this->telefono;
     }
@@ -252,8 +260,9 @@ class Casinos
      * Set telefono.
      *
      * @param telefono the value to set.
+     * @param string $telefono
      */
-    public function setTelefono($telefono)
+    public function setTelefono($telefono): void
     {
         $this->telefono = $telefono;
     }

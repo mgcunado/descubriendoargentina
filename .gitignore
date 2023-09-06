@@ -3,6 +3,7 @@
 descubriendoargentina.tar.gz
 .env
 /material/
+/public/phpinfo.php
 /public/bundles/
 /public/images/
 /public/matomo/
@@ -13,3 +14,8 @@ descubriendoargentina.tar.gz
 ###> symfony/web-server-bundle ###
 /.web-server-pid
 ###< symfony/web-server-bundle ###
+
+### other files ###
+output-diagram.png
+start-container.sh
+### other files ###

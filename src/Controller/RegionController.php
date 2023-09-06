@@ -2,45 +2,53 @@
 
 namespace App\Controller;
 
+use App\Repository\JosMenuRepository;
+use App\Repository\TextoRepository;
+
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
-
-use Symfony\Component\HttpFoundation\Request;
-
-use App\Entity\JosContent;
-use App\Entity\JosMenu;
 
 use App\Service\SeoData;
 
 class RegionController extends Controller
 {
-    /**
+  private $josMenuRepository;
+  private $textoRepository;
+
+  public function __construct(JosMenuRepository $josMenuRepository, TextoRepository $textoRepository)
+  {
+    $this->josMenuRepository = $josMenuRepository;
+    $this->textoRepository = $textoRepository;
+  }
+
+
+  /**
      * @Route("/ar/{slug}/", defaults={"slug"="patagonia", "menulocal"=null}, name="region")
+     * @param string $slug
+     * @param string $menulocal
      */
-    public function regionAction(Request $request, SeoData $seoData, $slug, $menulocal)
-    {
-        $em = $this->getDoctrine()->getManager();
+  public function regionAction(SeoData $seoData, $slug, $menulocal): Response
+  {
+    //regiones
+    $ppp1 = $this->josMenuRepository->findImagen($slug);
+    $ppp2 = $this->textoRepository->findTextos($slug);
 
-        //regiones
-        $ppp1 = $em->getRepository('App:JosMenu')->findImagen($slug);
-        $ppp2 = $em->getRepository('App:JosContent')->findTextos($slug);
+    $titulo = $ppp2[0]['lugarturistico'];
+    $keywords = 'argentina alojamiento ' . $ppp2[0]['lugarturistico'] . ' excursiones distancias';
+    $description = $ppp2[0]['lugarturistico'] . ' es una de las regiones que componen Argentina';
 
-        $titulo = $ppp2[0]['lugarturistico'];
-        $keywords = 'argentina alojamiento ' . $ppp2[0]['lugarturistico'] . ' excursiones distancias';
-        $description = $ppp2[0]['lugarturistico'] . ' es una de las regiones que componen Argentina';
+    $seoPage = $this->get('sonata.seo.page');
+    $seoPage = $seoData->addData($titulo, $keywords, $description, $seoPage);
 
-        $seoPage = $this->get('sonata.seo.page');
-        $SeoPage = $seoData->addData($titulo, $keywords, $description, $seoPage);
+    $ppp3 = $this->textoRepository->findTablalugares1($slug);
+    $slugg = null;
 
-        $ppp3 = $em->getRepository('App:TablaEnlacesCentros')->findTablalugares1($slug);
-        $slugg = null;
+    /* Incluimos las Coordenadas */
+    $coordenadasController = $this->get('coordenadasservice')->maparegionesAction();
 
-        /* Incluimos las Coordenadas */
-        $coordenadasController = $this->get('coordenadasservice')->maparegionesAction();
-
-        return $this->render('region.html.twig', array(
-            'ppp1' => $ppp1, 'ppp2' => $ppp2, 'ppp3' => $ppp3, 'slug' => $slug,  'slugg' => $slugg,  'menulocal' => $menulocal, 'coordenadasController' => $coordenadasController, 'titulo' => $titulo, 'seoPage' => $seoPage
-        ));
-    }
+    return $this->render('region.html.twig', array(
+      'ppp1' => $ppp1, 'ppp2' => $ppp2, 'ppp3' => $ppp3, 'slug' => $slug,  'slugg' => $slugg,  'menulocal' => $menulocal, 'coordenadasController' => $coordenadasController, 'titulo' => $titulo, 'seoPage' => $seoPage
+    ));
+  }
 }

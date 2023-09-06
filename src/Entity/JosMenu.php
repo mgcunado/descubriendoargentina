@@ -169,7 +169,7 @@ class JosMenu
      *
      * @return id.
      */
-    public function getId()
+    public function getId(): Int
     {
         return $this->id;
     }
@@ -178,8 +178,9 @@ class JosMenu
      * Set id.
      *
      * @param id the value to set.
+     * @param int $id
      */
-    public function setId($id)
+    public function setId($id): void
     {
         $this->id = $id;
     }
@@ -189,7 +190,7 @@ class JosMenu
      *
      * @return menutype.
      */
-    public function getMenutype()
+    public function getMenutype(): String
     {
         return $this->menutype;
     }
@@ -198,8 +199,9 @@ class JosMenu
      * Set menutype.
      *
      * @param menutype the value to set.
+     * @param string $menutype
      */
-    public function setMenutype($menutype)
+    public function setMenutype($menutype): void
     {
         $this->menutype = $menutype;
     }
@@ -209,7 +211,7 @@ class JosMenu
      *
      * @return name.
      */
-    public function getName()
+    public function getName(): String
     {
         return $this->name;
     }
@@ -218,8 +220,9 @@ class JosMenu
      * Set name.
      *
      * @param name the value to set.
+     * @param string $name
      */
-    public function setName($name)
+    public function setName($name): void
     {
         $this->name = $name;
     }
@@ -229,7 +232,7 @@ class JosMenu
      *
      * @return alias.
      */
-    public function getAlias()
+    public function getAlias(): String
     {
         return $this->alias;
     }
@@ -238,8 +241,9 @@ class JosMenu
      * Set alias.
      *
      * @param alias the value to set.
+     * @param string $alias
      */
-    public function setAlias($alias)
+    public function setAlias($alias): void
     {
         $this->alias = $alias;
     }
@@ -249,7 +253,7 @@ class JosMenu
      *
      * @return link.
      */
-    public function getLink()
+    public function getLink(): String
     {
         return $this->link;
     }
@@ -258,8 +262,9 @@ class JosMenu
      * Set link.
      *
      * @param link the value to set.
+     * @param string $link
      */
-    public function setLink($link)
+    public function setLink($link): void
     {
         $this->link = $link;
     }
@@ -269,7 +274,7 @@ class JosMenu
      *
      * @return type.
      */
-    public function getType()
+    public function getType(): String
     {
         return $this->type;
     }
@@ -278,8 +283,9 @@ class JosMenu
      * Set type.
      *
      * @param type the value to set.
+     * @param string $type
      */
-    public function setType($type)
+    public function setType($type): void
     {
         $this->type = $type;
     }
@@ -289,7 +295,7 @@ class JosMenu
      *
      * @return published.
      */
-    public function getPublished()
+    public function getPublished(): Bool
     {
         return $this->published;
     }
@@ -298,8 +304,9 @@ class JosMenu
      * Set published.
      *
      * @param published the value to set.
+     * @param bool $published
      */
-    public function setPublished($published)
+    public function setPublished($published): void
     {
         $this->published = $published;
     }
@@ -309,7 +316,7 @@ class JosMenu
      *
      * @return parent.
      */
-    public function getParent()
+    public function getParent(): Int
     {
         return $this->parent;
     }
@@ -318,8 +325,9 @@ class JosMenu
      * Set parent.
      *
      * @param parent the value to set.
+     * @param int $parent
      */
-    public function setParent($parent)
+    public function setParent($parent): void
     {
         $this->parent = $parent;
     }
@@ -329,7 +337,7 @@ class JosMenu
      *
      * @return componentid.
      */
-    public function getComponentid()
+    public function getComponentid(): Int
     {
         return $this->componentid;
     }
@@ -338,8 +346,9 @@ class JosMenu
      * Set componentid.
      *
      * @param componentid the value to set.
+     * @param int $componentid
      */
-    public function setComponentid($componentid)
+    public function setComponentid($componentid): void
     {
         $this->componentid = $componentid;
     }
@@ -349,7 +358,7 @@ class JosMenu
      *
      * @return sublevel.
      */
-    public function getSublevel()
+    public function getSublevel(): ?Int
     {
         return $this->sublevel;
     }
@@ -358,8 +367,9 @@ class JosMenu
      * Set sublevel.
      *
      * @param sublevel the value to set.
+     * @param int $sublevel
      */
-    public function setSublevel($sublevel)
+    public function setSublevel($sublevel): void
     {
         $this->sublevel = $sublevel;
     }
@@ -369,7 +379,7 @@ class JosMenu
      *
      * @return ordering.
      */
-    public function getOrdering()
+    public function getOrdering(): ?Int
     {
         return $this->ordering;
     }
@@ -378,8 +388,9 @@ class JosMenu
      * Set ordering.
      *
      * @param ordering the value to set.
+     * @param int $ordering
      */
-    public function setOrdering($ordering)
+    public function setOrdering($ordering): void
     {
         $this->ordering = $ordering;
     }
@@ -389,7 +400,7 @@ class JosMenu
      *
      * @return checkedOut.
      */
-    public function getCheckedOut()
+    public function getCheckedOut(): Int
     {
         return $this->checkedOut;
     }
@@ -398,8 +409,9 @@ class JosMenu
      * Set checkedOut.
      *
      * @param checkedOut the value to set.
+     * @param int $checkedOut
      */
-    public function setCheckedOut($checkedOut)
+    public function setCheckedOut($checkedOut): void
     {
         $this->checkedOut = $checkedOut;
     }
@@ -409,7 +421,7 @@ class JosMenu
      *
      * @return checkedOutTime.
      */
-    public function getCheckedOutTime()
+    public function getCheckedOutTime(): \DateTime
     {
         return $this->checkedOutTime;
     }
@@ -418,8 +430,9 @@ class JosMenu
      * Set checkedOutTime.
      *
      * @param checkedOutTime the value to set.
+     * @param \DateTime $checkedOutTime
      */
-    public function setCheckedOutTime($checkedOutTime)
+    public function setCheckedOutTime($checkedOutTime): void
     {
         $this->checkedOutTime = $checkedOutTime;
     }
@@ -429,7 +442,7 @@ class JosMenu
      *
      * @return pollid.
      */
-    public function getPollid()
+    public function getPollid(): Int
     {
         return $this->pollid;
     }
@@ -438,8 +451,9 @@ class JosMenu
      * Set pollid.
      *
      * @param pollid the value to set.
+     * @param int $pollid
      */
-    public function setPollid($pollid)
+    public function setPollid($pollid): void
     {
         $this->pollid = $pollid;
     }
@@ -449,7 +463,7 @@ class JosMenu
      *
      * @return browsernav.
      */
-    public function getBrowsernav()
+    public function getBrowsernav(): ?Bool
     {
         return $this->browsernav;
     }
@@ -458,8 +472,9 @@ class JosMenu
      * Set browsernav.
      *
      * @param browsernav the value to set.
+     * @param bool $browsernav
      */
-    public function setBrowsernav($browsernav)
+    public function setBrowsernav($browsernav): void
     {
         $this->browsernav = $browsernav;
     }
@@ -469,7 +484,7 @@ class JosMenu
      *
      * @return access.
      */
-    public function getAccess()
+    public function getAccess(): Bool
     {
         return $this->access;
     }
@@ -478,8 +493,9 @@ class JosMenu
      * Set access.
      *
      * @param access the value to set.
+     * @param bool $access
      */
-    public function setAccess($access)
+    public function setAccess($access): void
     {
         $this->access = $access;
     }
@@ -489,7 +505,7 @@ class JosMenu
      *
      * @return utaccess.
      */
-    public function getUtaccess()
+    public function getUtaccess(): Bool
     {
         return $this->utaccess;
     }
@@ -498,8 +514,9 @@ class JosMenu
      * Set utaccess.
      *
      * @param utaccess the value to set.
+     * @param bool $utaccess
      */
-    public function setUtaccess($utaccess)
+    public function setUtaccess($utaccess): void
     {
         $this->utaccess = $utaccess;
     }
@@ -509,7 +526,7 @@ class JosMenu
      *
      * @return params.
      */
-    public function getParams()
+    public function getParams(): String
     {
         return $this->params;
     }
@@ -518,8 +535,9 @@ class JosMenu
      * Set params.
      *
      * @param params the value to set.
+     * @param string $params
      */
-    public function setParams($params)
+    public function setParams($params): void
     {
         $this->params = $params;
     }
@@ -529,7 +547,7 @@ class JosMenu
      *
      * @return lft.
      */
-    public function getLft()
+    public function getLft(): Int
     {
         return $this->lft;
     }
@@ -538,8 +556,9 @@ class JosMenu
      * Set lft.
      *
      * @param lft the value to set.
+     * @param int $lft
      */
-    public function setLft($lft)
+    public function setLft($lft): void
     {
         $this->lft = $lft;
     }
@@ -549,7 +568,7 @@ class JosMenu
      *
      * @return rgt.
      */
-    public function getRgt()
+    public function getRgt(): Int
     {
         return $this->rgt;
     }
@@ -558,8 +577,9 @@ class JosMenu
      * Set rgt.
      *
      * @param rgt the value to set.
+     * @param int $rgt
      */
-    public function setRgt($rgt)
+    public function setRgt($rgt): void
     {
         $this->rgt = $rgt;
     }
@@ -569,7 +589,7 @@ class JosMenu
      *
      * @return home.
      */
-    public function getHome()
+    public function getHome(): Int
     {
         return $this->home;
     }
@@ -578,8 +598,9 @@ class JosMenu
      * Set home.
      *
      * @param home the value to set.
+     * @param int $home
      */
-    public function setHome($home)
+    public function setHome($home): void
     {
         $this->home = $home;
     }

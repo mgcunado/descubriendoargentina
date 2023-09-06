@@ -4,7 +4,12 @@ namespace App\Service;
 
 class GlobalDirection
 {
-    public function getDirection($dirGLOBAL): int
+    /**
+     * @param int $dirGLOBAL
+     * @param int $dirEO
+     * @param int $dirNS
+     */
+    public function getDirection($dirGLOBAL, $dirEO, $dirNS): String
     {
         if ($dirGLOBAL <= tan(22.5 * 0.01745329252) && $dirGLOBAL >= tan(-22.5 * 0.01745329252) && $dirEO > 0) {
             $direccion = "Este";

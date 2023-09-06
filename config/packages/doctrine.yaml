@@ -10,6 +10,7 @@ doctrine:
         # configure these for your database server
         driver: 'pdo_mysql'
         server_version: '5.7'
+        # server_version: '8.1.0'
         charset: utf8mb4
         types:
             json: Sonata\Doctrine\Types\JsonType

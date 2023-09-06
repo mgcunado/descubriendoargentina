@@ -66,7 +66,7 @@ class Emailenviados
      *
      * @return id.
      */
-    public function getId()
+    public function getId(): Int
     {
         return $this->id;
     }
@@ -75,8 +75,9 @@ class Emailenviados
      * Set id.
      *
      * @param id the value to set.
+     * @param int $id
      */
-    public function setId($id)
+    public function setId($id): void
     {
         $this->id = $id;
     }
@@ -86,7 +87,7 @@ class Emailenviados
      *
      * @return direcciones.
      */
-    public function getDirecciones()
+    public function getDirecciones(): ArrayCollection
     {
         return $this->direcciones;
     }
@@ -107,7 +108,7 @@ class Emailenviados
      *
      * @return localidad.
      */
-    public function getLocalidad()
+    public function getLocalidad(): String
     {
         return $this->localidad;
     }
@@ -116,8 +117,9 @@ class Emailenviados
      * Set localidad.
      *
      * @param localidad the value to set.
+     * @param string $localidad
      */
-    public function setLocalidad($localidad)
+    public function setLocalidad($localidad): void
     {
         $this->localidad = $localidad;
     }
@@ -127,7 +129,7 @@ class Emailenviados
      *
      * @return numEmails.
      */
-    public function getNumEmails()
+    public function getNumEmails(): Int
     {
         return $this->numEmails;
     }
@@ -136,8 +138,9 @@ class Emailenviados
      * Set numEmails.
      *
      * @param numEmails the value to set.
+     * @param int $numEmails
      */
-    public function setNumEmails($numEmails)
+    public function setNumEmails($numEmails): void
     {
         $this->numEmails = $numEmails;
     }
@@ -147,7 +150,7 @@ class Emailenviados
      *
      * @return enviado.
      */
-    public function getEnviado()
+    public function getEnviado(): Bool
     {
         return $this->enviado;
     }
@@ -156,8 +159,9 @@ class Emailenviados
      * Set enviado.
      *
      * @param enviado the value to set.
+     * @param bool $enviado
      */
-    public function setEnviado($enviado)
+    public function setEnviado($enviado): void
     {
         $this->enviado = $enviado;
     }
@@ -167,7 +171,7 @@ class Emailenviados
      *
      * @return insertado.
      */
-    public function getInsertado()
+    public function getInsertado(): \DateTime
     {
         return $this->insertado;
     }
@@ -176,8 +180,9 @@ class Emailenviados
      * Set insertado.
      *
      * @param insertado the value to set.
+     * @param \DateTime $insertado
      */
-    public function setInsertado($insertado)
+    public function setInsertado($insertado): void
     {
         $this->insertado = $insertado;
     }

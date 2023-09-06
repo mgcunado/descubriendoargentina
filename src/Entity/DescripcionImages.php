@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,64 +35,65 @@ class DescripcionImages
      */
     private $descripcion;
 
-
-    
     /**
      * Get id.
      *
      * @return id.
      */
-    public function getId()
+    public function getId(): Int
     {
         return $this->id;
     }
-    
+
     /**
      * Set id.
      *
      * @param id the value to set.
+     * @return id
      */
-    public function setId($id)
+    public function setId($id): void
     {
         $this->id = $id;
     }
-    
+
     /**
      * Get nombre.
      *
      * @return nombre.
      */
-    public function getNombre()
+    public function getNombre(): String
     {
         return $this->nombre;
     }
-    
+
     /**
      * Set nombre.
      *
      * @param nombre the value to set.
+     * @param string $nombre
      */
-    public function setNombre($nombre)
+    public function setNombre($nombre): void
     {
         $this->nombre = $nombre;
     }
-    
+
     /**
      * Get descripcion.
      *
      * @return descripcion.
      */
-    public function getDescripcion()
+    public function getDescripcion(): String
     {
         return $this->descripcion;
     }
-    
+
     /**
      * Set descripcion.
      *
      * @param descripcion the value to set.
+     * @param string $descripcion
      */
-    public function setDescripcion($descripcion)
+    public function setDescripcion($descripcion): void
     {
         $this->descripcion = $descripcion;
     }

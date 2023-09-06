@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Poligonosregiones
  *
  * @ORM\Table(name="poligonosRegiones")
- * @ORM\Entity(repositoryClass="App\Repository\AlojamientosRepository") 
+ * @ORM\Entity(repositoryClass="App\Repository\AlojamientosRepository")
  */
 class Poligonosregiones
 {
@@ -42,84 +42,86 @@ class Poligonosregiones
      */
     private $region = '';
 
-
-    
     /**
      * Get id.
      *
      * @return id.
      */
-    public function getId()
+    public function getId(): Int
     {
         return $this->id;
     }
-    
+
     /**
      * Set id.
      *
      * @param id the value to set.
+     * @param int $id
      */
-    public function setId($id)
+    public function setId($id): void
     {
         $this->id = $id;
     }
-    
+
     /**
      * Get latitud.
      *
      * @return latitud.
      */
-    public function getLatitud()
+    public function getLatitud(): Float
     {
         return $this->latitud;
     }
-    
+
     /**
      * Set latitud.
      *
      * @param latitud the value to set.
+     * @param float $latitud
      */
-    public function setLatitud($latitud)
+    public function setLatitud($latitud): void
     {
         $this->latitud = $latitud;
     }
-    
+
     /**
      * Get longitud.
      *
      * @return longitud.
      */
-    public function getLongitud()
+    public function getLongitud(): Float
     {
         return $this->longitud;
     }
-    
+
     /**
      * Set longitud.
      *
      * @param longitud the value to set.
+     * @param float $longitud
      */
-    public function setLongitud($longitud)
+    public function setLongitud($longitud): void
     {
         $this->longitud = $longitud;
     }
-    
+
     /**
      * Get region.
      *
      * @return region.
      */
-    public function getRegion()
+    public function getRegion(): String
     {
         return $this->region;
     }
-    
+
     /**
      * Set region.
      *
      * @param region the value to set.
+     * @param string $region
      */
-    public function setRegion($region)
+    public function setRegion($region): void
     {
         $this->region = $region;
     }

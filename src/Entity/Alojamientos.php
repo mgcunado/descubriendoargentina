@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -125,7 +124,7 @@ class Alojamientos
      *
      * @ORM\Column(name="enviado", type="boolean", nullable=false, options={"default"=false})
      */
-    private $enviado;    
+    private $enviado;
 
     /**
      * @var \DateTime
@@ -138,305 +137,319 @@ class Alojamientos
     {
         $this->insertado = new \DateTime();
         $this->enviado = false;
-    }    
+    }
 
-    
     /**
      * Get id.
      *
      * @return id.
      */
-    public function getId()
+    public function getId(): Int
     {
         return $this->id;
     }
-    
+
     /**
      * Set id.
      *
      * @param id the value to set.
+     * @param int $id
      */
-    public function setId($id)
+    public function setId($id): void
     {
         $this->id = $id;
     }
-    
+
     /**
      * Get nombre.
      *
      * @return nombre.
      */
-    public function getNombre()
+    public function getNombre(): String
     {
         return $this->nombre;
     }
-    
+
     /**
      * Set nombre.
      *
      * @param nombre the value to set.
+     * @param string $nombre
      */
-    public function setNombre($nombre)
+    public function setNombre($nombre): void
     {
         $this->nombre = $nombre;
     }
-    
+
     /**
      * Get direccion.
      *
      * @return direccion.
      */
-    public function getDireccion()
+    public function getDireccion(): String
     {
         return $this->direccion;
     }
-    
+
     /**
      * Set direccion.
      *
      * @param direccion the value to set.
+     * @param string $direccion
      */
-    public function setDireccion($direccion)
+    public function setDireccion($direccion): void
     {
         $this->direccion = $direccion;
     }
-    
+
     /**
      * Get telefono.
      *
      * @return telefono.
      */
-    public function getTelefono()
+    public function getTelefono(): String
     {
         return $this->telefono;
     }
-    
+
     /**
      * Set telefono.
      *
      * @param telefono the value to set.
+     * @param string $telefono
      */
-    public function setTelefono($telefono)
+    public function setTelefono($telefono): void
     {
         $this->telefono = $telefono;
     }
-    
+
     /**
      * Get email.
      *
      * @return email.
      */
-    public function getEmail()
+    public function getEmail(): String
     {
         return $this->email;
     }
-    
+
     /**
      * Set email.
      *
      * @param email the value to set.
+     * @param string $email
      */
-    public function setEmail($email)
+    public function setEmail($email): void
     {
         $this->email = $email;
     }
-    
+
     /**
      * Get emailvalido.
      *
      * @return emailvalido.
      */
-    public function getEmailvalido()
+    public function getEmailvalido(): Int
     {
         return $this->emailvalido;
     }
-    
+
     /**
      * Set emailvalido.
      *
      * @param emailvalido the value to set.
+     * @param int $emailvalido
      */
-    public function setEmailvalido($emailvalido)
+    public function setEmailvalido($emailvalido): void
     {
         $this->emailvalido = $emailvalido;
     }
-    
+
     /**
      * Get sitioweb.
      *
      * @return sitioweb.
      */
-    public function getSitioweb()
+    public function getSitioweb(): String
     {
         return $this->sitioweb;
     }
-    
+
     /**
      * Set sitioweb.
      *
      * @param sitioweb the value to set.
+     * @param string $sitioweb
      */
-    public function setSitioweb($sitioweb)
+    public function setSitioweb($sitioweb): void
     {
         $this->sitioweb = $sitioweb;
     }
-    
+
     /**
      * Get codigoerror.
      *
      * @return codigoerror.
      */
-    public function getCodigoerror()
+    public function getCodigoerror(): Int
     {
         return $this->codigoerror;
     }
-    
+
     /**
      * Set codigoerror.
      *
      * @param codigoerror the value to set.
+     * @param int $codigoerror
      */
-    public function setCodigoerror($codigoerror)
+    public function setCodigoerror($codigoerror): void
     {
         $this->codigoerror = $codigoerror;
     }
-    
+
     /**
      * Get dispo.
      *
      * @return dispo.
      */
-    public function getDispo()
+    public function getDispo(): ?String
     {
         return $this->dispo;
     }
-    
+
     /**
      * Set dispo.
      *
      * @param dispo the value to set.
+     * @param string $dispo
      */
-    public function setDispo($dispo)
+    public function setDispo($dispo): void
     {
         $this->dispo = $dispo;
     }
-    
+
     /**
      * Get tarifas.
      *
      * @return tarifas.
      */
-    public function getTarifas()
+    public function getTarifas(): ?String
     {
         return $this->tarifas;
     }
-    
+
     /**
      * Set tarifas.
      *
      * @param tarifas the value to set.
+     * @param string $tarifas
      */
-    public function setTarifas($tarifas)
+    public function setTarifas($tarifas): void
     {
         $this->tarifas = $tarifas;
     }
-    
+
     /**
      * Get tipo.
      *
      * @return tipo.
      */
-    public function getTipo()
+    public function getTipo(): String
     {
         return $this->tipo;
     }
-    
+
     /**
      * Set tipo.
      *
      * @param tipo the value to set.
+     * @param string $tipo
      */
-    public function setTipo($tipo)
+    public function setTipo($tipo): void
     {
         $this->tipo = $tipo;
     }
-    
+
     /**
      * Get categoria.
      *
      * @return categoria.
      */
-    public function getCategoria()
+    public function getCategoria(): String
     {
         return $this->categoria;
     }
-    
+
     /**
      * Set categoria.
      *
      * @param categoria the value to set.
+     * @param string $categoria
      */
-    public function setCategoria($categoria)
+    public function setCategoria($categoria): void
     {
         $this->categoria = $categoria;
     }
-    
+
     /**
      * Get localidad.
      *
      * @return localidad.
      */
-    public function getLocalidad()
+    public function getLocalidad(): String
     {
         return $this->localidad;
     }
-    
+
     /**
      * Set localidad.
      *
      * @param localidad the value to set.
+     * @param string $localidad
      */
-    public function setLocalidad($localidad)
+    public function setLocalidad($localidad): void
     {
         $this->localidad = $localidad;
     }
-    
+
     /**
      * Get provincia.
      *
      * @return provincia.
      */
-    public function getProvincia()
+    public function getProvincia(): String
     {
         return $this->provincia;
     }
-    
+
     /**
      * Set provincia.
      *
      * @param provincia the value to set.
+     * @param string $provincia
      */
-    public function setProvincia($provincia)
+    public function setProvincia($provincia): void
     {
         $this->provincia = $provincia;
     }
-    
+
     /**
      * Get barrio.
      *
      * @return barrio.
      */
-    public function getBarrio()
+    public function getBarrio(): String
     {
         return $this->barrio;
     }
-    
+
     /**
      * Set barrio.
      *
      * @param barrio the value to set.
+     * @param string $barrio
      */
-    public function setBarrio($barrio)
+    public function setBarrio($barrio): void
     {
         $this->barrio = $barrio;
     }
@@ -446,7 +459,7 @@ class Alojamientos
      *
      * @return enviado.
      */
-    public function getEnviado()
+    public function getEnviado(): Bool
     {
         return $this->enviado;
     }
@@ -455,29 +468,30 @@ class Alojamientos
      * Set enviado.
      *
      * @param enviado the value to set.
+     * @param bool $enviado
      */
-    public function setEnviado($enviado)
+    public function setEnviado($enviado): void
     {
         $this->enviado = $enviado;
     }
 
-    
     /**
      * Get insertado.
      *
      * @return insertado.
      */
-    public function getInsertado()
+    public function getInsertado(): \DateTime
     {
         return $this->insertado;
     }
-    
+
     /**
      * Set insertado.
      *
      * @param insertado the value to set.
+     * @param \DateTime $insertado
      */
-    public function setInsertado($insertado)
+    public function setInsertado($insertado): void
     {
         $this->insertado = $insertado;
     }

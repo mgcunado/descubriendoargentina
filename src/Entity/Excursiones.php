@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -50,104 +49,107 @@ class Excursiones
      */
     private $texto;
 
-
-    
     /**
      * Get id.
      *
      * @return id.
      */
-    public function getId()
+    public function getId(): Int
     {
         return $this->id;
     }
-    
+
     /**
      * Set id.
      *
      * @param id the value to set.
+     * @param int $id
      */
-    public function setId($id)
+    public function setId($id): void
     {
         $this->id = $id;
     }
-    
+
     /**
      * Get referencia.
      *
      * @return referencia.
      */
-    public function getReferencia()
+    public function getReferencia(): Int
     {
         return $this->referencia;
     }
-    
+
     /**
      * Set referencia.
      *
      * @param referencia the value to set.
+     * @param int $referencia
      */
-    public function setReferencia($referencia)
+    public function setReferencia($referencia): void
     {
         $this->referencia = $referencia;
     }
-    
+
     /**
      * Get bloque.
      *
      * @return bloque.
      */
-    public function getBloque()
+    public function getBloque(): String
     {
         return $this->bloque;
     }
-    
+
     /**
      * Set bloque.
      *
      * @param bloque the value to set.
+     * @param string $bloque
      */
-    public function setBloque($bloque)
+    public function setBloque($bloque): void
     {
         $this->bloque = $bloque;
     }
-    
+
     /**
      * Get title.
      *
      * @return title.
      */
-    public function getTitle()
+    public function getTitle(): String
     {
         return $this->title;
     }
-    
+
     /**
      * Set title.
      *
      * @param title the value to set.
+     * @param string $title
      */
-    public function setTitle($title)
+    public function setTitle($title): void
     {
         $this->title = $title;
     }
-    
+
     /**
      * Get texto.
      *
      * @return texto.
      */
-    public function getTexto()
+    public function getTexto(): String
     {
         return $this->texto;
     }
-    
+
     /**
      * Set texto.
      *
      * @param texto the value to set.
+     * @param string $texto
      */
-    public function setTexto($texto)
+    public function setTexto($texto): void
     {
         $this->texto = $texto;
     }
