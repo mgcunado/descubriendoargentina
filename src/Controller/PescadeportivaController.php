@@ -31,16 +31,15 @@ class PescadeportivaController extends Controller
   public function pescadeportivaAction(Request $request, SeoData $seoData, $regionSlug, $provinceSlug, $localitySlug, $menulocal): Response
   {
     //pescadeportiva
-    $ppp1 = null;
-    $ppp2 = $this->textoRepository->findTextos($localitySlug);
-    $titulo = 'Pesca deportiva en ' . $ppp2[0]['lugarturistico'];
-    $keywords = 'argentina pesca deportiva alojamiento ' . $ppp2[0]['lugarturistico'] . ' excursiones distancias';
-    $description = 'La pesca deportiva en ' . $ppp2[0]['lugarturistico'] . ', uno de los cantros turísticos en Argentina';
+    $findTextos = $this->textoRepository->findTextos($localitySlug);
+    $titulo = 'Pesca deportiva en ' . $findTextos[0]['lugarturistico'];
+    $keywords = 'argentina pesca deportiva alojamiento ' . $findTextos[0]['lugarturistico'] . ' excursiones distancias';
+    $description = 'La pesca deportiva en ' . $findTextos[0]['lugarturistico'] . ', uno de los cantros turísticos en Argentina';
 
     $seoPage = $this->get('sonata.seo.page');
     $seoPage = $seoData->addData($titulo, $keywords, $description, $seoPage);
 
-    $ppp3 = $this->textoRepository->findTablalugares2($provinceSlug);
+    $touristCenterByProvince = $this->textoRepository->touristCenterByProvince($provinceSlug);
     $menulocal = 'pescadeportiva';
 
     /* Incluimos las Coordenadas */
@@ -50,7 +49,7 @@ class PescadeportivaController extends Controller
     $pescacentroturistico = $this->textoRepository->findPescadeportiva($localitySlug);
 
     return $this->render('pescadeportiva.html.twig', array(
-      'ppp1' => $ppp1, 'ppp2' => $ppp2, 'ppp3' => $ppp3, 'regionSlug' => $regionSlug, 'provinceSlug' => $provinceSlug, 'localitySlug' => $localitySlug, 'menulocal' => $menulocal, 'pescacentroturistico' => $pescacentroturistico, 'coordenadasController' => $coordenadasController, 'titulo' => $titulo, 'seoPage' => $seoPage
+      'findTextos' => $findTextos, 'touristCenterByProvince' => $touristCenterByProvince, 'regionSlug' => $regionSlug, 'provinceSlug' => $provinceSlug, 'localitySlug' => $localitySlug, 'menulocal' => $menulocal, 'pescacentroturistico' => $pescacentroturistico, 'coordenadasController' => $coordenadasController, 'titulo' => $titulo, 'seoPage' => $seoPage
     ));
   }
 }

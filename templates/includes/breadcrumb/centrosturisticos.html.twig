@@ -1,22 +1,21 @@
-            {% for label, item in regiones %}
-               {% if label == regionSlug %}
-                  <nav aria-label="breadcrumb">
-                     <ol class="breadcrumb2">
-                        <li class="breadcrumb-item"><a href="{{ path('principalescentrosturisticos') }}">Inicio</a></li>
-                        <li class="breadcrumb-item"><a href="{{ path('region', {'regionSlug': regionSlug } ) }}">{{ item.title }}</a></li>
-                        {% for labell, itemm in _context[regionSlug]  %}
-                           {% if labell == provinceSlug %}
-                              <li class="breadcrumb-item"><a href="{{ path('provincia', {'regionSlug': regionSlug, 'provinceSlug': provinceSlug } ) }}">{{ itemm.title }}</a></li>
-                           {% endif %}
-                        {% endfor %}
-
-                        {% for labelll, itemmm in _context[provinceSlug]  %}
-                           {% if labelll == localitySlug %}
-                              <li class="breadcrumb-item active" aria-current="page">{{ itemmm.title }}</li>
-                           {% endif %}
-                        {% endfor %}
-                     </ol>
-                  </nav>
+{% for label, item in regiones %}
+   {% if label == regionSlug %}
+      <nav aria-label="breadcrumb">
+         <ol class="breadcrumb2">
+            <li class="breadcrumb-item"><a href="{{ path('principalescentrosturisticos') }}">Inicio</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('region', {'regionSlug': regionSlug } ) }}">{{ item.title }}</a></li>
+            {% for labell, itemm in _context[regionSlug]  %}
+               {% if labell == provinceSlug %}
+                  <li class="breadcrumb-item"><a href="{{ path('provincia', {'regionSlug': regionSlug, 'provinceSlug': provinceSlug } ) }}">{{ itemm.title }}</a></li>
                {% endif %}
             {% endfor %}
+            {% for labelll, itemmm in _context[provinceSlug]  %}
+               {% if labelll == localitySlug %}
+                  <li class="breadcrumb-item active" aria-current="page">{{ itemmm.title }}</li>
+               {% endif %}
+            {% endfor %}
+         </ol>
+      </nav>
+   {% endif %}
+{% endfor %}
 

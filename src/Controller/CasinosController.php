@@ -67,11 +67,11 @@ class CasinosController extends Controller
 
     if ($formulario->isSubmitted()) {
       $provincia = $formulario->get('provincia')->getData();
-      $ppp2 = $this->textoRepository->findCasinos($provincia);
-      $fotos = $transformName->doTransform($ppp2, 'casinos');
+      $findCasinos = $this->textoRepository->findCasinos($provincia);
+      $fotos = $transformName->doTransform($findCasinos, 'casinos');
 
       return $this->render('casinosver.html.twig', array(
-        'ppp2' => $ppp2, 'fotos' => $fotos, 'provincia' => $provincia, 'coordenadasController' => $coordenadasController, 'menulocal' => $menulocal, 'titulo' => $titulo, 'seoPage' => $seoPage
+        'findCasinos' => $findCasinos, 'fotos' => $fotos, 'provincia' => $provincia, 'coordenadasController' => $coordenadasController, 'menulocal' => $menulocal, 'titulo' => $titulo, 'seoPage' => $seoPage
       ));
     }
 

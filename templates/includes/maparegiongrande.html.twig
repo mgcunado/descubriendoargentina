@@ -141,7 +141,7 @@ function alojaRegiones() {
          }
 
 {# Miramos en las variables generales de sesión: array region para conocer el alias de provincia  #}
-         {% set provinceSlug = 'ppp' %}
+         {% set provinceSlug = ' ' %}
          {% for label, item in _context[region] %}
             {% if item.title == result.provincia %}
                {% set provinceSlug = label %}

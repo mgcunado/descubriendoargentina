@@ -11,7 +11,7 @@
 	{{ include("includes/breadcrumb/provincias.html.twig") }}
 
 	<div class="container-fluid mt-2 mb-5 bg-light" style="font-size:12px;">
-		{% for textos in ppp2 %}
+		{% for textos in findTextos %}
 			<h3  align="left" class="pt-2">{{ textos.lugarturistico | raw }}</h3>
 			{{ include("includes/imagearticulo.html.twig") }}
 			{{ textos.introtext | raw }}

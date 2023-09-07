@@ -40,12 +40,12 @@ class RutadelvinoController extends Controller
     $seoPage = $this->get('sonata.seo.page');
     $seoPage = $seoData->addData($titulo, $keywords, $description, $seoPage);
 
-    $ppp1 = $this->textoRepository->findProvinciastermas();
+    $findProvinciastermas = $this->textoRepository->findProvinciastermas();
 
     $data = array('Todas' => '%');
     $i = 0;
-    while ($i < count($ppp1)) {
-      $datanew = array($ppp1[$i]['provincia'] => $ppp1[$i]['provincia']);
+    while ($i < count($findProvinciastermas)) {
+      $datanew = array($findProvinciastermas[$i]['provincia'] => $findProvinciastermas[$i]['provincia']);
       $data = array_merge($data, $datanew);
       $i = $i + 1;
     }
@@ -69,12 +69,12 @@ class RutadelvinoController extends Controller
 
     if ($formulario->isSubmitted()) {
       $provincia = $formulario->get('provincia')->getData();
-      $ppp2 = $this->textoRepository->findRutadelvino($provincia);
+      $findRutadelvino = $this->textoRepository->findRutadelvino($provincia);
 
-      $fotos = $transformName->doTransform($ppp2);
+      $fotos = $transformName->doTransform($findRutadelvino);
 
       return $this->render('rutadelvinover.html.twig', array(
-        'ppp2' => $ppp2, 'fotos' => $fotos, 'provincia' => $provincia, 'coordenadasController' => $coordenadasController, 'menulocal' => $menulocal, 'titulo' => $titulo, 'seoPage' => $seoPage
+        'findRutadelvino' => $findRutadelvino, 'fotos' => $fotos, 'provincia' => $provincia, 'coordenadasController' => $coordenadasController, 'menulocal' => $menulocal, 'titulo' => $titulo, 'seoPage' => $seoPage
       ));
     }
 

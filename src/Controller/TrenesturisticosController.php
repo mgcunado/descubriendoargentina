@@ -40,13 +40,13 @@ class TrenesturisticosController extends Controller
     $seoPage = $this->get('sonata.seo.page');
     $seoPage = $seoData->addData($titulo, $keywords, $description, $seoPage);
 
-    $ppp1 = $this->textoRepository->findProvinciastrenesturisticos();
+    $findProvinciastrenesturisticos = $this->textoRepository->findProvinciastrenesturisticos();
 
     $data = array('Todas' => '%');
     $i = 0;
 
-    while ($i < count($ppp1)) {
-      $datanew = array($ppp1[$i]['provincia'] => $ppp1[$i]['provincia']);
+    while ($i < count($findProvinciastrenesturisticos)) {
+      $datanew = array($findProvinciastrenesturisticos[$i]['provincia'] => $findProvinciastrenesturisticos[$i]['provincia']);
       $data = array_merge($data, $datanew);
       $i = $i + 1;
     }
@@ -70,12 +70,12 @@ class TrenesturisticosController extends Controller
 
     if ($formulario->isSubmitted()) {
       $provincia = $formulario->get('provincia')->getData();
-      $ppp2 = $this->textoRepository->findTrenesturisticos($provincia);
+      $findProvinciastrenesturisticos = $this->textoRepository->findTrenesturisticos($provincia);
 
-      $fotos = $transformName->doTransform($ppp2, 'trenes');
+      $fotos = $transformName->doTransform($findProvinciastrenesturisticos, 'trenes');
 
       return $this->render('trenesturisticosver.html.twig', array(
-        'ppp2' => $ppp2, 'fotos' => $fotos, 'provincia' => $provincia, 'coordenadasController' => $coordenadasController, 'menulocal' => $menulocal, 'titulo' => $titulo, 'seoPage' => $seoPage
+        'findProvinciastrenesturisticos' => $findProvinciastrenesturisticos, 'fotos' => $fotos, 'provincia' => $provincia, 'coordenadasController' => $coordenadasController, 'menulocal' => $menulocal, 'titulo' => $titulo, 'seoPage' => $seoPage
       ));
     }
 

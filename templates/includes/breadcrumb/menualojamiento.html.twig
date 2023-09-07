@@ -11,7 +11,7 @@
       {% elseif region != 'argentina' %}
          <li class="breadcrumb-item"><a href="{{ path('mapainteractivo', {'region': 'argentina'}) }}">{{ menufinal }}</a></li>
 
-         {% set textoregion = 'ppp' %}
+         {% set textoregion = ' ' %}
          {% for label, item in regiones %}
             {% if label == region %}
                {% set textoregion = item.title %}

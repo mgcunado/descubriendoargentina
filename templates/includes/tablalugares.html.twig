@@ -2,7 +2,7 @@
 
    {% if provinceSlug is null  %} 
       {% set i = 0  %} 
-      {% for provincias in touristCenterByProvince %}
+      {% for provincias in findProvincesByRegion %}
          {% if i == 0 %}
             <div class="col-md-12 justify-content-center text-secondary p-3 mt-5" style="font-size:14px; letter-spacing: 5px;" align="center">            
                <h5>Provincias en la región de {{ provincias.region  }}</h5>

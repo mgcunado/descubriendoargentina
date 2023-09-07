@@ -334,7 +334,7 @@ class TextoRepository extends ServiceEntityRepository
    * @param string $regionSlug
    * @return mixed
    */
-  public function findTablalugares1($regionSlug)
+  public function findProvincesByRegion($regionSlug)
   {
     $em = $this->getEntityManager();
 
@@ -355,7 +355,7 @@ class TextoRepository extends ServiceEntityRepository
    * @param string $provinceSlug
    * @return mixed
    */
-  public function touristCenterByprovince($provinceSlug)
+  public function touristCenterByProvince($provinceSlug)
   {
     $em = $this->getEntityManager();
 
