@@ -20,16 +20,16 @@ class PescaprovinciaController extends Controller
   }
 
   /**
-     * @Route("/ar/{slug}/{slugg}/pescadeportiva/provincia/", defaults={"slug"="patagonia", "slugg"="rionegro", "sluggg"= null, "menulocal"="pescadeportivaprovincia"}, name="pescadeportivaprovincia")
-     * @param string $slug
-     * @param string $slugg
+     * @Route("/ar/{regionSlug}/{provinceSlug}/pescadeportiva/provincia/", defaults={"regionSlug"="patagonia", "provinceSlug"="rionegro", "localitySlug"= null, "menulocal"="pescadeportivaprovincia"}, name="pescadeportivaprovincia")
+     * @param string $regionSlug
+     * @param string $provinceSlug
      * @param string $menulocal
      */
-  public function pescaprovinciaAction(SeoData $seoData, $slug, $slugg, $menulocal): Response
+  public function pescaprovinciaAction(SeoData $seoData, $regionSlug, $provinceSlug, $menulocal): Response
   {
     //pescadeportivaprovincias
     $ppp1 = null;
-    $ppp2 = $this->textoRepository->findTextos($slugg);
+    $ppp2 = $this->textoRepository->findTextos($provinceSlug);
     $titulo = 'Pesca deportiva en la provincia de ' . $ppp2[0]['lugarturistico'];
     $keywords = 'argentina pesca deportiva provincia ' . $ppp2[0]['lugarturistico'] . ' alojamiento excursiones distancias';
     $description = 'La pesca deportiva en la provincia de ' . $ppp2[0]['lugarturistico'];
@@ -37,17 +37,17 @@ class PescaprovinciaController extends Controller
     $seoPage = $this->get('sonata.seo.page');
     $seoPage = $seoData->addData($titulo, $keywords, $description, $seoPage);
 
-    $ppp3 = $this->textoRepository->findTablalugares2($slugg);
+    $ppp3 = $this->textoRepository->findTablalugares2($provinceSlug);
 
-    $pescaprovincia = $this->textoRepository->findPescaprovincias($slugg);
+    $pescaprovincia = $this->textoRepository->findPescaprovincias($provinceSlug);
     $menulocal = 'pescadeportivaprovincia';
-    $sluggg = null;
+    $localitySlug = null;
 
     /* Incluimos las Coordenadas */
     $coordenadasController = $this->get('coordenadasservice')->maparegionesAction();
 
     return $this->render('pescaprovincia.html.twig', array(
-      'ppp1' => $ppp1, 'ppp2' => $ppp2, 'ppp3' => $ppp3, 'slug' => $slug, 'slugg' => $slugg, 'sluggg' => $sluggg, 'menulocal' => $menulocal, 'pescaprovincia' => $pescaprovincia, 'coordenadasController' => $coordenadasController, 'titulo' => $titulo, 'seoPage' => $seoPage
+      'ppp1' => $ppp1, 'ppp2' => $ppp2, 'ppp3' => $ppp3, 'regionSlug' => $regionSlug, 'provinceSlug' => $provinceSlug, 'localitySlug' => $localitySlug, 'menulocal' => $menulocal, 'pescaprovincia' => $pescaprovincia, 'coordenadasController' => $coordenadasController, 'titulo' => $titulo, 'seoPage' => $seoPage
     ));
   }
 }

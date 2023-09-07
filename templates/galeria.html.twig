@@ -12,7 +12,7 @@
 
 
    {% set contador = 1 %}
-   {% for imagen in ppp2 %}
+   {% for imagen in findGaleria %}
       {% if contador < 2 %}
          <div class="container-fluid mt-2 mb-5 bg-light">
             <h3 class="pt-3 pb-3">Galería de Imágenes de {{ imagen.lugarturistico }}</h3>

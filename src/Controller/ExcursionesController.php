@@ -22,29 +22,28 @@ class ExcursionesController extends Controller
   }
 
   /**
-     * @Route("/ar/{slug}/{slugg}/{sluggg}/excursiones/", defaults={"slug"="patagonia", "slugg"="rionegro", "sluggg"="bariloche", "menulocal"="excursiones"}, name="excursiones")
-     * @param string $slug
-     * @param string $slugg
-     * @param string $sluggg
+     * @Route("/ar/{regionSlug}/{provinceSlug}/{localitySlug}/excursiones/", defaults={"regionSlug"="patagonia", "provinceSlug"="rionegro", "localitySlug"="bariloche", "menulocal"="excursiones"}, name="excursiones")
+     * @param string $regionSlug
+     * @param string $provinceSlug
+     * @param string $localitySlug
      * @param string $menulocal
      */
-  public function excursionesAction(Request $request, SeoData $seoData, $slug, $slugg, $sluggg, $menulocal): Response
+  public function excursionesAction(Request $request, SeoData $seoData, $regionSlug, $provinceSlug, $localitySlug, $menulocal): Response
   {
     //excursiones
-    $ppp1 = null;
-    $ppp2 = $this->textoRepository->findExcursiones($sluggg);
-    $titulo = 'Excursiones en ' . $ppp2[0]['lugarturistico'];
-    $keywords = 'argentina excursiones paseos alojamiento ' . $ppp2[0]['lugarturistico'] . ' distancias';
-    $description = 'Paseos y excursiones en ' . $ppp2[0]['lugarturistico'] . ', uno de los centros turísticos de Argentina';
+    $findExcursiones = $this->textoRepository->findExcursiones($localitySlug);
+    $titulo = 'Excursiones en ' . $findExcursiones[0]['lugarturistico'];
+    $keywords = 'argentina excursiones paseos alojamiento ' . $findExcursiones[0]['lugarturistico'] . ' distancias';
+    $description = 'Paseos y excursiones en ' . $findExcursiones[0]['lugarturistico'] . ', uno de los centros turísticos de Argentina';
 
     $seoPage = $this->get('sonata.seo.page');
     $seoPage = $seoData->addData($titulo, $keywords, $description, $seoPage);
 
-    $ppp3 = $this->textoRepository->findTablalugares2($slugg);
+    $touristCenterByProvince = $this->textoRepository->touristCenterByProvince($provinceSlug);
 
     //construyendo array de existencia de archivos para pasarlo a twig a través de una variable declarada (excursiones)
-    $filas = count($ppp2);
-    $basenombreimg = $ppp2[0]['alias'];
+    $filas = count($findExcursiones);
+    $basenombreimg = $findExcursiones[0]['alias'];
     $array = array(0);
 
     for ($i = 1; $i < $filas + 1; $i++) {
@@ -60,10 +59,10 @@ class ExcursionesController extends Controller
 
     /* Incluimos las Coordenadas */
     $coordenadasController = $this->get('coordenadasservice')->maparegionesAction();
-    $pescacentroturistico = $this->textoRepository->findPescadeportiva($sluggg);
+    $pescacentroturistico = $this->textoRepository->findPescadeportiva($localitySlug);
 
     return $this->render('excursiones.html.twig', array(
-      'ppp1' => $ppp1, 'ppp2' => $ppp2, 'ppp3' => $ppp3, 'slug' => $slug, 'slugg' => $slugg, 'sluggg' => $sluggg, 'menulocal' => $menulocal, 'excursiones' => $excursiones, 'pescacentroturistico' => $pescacentroturistico, 'coordenadasController' => $coordenadasController, 'titulo' => $titulo, 'seoPage' => $seoPage
+      'findExcursiones' => $findExcursiones, 'touristCenterByProvince' => $touristCenterByProvince, 'regionSlug' => $regionSlug, 'provinceSlug' => $provinceSlug, 'localitySlug' => $localitySlug, 'menulocal' => $menulocal, 'excursiones' => $excursiones, 'pescacentroturistico' => $pescacentroturistico, 'coordenadasController' => $coordenadasController, 'titulo' => $titulo, 'seoPage' => $seoPage
     ));
   }
 }

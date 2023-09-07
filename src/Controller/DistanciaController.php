@@ -22,36 +22,36 @@ class DistanciaController extends Controller
   }
 
   /**
-     * @Route("/ar/{slug}/{slugg}/{sluggg}/distancias/", defaults={"slug"="patagonia", "slugg"="rionegro", "sluggg"="bariloche", "menulocal"="distancias"}, name="distancias")
-     * @param string $slug
-     * @param string $slugg
-     * @param string $sluggg
+     * @Route("/ar/{regionSlug}/{provinceSlug}/{localitySlug}/distancias/", defaults={"regionSlug"="patagonia", "provinceSlug"="rionegro", "localitySlug"="bariloche", "menulocal"="distancias"}, name="distancias")
+     * @param string $regionSlug
+     * @param string $provinceSlug
+     * @param string $localitySlug
      * @param string $menulocal
      */
-  public function distanciaAction(Request $request, SeoData $seoData, $slug, $slugg, $sluggg, $menulocal): Response
+  public function distanciaAction(Request $request, SeoData $seoData, $regionSlug, $provinceSlug, $localitySlug, $menulocal): Response
   {
     //tabla de distancias
-    $ppp1 = $this->textoRepository->findTabladistancias1($sluggg);
-    $titulo = 'Cuadro de distancias desde ' . $ppp1[0]['lugarturistico'];
-    $keywords = 'argentina tabla distancias localidades cercanas alojamiento ' . $ppp1[0]['lugarturistico'] . ' excursiones';
-    $description = 'Tabla de distancias en linea recta desde ' . $ppp1[0]['lugarturistico'] . ', uno de los centros turísticos de Argentina';
+    $findTabladistancias1 = $this->textoRepository->findTabladistancias1($localitySlug);
+    $titulo = 'Cuadro de distancias desde ' . $findTabladistancias1[0]['lugarturistico'];
+    $keywords = 'argentina tabla distancias localidades cercanas alojamiento ' . $findTabladistancias1[0]['lugarturistico'] . ' excursiones';
+    $description = 'Tabla de distancias en linea recta desde ' . $findTabladistancias1[0]['lugarturistico'] . ', uno de los centros turísticos de Argentina';
 
     $seoPage = $this->get('sonata.seo.page');
     $SeoPage = $seoData->addData($titulo, $keywords, $description, $seoPage);
 
-    $latitud1 = $ppp1[0]['latitud'];
-    $longitud1 = $ppp1[0]['longitud'];
+    $latitud1 = $findTabladistancias1[0]['latitud'];
+    $longitud1 = $findTabladistancias1[0]['longitud'];
 
-    $ppp2 = $this->textoRepository->findTabladistancias2($sluggg, $latitud1, $longitud1);
-    $ppp3 = $this->textoRepository->findTablalugares2($slugg);
-    $filas = count($ppp2);
+    $findTabladistancias2 = $this->textoRepository->findTabladistancias2($localitySlug, $latitud1, $longitud1);
+    $touristCenterByProvince = $this->textoRepository->touristCenterByProvince($provinceSlug);
+    $filas = count($findTabladistancias2);
 
     /************************/
     $direccionarray = array();
     $i = 0;
     while ($i < $filas) {
-      $latitud2 = $ppp2[$i]['latitud'];
-      $longitud2 = $ppp2[$i]['longitud'];
+      $latitud2 = $findTabladistancias2[$i]['latitud'];
+      $longitud2 = $findTabladistancias2[$i]['longitud'];
       $dirNS = $latitud2 - $latitud1;
       $dirEO = $longitud2 - $longitud1;
       //para evitar el error: Warning: Division by zero
@@ -86,10 +86,10 @@ class DistanciaController extends Controller
     /* Incluimos las Coordenadas */
     $coordenadasController = $this->get('coordenadasservice')->maparegionesAction();
 
-    $pescacentroturistico = $this->textoRepository->findPescadeportiva($sluggg);
+    $pescacentroturistico = $this->textoRepository->findPescadeportiva($localitySlug);
 
     return $this->render('distancia.html.twig', array(
-      'ppp1' => $ppp1, 'ppp2' => $ppp2, 'ppp3' => $ppp3, 'slug' => $slug, 'slugg' => $slugg, 'sluggg' => $sluggg, 'menulocal' => $menulocal, 'direccionarray' => $direccionarray, 'excursiones' => null, 'pescacentroturistico' => $pescacentroturistico, 'coordenadasController' => $coordenadasController, 'titulo' => $titulo, 'seoPage' => $seoPage
+      'findTabladistancias1' => $findTabladistancias1, 'findTabladistancias2' => $findTabladistancias2, 'touristCenterByProvince' => $touristCenterByProvince, 'regionSlug' => $regionSlug, 'provinceSlug' => $provinceSlug, 'localitySlug' => $localitySlug, 'menulocal' => $menulocal, 'direccionarray' => $direccionarray, 'excursiones' => null, 'pescacentroturistico' => $pescacentroturistico, 'coordenadasController' => $coordenadasController, 'titulo' => $titulo, 'seoPage' => $seoPage
     ));
   }
 }

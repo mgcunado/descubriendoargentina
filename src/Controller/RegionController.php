@@ -24,15 +24,15 @@ class RegionController extends Controller
 
 
   /**
-     * @Route("/ar/{slug}/", defaults={"slug"="patagonia", "menulocal"=null}, name="region")
-     * @param string $slug
+     * @Route("/ar/{regionSlug}/", defaults={"regionSlug"="patagonia", "menulocal"=null}, name="region")
+     * @param string $regionSlug
      * @param string $menulocal
      */
-  public function regionAction(SeoData $seoData, $slug, $menulocal): Response
+  public function regionAction(SeoData $seoData, $regionSlug, $menulocal): Response
   {
     //regiones
-    $ppp1 = $this->josMenuRepository->findImagen($slug);
-    $ppp2 = $this->textoRepository->findTextos($slug);
+    $ppp1 = $this->josMenuRepository->findImagen($regionSlug);
+    $ppp2 = $this->textoRepository->findTextos($regionSlug);
 
     $titulo = $ppp2[0]['lugarturistico'];
     $keywords = 'argentina alojamiento ' . $ppp2[0]['lugarturistico'] . ' excursiones distancias';
@@ -41,14 +41,14 @@ class RegionController extends Controller
     $seoPage = $this->get('sonata.seo.page');
     $seoPage = $seoData->addData($titulo, $keywords, $description, $seoPage);
 
-    $ppp3 = $this->textoRepository->findTablalugares1($slug);
-    $slugg = null;
+    $ppp3 = $this->textoRepository->findTablalugares1($regionSlug);
+    $provinceSlug = null;
 
     /* Incluimos las Coordenadas */
     $coordenadasController = $this->get('coordenadasservice')->maparegionesAction();
 
     return $this->render('region.html.twig', array(
-      'ppp1' => $ppp1, 'ppp2' => $ppp2, 'ppp3' => $ppp3, 'slug' => $slug,  'slugg' => $slugg,  'menulocal' => $menulocal, 'coordenadasController' => $coordenadasController, 'titulo' => $titulo, 'seoPage' => $seoPage
+      'ppp1' => $ppp1, 'ppp2' => $ppp2, 'ppp3' => $ppp3, 'regionSlug' => $regionSlug,  'provinceSlug' => $provinceSlug,  'menulocal' => $menulocal, 'coordenadasController' => $coordenadasController, 'titulo' => $titulo, 'seoPage' => $seoPage
     ));
   }
 }

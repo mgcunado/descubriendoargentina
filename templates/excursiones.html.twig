@@ -10,7 +10,7 @@
 
 	<div class="container-fluid mt-2 mb-5 bg-light" style="font-size:12px;">
 		{% set contador = 1 %}
-		{% for textos in ppp2 %}
+		{% for textos in findExcursiones %}
 			{% if contador < 2 %}
 				<h3 class="pt-3 pb-2">Paseos y excursiones en {{ textos.lugarturistico }}</h3>
 			{% endif %}

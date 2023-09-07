@@ -20,32 +20,31 @@ class GaleriaController extends Controller
   }
 
   /**
-     * @Route("/ar/{slug}/{slugg}/{sluggg}/imagenes/", defaults={"slug"="patagonia", "slugg"="rionegro", "sluggg"="bariloche", "menulocal"="galeria"}, name="galeria")
-     * @param string $slug
-     * @param string $slugg
-     * @param string $sluggg
+     * @Route("/ar/{regionSlug}/{provinceSlug}/{localitySlug}/imagenes/", defaults={"regionSlug"="patagonia", "provinceSlug"="rionegro", "localitySlug"="bariloche", "menulocal"="galeria"}, name="galeria")
+     * @param string $regionSlug
+     * @param string $provinceSlug
+     * @param string $localitySlug
      * @param string $menulocal
      */
-  public function galeriaAction(SeoData $seoData, $slug, $slugg, $sluggg, $menulocal): Response
+  public function galeriaAction(SeoData $seoData, $regionSlug, $provinceSlug, $localitySlug, $menulocal): Response
   {
-    $ppp1 = null;
-    $ppp2 = $this->textoRepository->findGaleria($sluggg);
-    $titulo = 'Galería de imágenes de ' . $ppp2[0]['lugarturistico'];
-    $keywords = 'argentina galería imágenes alojamiento ' . $ppp2[0]['lugarturistico'] . ' excursiones';
-    $description = 'Galería de imágenes de ' . $ppp2[0]['lugarturistico'] . ', uno de los centros turísticos de Argentina';
+    $findGaleria = $this->textoRepository->findGaleria($localitySlug);
+    $titulo = 'Galería de imágenes de ' . $findGaleria[0]['lugarturistico'];
+    $keywords = 'argentina galería imágenes alojamiento ' . $findGaleria[0]['lugarturistico'] . ' excursiones';
+    $description = 'Galería de imágenes de ' . $findGaleria[0]['lugarturistico'] . ', uno de los centros turísticos de Argentina';
 
     $seoPage = $this->get('sonata.seo.page');
     $seoPage = $seoData->addData($titulo, $keywords, $description, $seoPage);
 
-    $ppp3 = $this->textoRepository->findTablalugares2($slugg);
+    $touristCenterByProvince = $this->textoRepository->touristCenterByProvince($provinceSlug);
 
     /* Incluimos las Coordenadas */
     $coordenadasController = $this->get('coordenadasservice')->maparegionesAction();
 
-    $pescacentroturistico = $this->textoRepository->findPescadeportiva($sluggg);
+    $pescacentroturistico = $this->textoRepository->findPescadeportiva($localitySlug);
 
     return $this->render('galeria.html.twig', array(
-      'ppp1' => $ppp1, 'ppp2' => $ppp2, 'ppp3' => $ppp3, 'slug' => $slug, 'slugg' => $slugg, 'sluggg' => $sluggg, 'coordenadasController' => $coordenadasController, 'pescacentroturistico' => $pescacentroturistico, 'menulocal' => $menulocal, 'titulo' => $titulo, 'seoPage' => $seoPage
+      'findGaleria' => $findGaleria, 'touristCenterByProvince' => $touristCenterByProvince, 'regionSlug' => $regionSlug, 'provinceSlug' => $provinceSlug, 'localitySlug' => $localitySlug, 'coordenadasController' => $coordenadasController, 'pescacentroturistico' => $pescacentroturistico, 'menulocal' => $menulocal, 'titulo' => $titulo, 'seoPage' => $seoPage
     ));
   }
 }

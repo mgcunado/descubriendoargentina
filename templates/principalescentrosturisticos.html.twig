@@ -16,7 +16,7 @@
    {% set colortextoprovincias = ['#AADDFF', '#AAFFDD', '#DDAAFF', '#DDFFAA', '#FFDDAA'] %}
    {% set colortextoregiones = ['#EEEEEE', '#EEEEEE', '#EEEEEE', '#EEEEEE', '#EEEEEE'] %}
 
-   {% set slugg = 'ppp' %}
+   {% set provinceSlug = 'ppp' %}
 
    {# Alojamiento en los principales Centros Turísticos de Argentina  #}
      {{ include("includes/breadcrumb/menuprincipal.html.twig", {menufinal: 'Alojamiento en los principales Centros Turísticos'}) }} 
@@ -41,7 +41,7 @@
 
                            {% for label, item in _context[regionslug[i]] %}
                               {% if item.title == alojamientos.provincia %}
-                                 {% set slugg = label %}
+                                 {% set provinceSlug = label %}
                               {% endif %}
                            {% endfor %}
 
@@ -51,9 +51,9 @@
                               <br><br>
                            {% endif %}
                            <span style="color: {{ colortextoprovincias[i] }}; font-size:125%;">{{ alojamientos.provincia }} <br></span>
-                           <a style="color: {{ colortextoregiones[i] }}" href="{{ path('alojamiento', {'slug': regionslug[i], 'slugg': slugg, 'sluggg': alojamientos.alias }) }}" > {{ alojamientos.centroturistico }}</a>
+                           <a style="color: {{ colortextoregiones[i] }}" href="{{ path('alojamiento', {'regionSlug': regionslug[i], 'provinceSlug': provinceSlug, 'localitySlug': alojamientos.alias }) }}" > {{ alojamientos.centroturistico }}</a>
                         {% else  %}
-                           ,&nbsp;&nbsp;&nbsp;<a style="color: {{ colortextoregiones[i] }}" href="{{ path('alojamiento', {'slug': regionslug[i], 'slugg': slugg, 'sluggg': alojamientos.alias }) }}" > {{ alojamientos.centroturistico }}</a>
+                           ,&nbsp;&nbsp;&nbsp;<a style="color: {{ colortextoregiones[i] }}" href="{{ path('alojamiento', {'regionSlug': regionslug[i], 'provinceSlug': provinceSlug, 'localitySlug': alojamientos.alias }) }}" > {{ alojamientos.centroturistico }}</a>
                         {% endif  %}
                         {% set ii = ii + 1 %}
                      {% endif  %}

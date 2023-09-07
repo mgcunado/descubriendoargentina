@@ -41,5 +41,5 @@ homepage:
 
 # ******************           
 alemail:
-    path: /ar/{slug}/{slugg}/{sluggg}/alojamiento
+    path: /ar/{regionSlug}/{provinceSlug}/{localitySlug}/alojamiento
        

@@ -12,7 +12,7 @@
       {% set centroturistico = null  %}
       {% set direccion = null  %} 
       <div class="container-fluid mt-2 mb-5 bg-light" style="font-size:12px;">
-         {% for textos in aaa0 %}
+         {% for textos in touristLocality %}
             <h3 class="pt-3 pb-0 mb-2">Alojamiento en {{ textos.centroTuristico }}</h3>
             {% set centroturistico = textos.centroTuristico  %}
          {%  endfor  %}
@@ -40,7 +40,7 @@
                {# Dibujamos el Alojamiento #}
                {% set w = 0 %}
 
-               {% for key, tipo in tipos %}
+               {% for key, tipo in types %}
                   {% set t = t + 1 %}
                   <div class="row">
                      <div class="col-md-12 text-light bg-info py-1 mt-4">
@@ -132,14 +132,14 @@
                      {%  endfor  %}
                   </div> 
 
-                  {# endfor tipos  #}
+                  {# endfor types  #}
                {%  endfor  %}            
                {#:::: FIN Dibujamos Alojamientos en el Centro Turístico  ::::#}
 
                {##### Dibujamos Alojamientos en las Localidades Cercanas  #####}
 
                {# ******** local2aux => localidades cercanas
-               arraytiposaux => tipos
+               arraytiposaux => types
                arrayppp2aux => ppp2
                arrayaaa3aux => aaa3  ************   #}
 
@@ -157,7 +157,7 @@
 
                         {% if existeuno == 1 %}
                            <div class="container-fluid mt-2 mb-5 bg-light" style="font-size:12px;">
-                              {% for textos in aaa0 %}
+                              {% for textos in touristLocality %}
                                  <h5 class="pt-4 pb-0 mb-0">Alojamiento en {{ cercanas.localidad }}</h5>
                                  {% for key, orientacion in arrayorientacionesaux %}
                                     {% if key == loccercanas %}
@@ -386,18 +386,18 @@
                   {% if textos.distancia < 301 or contador < 3 %}
                      {% for label, item in regiones %}
                         {% if item.title == textos.region %}
-                           {% set slug = label %}
+                           {% set regionSlug = label %}
                         {% endif %}
                      {% endfor %}
 
-                     {% for labell, itemm in _context[slug]  %}
+                     {% for labell, itemm in _context[regionSlug]  %}
                         {% if itemm.title == textos.provincia %}
-                           {% set slugg = labell %}
+                           {% set provinceSlug = labell %}
                         {% endif %}
                      {% endfor %}
 
                      <div class="col-md-4  py-2 {% if contador % 2 == 0 %} bg-light text-dark {% else %} bg-primary2 text-dark {% endif %}">
-                        <a href="{{ path('centroturistico', {'slug': slug, 'slugg': slugg, 'sluggg': textos.alias } ) }}">
+                        <a href="{{ path('centroturistico', {'regionSlug': regionSlug, 'provinceSlug': provinceSlug, 'localitySlug': textos.alias } ) }}">
                            {{ textos.lugarturistico  }}
                         </a>
                      </div>
@@ -420,7 +420,7 @@
 
 
 
-         {% elseif slugg is null %}
+         {% elseif provinceSlug is null %}
             {# Dibujamos las Regiones #}
             {{ include("includes/breadcrumb/regiones.html.twig") }}
 
@@ -437,7 +437,7 @@
 
 
 
-         {% elseif sluggg is null and menulocal != 'pescadeportivaprovincia' %}
+         {% elseif localitySlug is null and menulocal != 'pescadeportivaprovincia' %}
             {# Dibujamos las Provincias #}
             {{ include("includes/breadcrumb/provincias.html.twig") }}
 
@@ -518,7 +518,7 @@
 
    {# Dibujamos el menú lateral izquierdo #}
    {% block sideleft %}
-      {% if menulocal is not null or sluggg is not null or slugg is not null %}
+      {% if menulocal is not null or localitySlug is not null or provinceSlug is not null %}
          {{ include("includes/menucentrotur.html.twig") }}
       {% endif %}
 

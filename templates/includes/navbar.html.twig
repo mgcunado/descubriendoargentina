@@ -27,17 +27,17 @@
    <nav id="main-nav">
       <!-- Sample menu definition -->
       <ul id="main-menu" class="sm sm-blue">
-         {% for slug, item in regiones %}
-            <li><a href="{{ path('region', {'slug': slug } ) }}">{{ item.title }}</a>
-               {% if _context[slug] is defined %}
+         {% for regionSlug, item in regiones %}
+            <li><a href="{{ path('region', {'regionSlug': regionSlug } ) }}">{{ item.title }}</a>
+               {% if _context[regionSlug] is defined %}
                   <ul>
-                     {% for slugg, itemm in _context[slug]  %}
-                        <li><a href="{{ path('provincia', {'slug': slug, 'slugg': slugg } ) }}">{{ itemm.title }}</a>
+                     {% for provinceSlug, itemm in _context[regionSlug]  %}
+                        <li><a href="{{ path('provincia', {'regionSlug': regionSlug, 'provinceSlug': provinceSlug } ) }}">{{ itemm.title }}</a>
 
-                           {% if _context[slugg] is defined %}
+                           {% if _context[provinceSlug] is defined %}
                               <ul>
-                                 {% for sluggg, itemmm in _context[slugg]  %}
-                                    <li><a href="{{ path('centroturistico', {'slug': slug, 'slugg': slugg, 'sluggg': sluggg } ) }}">{{ itemmm.title }}</a></li>
+                                 {% for localitySlug, itemmm in _context[provinceSlug]  %}
+                                    <li><a href="{{ path('centroturistico', {'regionSlug': regionSlug, 'provinceSlug': provinceSlug, 'localitySlug': localitySlug } ) }}">{{ itemmm.title }}</a></li>
                                  {% endfor %}
                               </ul>
                            {% endif %}

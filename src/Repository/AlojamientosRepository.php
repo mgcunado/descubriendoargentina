@@ -18,17 +18,17 @@ class AlojamientosRepository extends ServiceEntityRepository
 
   // ** Alojamientos **
   /**
-   * @param string $sluggg
+   * @param string $localitySlug
    * @return mixed
    */
-  public function findAlojamiento0($sluggg)
+  public function findTouristLocality($localitySlug)
   {
     $em = $this->getEntityManager();
     $consulta = $em->createQuery('
       SELECT s.centroTuristico AS centroTuristico, s.provincia AS provincia, s.latitud AS latitud, s.longitud AS longitud
       FROM App:TablaEnlacesCentros s
       WHERE s.alias = :alias and s.latitud != :latitud ');
-    $consulta->setParameter('alias', $sluggg);
+    $consulta->setParameter('alias', $localitySlug);
     $consulta->setParameter('latitud', 0);
     return $consulta->getResult();
   }
@@ -39,7 +39,7 @@ class AlojamientosRepository extends ServiceEntityRepository
    * @param string $provincia
    * @return mixed
    */
-  public function findAlojamientot12($localidad,$provincia)
+  public function accommodationTypes($localidad,$provincia)
   {
     $em = $this->getEntityManager();
     $consulta = $em->createQuery('
@@ -81,10 +81,10 @@ class AlojamientosRepository extends ServiceEntityRepository
   /**
    * @param string $localidad
    * @param string $provincia
-   * @param string $sluggg
+   * @param string $localitySlug
    * @return mixed
    */
-  public function findAlojamiento2($localidad,$provincia, $sluggg)
+  public function findTypesCategoriesByLocality($localidad,$provincia, $localitySlug)
   {
     $em = $this->getEntityManager();
     $consulta = $em->createQuery('
@@ -98,7 +98,7 @@ class AlojamientosRepository extends ServiceEntityRepository
     $consulta->setParameter('provincia', $provincia);
     $consulta->setParameter('email', '');
     $consulta->setParameter('emailvalido', 1);
-    $consulta->setParameter('alias', $sluggg);
+    $consulta->setParameter('alias', $localitySlug);
 
     return $consulta->getResult();
   }
@@ -109,7 +109,7 @@ class AlojamientosRepository extends ServiceEntityRepository
    * @param string $provincia
    * @return mixed
    */
-  public function findAlojamiento3($localidad,$provincia)
+  public function accommodationInfoByLocality($localidad,$provincia)
   {
     $em = $this->getEntityManager();
     $consulta = $em->createQuery('
@@ -137,7 +137,7 @@ class AlojamientosRepository extends ServiceEntityRepository
    * @param float $longitud1
     @return mixed
    */
-  public function findLocalidades2aux($latitud1, $longitud1)
+  public function accommodationInfoByAuxLocality($latitud1, $longitud1)
   {
     $em = $this->getEntityManager();
 
@@ -164,7 +164,7 @@ class AlojamientosRepository extends ServiceEntityRepository
    * @param string $provincia
    * @return mixed
    */
-  public function findAlojamiento2aux($localidad,$provincia)
+  public function findTypesCategoriesByAuxLocality($localidad,$provincia)
   {
     $em = $this->getEntityManager();
     $consulta = $em->createQuery('

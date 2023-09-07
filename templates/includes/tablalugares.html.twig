@@ -1,15 +1,15 @@
 <div class="row mt-3"  stye="font-size:11px;">
 
-   {% if slugg is null  %} 
+   {% if provinceSlug is null  %} 
       {% set i = 0  %} 
-      {% for provincias in ppp3 %}
+      {% for provincias in touristCenterByProvince %}
          {% if i == 0 %}
             <div class="col-md-12 justify-content-center text-secondary p-3 mt-5" style="font-size:14px; letter-spacing: 5px;" align="center">            
                <h5>Provincias en la región de {{ provincias.region  }}</h5>
             </div>
          {% endif %}  
          <div class="col-md-4 text-dark bg-light border border-white">
-            <a href="{{ path('provincia', {'slug': slug, 'slugg': provincias.alias }) }}" class="list-group-item list-group-item-action text-light bg-info">
+            <a href="{{ path('provincia', {'regionSlug': regionSlug, 'provinceSlug': provincias.alias }) }}" class="list-group-item list-group-item-action text-light bg-info">
          {{ provincias.provincia  }} 
              </a>         
          </div> 
@@ -17,14 +17,14 @@
       {% endfor %}     
    {% else  %} 
       {% set i = 0  %}
-      {% for lugares in ppp3 %}
+      {% for lugares in touristCenterByProvince %}
          {% if i == 0 %}
             <div class="col-md-12 justify-content-center text-secondary p-3 mt-5" style="font-size:14px; letter-spacing: 5px;" align="center">            
                <h5>Centros turísticos de la Provincia de {{ lugares.provincia }}</h5>
             </div>  
          {% endif %}   
          <div class="col-md-4 text-dark bg-light border border-white">
-            <a href="{{ path('centroturistico', {'slug': slug, 'slugg': slugg, 'sluggg': lugares.alias }) }}" class="list-group-item list-group-item-action text-light bg-info">
+            <a href="{{ path('centroturistico', {'regionSlug': regionSlug, 'provinceSlug': provinceSlug, 'localitySlug': lugares.alias }) }}" class="list-group-item list-group-item-action text-light bg-info">
          {{ lugares.centroTuristico }}
             </a>
          </div> 

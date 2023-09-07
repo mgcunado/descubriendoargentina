@@ -1,11 +1,11 @@
-{% if sluggg is not null %}
+{% if localitySlug is not null %}
    {# Menu Centro Turístico #}
    <div class="row mt-3"  stye="font-size:11px;">
       <div class="col-md-12 justify-content-center text-light font-weight-bold text-uppercase bg-info p-3" style="font-size:14px;" align="center">
 
          {% set textolugarturistico = 'ppp' %}
-         {% for label, item in _context[slugg]  %}
-            {% if label == sluggg %}
+         {% for label, item in _context[provinceSlug]  %}
+            {% if label == localitySlug %}
                {% set textolugarturistico = item.title %}
                {{ textolugarturistico  }}
             {% endif %}
@@ -13,23 +13,23 @@
       </div>
 
       <div class="col-md-12 pt-0 justify-content-center text-light bg-info" align="center" >
-         <a href="{{ path('centroturistico', {'slug': slug, 'slugg':slugg, 'sluggg': sluggg }) }}" class="list-group-item list-group-item-action text-light {% if menulocal == null %} bg-infoactive {% else %} bg-info {% endif %}">Presentación</a>
+         <a href="{{ path('centroturistico', {'regionSlug': regionSlug, 'provinceSlug':provinceSlug, 'localitySlug': localitySlug }) }}" class="list-group-item list-group-item-action text-light {% if menulocal == null %} bg-infoactive {% else %} bg-info {% endif %}">Presentación</a>
 
-         {% if sluggg not in alojamientosfaltantes %}
-            <a href="{{ path('alojamiento', {'slug': slug, 'slugg':slugg, 'sluggg': sluggg }) }}" class="list-group-item list-group-item-action text-light {% if menulocal == 'alojamiento' %} bg-infoactive {% else %} bg-info {% endif %}">Alojamiento</a>
+         {% if localitySlug not in alojamientosfaltantes %}
+            <a href="{{ path('alojamiento', {'regionSlug': regionSlug, 'provinceSlug':provinceSlug, 'localitySlug': localitySlug }) }}" class="list-group-item list-group-item-action text-light {% if menulocal == 'alojamiento' %} bg-infoactive {% else %} bg-info {% endif %}">Alojamiento</a>
          {% endif %}
 
-         {% if sluggg != 'ciudaddecatamarca' %}
-         <a href="{{ path('excursiones', {'slug': slug, 'slugg':slugg, 'sluggg': sluggg }) }}" class="list-group-item list-group-item-action text-light {% if menulocal == 'excursiones' %} bg-infoactive {% else %} bg-info {% endif %}">Excursiones</a>
+         {% if localitySlug != 'ciudaddecatamarca' %}
+         <a href="{{ path('excursiones', {'regionSlug': regionSlug, 'provinceSlug':provinceSlug, 'localitySlug': localitySlug }) }}" class="list-group-item list-group-item-action text-light {% if menulocal == 'excursiones' %} bg-infoactive {% else %} bg-info {% endif %}">Excursiones</a>
          {% endif %}
 
          {% if pescacentroturistico is not empty %}
-            <a href="{{ path('pescadeportiva', {'slug': slug, 'slugg':slugg, 'sluggg': sluggg }) }}" class="list-group-item list-group-item-action text-light {% if menulocal == 'pescadeportiva' %} bg-infoactive {% else %} bg-info {% endif %}">Pesca Deportiva</a>
+            <a href="{{ path('pescadeportiva', {'regionSlug': regionSlug, 'provinceSlug':provinceSlug, 'localitySlug': localitySlug }) }}" class="list-group-item list-group-item-action text-light {% if menulocal == 'pescadeportiva' %} bg-infoactive {% else %} bg-info {% endif %}">Pesca Deportiva</a>
          {% endif %}
 
 
-         <a href="{{ path('distancias', {'slug': slug, 'slugg':slugg, 'sluggg': sluggg }) }}" class="list-group-item list-group-item-action text-light {% if menulocal == 'distancias' %} bg-infoactive {% else %} bg-info {% endif %}">Cuadro de distancias</a>
-         <a href="{{ path('galeria', {'slug': slug, 'slugg':slugg, 'sluggg': sluggg }) }}" class="list-group-item list-group-item-action text-light {% if menulocal == 'galeria' %} bg-infoactive {% else %} bg-info {% endif %}">Galería de Imágenes</a>
+         <a href="{{ path('distancias', {'regionSlug': regionSlug, 'provinceSlug':provinceSlug, 'localitySlug': localitySlug }) }}" class="list-group-item list-group-item-action text-light {% if menulocal == 'distancias' %} bg-infoactive {% else %} bg-info {% endif %}">Cuadro de distancias</a>
+         <a href="{{ path('galeria', {'regionSlug': regionSlug, 'provinceSlug':provinceSlug, 'localitySlug': localitySlug }) }}" class="list-group-item list-group-item-action text-light {% if menulocal == 'galeria' %} bg-infoactive {% else %} bg-info {% endif %}">Galería de Imágenes</a>
 
 
       </div>
@@ -49,10 +49,10 @@
       </div>
 
       <div class="col-md-12 pt-0 justify-content-center text-light bg-secondary" align="center" >
-         <a href="{{ path('provincia', {'slug': slug, 'slugg':slugg, 'sluggg': null }) }}" class="list-group-item list-group-item-action text-light {% if menulocal == null %} bg-secondaryactive {% else %} bg-secondary {% endif %}">Presentación</a>
+         <a href="{{ path('provincia', {'regionSlug': regionSlug, 'provinceSlug':provinceSlug, 'localitySlug': null }) }}" class="list-group-item list-group-item-action text-light {% if menulocal == null %} bg-secondaryactive {% else %} bg-secondary {% endif %}">Presentación</a>
 
-         {% if slugg != 'entrerios' and slugg != 'mendoza' %}
-            <a href="{{ path('pescadeportivaprovincia', {'slug': slug, 'slugg':slugg, 'sluggg': null }) }}" class="list-group-item list-group-item-action text-light {% if menulocal == 'pescadeportivaprovincia' %} bg-secondaryactive {% else %} bg-secondary {% endif %}">Pesca Deportiva</a>
+         {% if provinceSlug != 'entrerios' and provinceSlug != 'mendoza' %}
+            <a href="{{ path('pescadeportivaprovincia', {'regionSlug': regionSlug, 'provinceSlug':provinceSlug, 'localitySlug': null }) }}" class="list-group-item list-group-item-action text-light {% if menulocal == 'pescadeportivaprovincia' %} bg-secondaryactive {% else %} bg-secondary {% endif %}">Pesca Deportiva</a>
          {% endif %}
 
       </div>

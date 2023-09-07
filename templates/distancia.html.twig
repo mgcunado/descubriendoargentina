@@ -9,7 +9,7 @@
 	{{ include("includes/breadcrumb/menucentrotur.html.twig", {menufinal: 'Cuadro de distancias'}) }}
 
 	<div class="container mt-2 mb-5 bg-light border-0" style="font-size:12px;">
-		{% for textos in ppp1 %}
+		{% for textos in findTabladistancias1 %}
 			<h3 class="pt-3 pb-4">Distancias desde {{ textos.lugarturistico }}</h3>
 
 			<div class="row">
@@ -18,7 +18,7 @@
 				</div>
 		{% endfor %}
 		{% set contador = 0 %}
-		{% for textos in ppp2 %}
+		{% for textos in findTabladistancias2 %}
 			{% if contador < 1 %}
 				<div class="col-md-4 text-light bg-dark py-2 mb-1">{{ 'Centro Turístico' }}</div>
 				<div class="col-md-2 text-light bg-dark py-2 mb-1">{{ 'Distancia' }}</div>
@@ -29,18 +29,18 @@
 			{% if textos.distancia < 301 or contador < 3 %}
 				{% for label, item in regiones %}
 					{% if item.title == textos.region %}
-						{% set slug = label %}
+						{% set regionSlug = label %}
 					{% endif %}
 				{% endfor %}
 
-				{% for labell, itemm in _context[slug]  %}
+				{% for labell, itemm in _context[regionSlug]  %}
 					{% if itemm.title == textos.provincia %}
-						{% set slugg = labell %}
+						{% set provinceSlug = labell %}
 					{% endif %}
 				{% endfor %}
 
 				<div class="col-md-4  py-2 {% if contador % 2 == 0 %} bg-light text-dark {% else %} bg-primary2 text-dark {% endif %}">
-					<a href="{{ path('centroturistico', {'slug': slug, 'slugg': slugg, 'sluggg': textos.alias } ) }}">
+					<a href="{{ path('centroturistico', {'regionSlug': regionSlug, 'provinceSlug': provinceSlug, 'localitySlug': textos.alias } ) }}">
 						{{ textos.lugarturistico  }}
 					</a>
 				</div>

@@ -141,15 +141,15 @@ function alojaRegiones() {
          }
 
 {# Miramos en las variables generales de sesión: array region para conocer el alias de provincia  #}
-         {% set slugg = 'ppp' %}
+         {% set provinceSlug = 'ppp' %}
          {% for label, item in _context[region] %}
             {% if item.title == result.provincia %}
-               {% set slugg = label %}
+               {% set provinceSlug = label %}
             {% endif %}
          {% endfor %}
 
 
-         var note = '<a href="{{ path('alojamiento', {'slug': region, 'slugg': slugg, 'sluggg': result.alias }) }}" > {{ result.centroTuristico }}</a><br/><p>Alojamientos en {{ result.centroTuristico }}</p>';
+         var note = '<a href="{{ path('alojamiento', {'regionSlug': region, 'provinceSlug': provinceSlug, 'localitySlug': result.alias }) }}" > {{ result.centroTuristico }}</a><br/><p>Alojamientos en {{ result.centroTuristico }}</p>';
          popup.setContent(note);
          popup.open(map, this);
       });

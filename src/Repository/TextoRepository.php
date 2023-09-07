@@ -80,10 +80,10 @@ class TextoRepository extends ServiceEntityRepository
 
   // ** Pesca Deportiva en Centros Turísticos **
   /**
-   * @param string $sluggg
+   * @param string $localitySlug
    * @return mixed
    */
-  public function findPescadeportiva($sluggg)
+  public function findPescadeportiva($localitySlug)
   {
     $em = $this->getEntityManager();
 
@@ -92,16 +92,16 @@ class TextoRepository extends ServiceEntityRepository
       FROM App:PescaDeportiva s
       WHERE s.localidad = :localidad
       ORDER BY s.id');
-    $consulta->setParameter('localidad', $sluggg);
+    $consulta->setParameter('localidad', $localitySlug);
     return $consulta->getResult();
   }
 
   // ** Pesca Deportiva en Provincias **
   /**
-   * @param string $slugg
+   * @param string $provinceSlug
    * @return mixed
    */
-  public function findPescaprovincias($slugg)
+  public function findPescaprovincias($provinceSlug)
   {
     $em = $this->getEntityManager();
 
@@ -110,7 +110,7 @@ class TextoRepository extends ServiceEntityRepository
       FROM App:TablaEnlacesCentros s
       WHERE s.alias = :alias
       ');
-    $provincia->setParameter('alias', $slugg);
+    $provincia->setParameter('alias', $provinceSlug);
     $provinci = $provincia->getResult();
 
     $consulta = $em->createQuery('
@@ -178,10 +178,10 @@ class TextoRepository extends ServiceEntityRepository
   }
 
   /**
-   * @param string $slugg
+   * @param string $provinceSlug
    * @return mixed
    */
-  public function findTermas($slugg)
+  public function findTermas($provinceSlug)
   {
     $em = $this->getEntityManager();
 
@@ -190,7 +190,7 @@ class TextoRepository extends ServiceEntityRepository
       FROM App:Termas s
       WHERE s.provincia like :provincia
       ORDER BY s.provincia, s.localidad');
-    $consulta->setParameter('provincia', $slugg);
+    $consulta->setParameter('provincia', $provinceSlug);
     return $consulta->getResult();
   }
 
@@ -211,10 +211,10 @@ class TextoRepository extends ServiceEntityRepository
   }
 
   /**
-   * @param string $slugg
+   * @param string $provinceSlug
    * @return mixed
    */
-  public function findCasinos($slugg)
+  public function findCasinos($provinceSlug)
   {
     $em = $this->getEntityManager();
 
@@ -223,7 +223,7 @@ class TextoRepository extends ServiceEntityRepository
       FROM App:Casinos s
       WHERE s.provincia like :provincia
       ORDER BY s.provincia, s.localidad');
-    $consulta->setParameter('provincia', $slugg);
+    $consulta->setParameter('provincia', $provinceSlug);
     return $consulta->getResult();
   }
 
@@ -244,10 +244,10 @@ class TextoRepository extends ServiceEntityRepository
   }
 
   /**
-   * @param string $slugg
+   * @param string $provinceSlug
    * @return mixed
    */
-  public function findRutadelvino($slugg)
+  public function findRutadelvino($provinceSlug)
   {
     $em = $this->getEntityManager();
 
@@ -256,7 +256,7 @@ class TextoRepository extends ServiceEntityRepository
       FROM App:Rutadelvino s
       WHERE s.provincia like :provincia
       ORDER BY s.provincia');
-    $consulta->setParameter('provincia', $slugg);
+    $consulta->setParameter('provincia', $provinceSlug);
     return $consulta->getResult();
   }
 
@@ -277,10 +277,10 @@ class TextoRepository extends ServiceEntityRepository
   }
 
   /**
-   * @param string $slugg
+   * @param string $provinceSlug
    * @return mixed
    */
-  public function findTrenesturisticos($slugg)
+  public function findTrenesturisticos($provinceSlug)
   {
     $em = $this->getEntityManager();
 
@@ -289,16 +289,16 @@ class TextoRepository extends ServiceEntityRepository
       FROM App:Trenesturisticos s
       WHERE s.provincia like :provincia
       ORDER BY s.provincia');
-    $consulta->setParameter('provincia', $slugg);
+    $consulta->setParameter('provincia', $provinceSlug);
     return $consulta->getResult();
   }
 
   // ** Tabla de distancias **
   /**
-   * @param string $sluggg
+   * @param string $localitySlug
    * @return mixed
    */
-  public function findTabladistancias1($sluggg)
+  public function findTabladistancias1($localitySlug)
   {
     $em = $this->getEntityManager();
 
@@ -307,17 +307,17 @@ class TextoRepository extends ServiceEntityRepository
       FROM App:TablaEnlacesCentros s
       WHERE s.alias = :alias and s.latitud != 0
       ORDER BY s.oid');
-    $consulta->setParameter('alias', $sluggg);
+    $consulta->setParameter('alias', $localitySlug);
     return $consulta->getResult();
   }
 
   /**
-   * @param string $sluggg
+   * @param string $localitySlug
    * @param float $latitud1
    * @param float $longitud1
    * @return mixed
    */
-  public function findTabladistancias2($sluggg, $latitud1, $longitud1)
+  public function findTabladistancias2($localitySlug, $latitud1, $longitud1)
   {
     $em = $this->getEntityManager();
 
@@ -326,15 +326,15 @@ class TextoRepository extends ServiceEntityRepository
       FROM App:TablaEnlacesCentros s
       WHERE s.alias != :alias and s.latitud != 0 and s.longitud != 0
       ORDER BY distancia");
-    $consulta->setParameter('alias', $sluggg);
+    $consulta->setParameter('alias', $localitySlug);
     return $consulta->getResult();
   }
 
   /**
-   * @param string $slug
+   * @param string $regionSlug
    * @return mixed
    */
-  public function findTablalugares1($slug)
+  public function findTablalugares1($regionSlug)
   {
     $em = $this->getEntityManager();
 
@@ -344,18 +344,18 @@ class TextoRepository extends ServiceEntityRepository
       WHERE s.region = :region and s.provincia != :provincia and s.centroTuristico = :centroTuristico
       GROUP BY s.provincia
       ORDER BY s.provincia');
-    // $consulta->setParameter('alias', $slug);
+    // $consulta->setParameter('alias', $regionSlug);
     $consulta->setParameter('provincia', '');
     $consulta->setParameter('centroTuristico', '');
-    $consulta->setParameter('region', $slug);
+    $consulta->setParameter('region', $regionSlug);
     return $consulta->getResult();
   }
 
   /**
-   * @param string $slugg
+   * @param string $provinceSlug
    * @return mixed
    */
-  public function findTablalugares2($slugg)
+  public function touristCenterByprovince($provinceSlug)
   {
     $em = $this->getEntityManager();
 
@@ -364,7 +364,7 @@ class TextoRepository extends ServiceEntityRepository
       FROM App:TablaEnlacesCentros s
       WHERE s.alias = :alias
       ');
-    $provincia->setParameter('alias', $slugg);
+    $provincia->setParameter('alias', $provinceSlug);
     //return $provincia->getResult();
     $provinci = $provincia->getResult();
 
@@ -374,7 +374,7 @@ class TextoRepository extends ServiceEntityRepository
       WHERE s.provincia = :provincia and s.centroTuristico != :centroTuristico
       GROUP BY s.centroTuristico
       ORDER BY s.centroTuristico');
-    // $consulta->setParameter('alias', $slug);
+    // $consulta->setParameter('alias', $regionSlug);
     $consulta->setParameter('centroTuristico', '');
     $consulta->setParameter('provincia', $provinci);
     return $consulta->getResult();
